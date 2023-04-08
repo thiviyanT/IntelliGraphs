@@ -61,3 +61,8 @@ Requirements:
 - Now modify this class to also return a text that expresses each triples in natural language.
 - Now modify the class to include a function that only generates a knowledge graph according to certain first order logic.
 - train, valid, test splits
+
+## License
+MIT License
+
+Copyright (c) 2023 Thiviyan Thanapalasingam
