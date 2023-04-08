@@ -4,8 +4,10 @@
 
 ---
 
-
-[TODO Ask Paul register dataset with Zenodo and add DOI badge here]
+### TODO
+* Ask Paul: Do we want to register this with Zenodo. If so, add DOI badge here.
+* Ask Paul: How to generate dataset metadata? Is it needed?
+* Ask Peter/Paul: Do we want to make it available on PyPI? If so, add badge here.
 
 IntelliGraphs is a collection of graph datasets for benchmarking generative models for knowledge graphs. 
 These are graphs that are generated according to first order logic rules.
@@ -14,6 +16,12 @@ These datasets are intended to be used for benchmarking generative models for kn
 It can also be used as a testbed for developing new generative models.
 
 This library was designed to be extensible to create synthetic datasets with other custom First Order Rules constraints.
+
+## Advantages
+* Easy to use: Generate and manipulate Knowledge Graphs with a simple and clean Python API.
+* Flexible: Customize the number of graphs, triples, and data splits according to your needs.
+* Efficient: Fast and memory-efficient graph generation and manipulation using native Python data structures.
+* Visualization: Visualize Knowledge Graphs using the popular Graphviz package.
 
 ## Datasets
 
@@ -67,22 +75,55 @@ pip install intelligraphs
 
 ## Usage
 
-To use IntelliGraphs, simply:
+Here's a brief example of how to use various features of the IntelliGraphs library:
 ```python
 from intelligraphs import IntelliGraphs
 
-# Create an instance of Intelligraphs with 50 random triples
-intelligraph = IntelliGraphs(num_triples=50)
+# Create an instance of IntelliGraphs with 10 graphs, variable length triples, and a random seed of 42
+intelligraph = IntelliGraphs(random_seed=42, num_graphs=10, var_length=True, min_triples=2, max_triples=5)
 
-# Get the list of triples
-triples = intelligraph.triples
+# Manually generate the graphs
+intelligraph.generate_graphs()
+
+# Get the list of graphs
+graphs = intelligraph.get_graphs()
+
+# Print the first graph
+intelligraph.print_graph(graphs[0])
+
+# Visualize the first graph
+intelligraph.visualize_graph(graphs[0])
 
 # Get the natural language sentences for the triples
-sentences = intelligraph.to_natural_language()
+all_sentences = intelligraph.to_natural_language()
 
-# Print the sentences
-for sentence in sentences:
-    print(sentence)
+# Print the sentences for each graph
+for i, sentences in enumerate(all_sentences):
+    print(f"Graph {i + 1}:")
+    for sentence in sentences:
+        print(sentence)
+    print()
+
+# Manually trigger splitting the data into train, valid, and test sets
+intelligraph.split_data(split_ratio=(0.6, 0.3, 0.1))
+
+# Get the data splits
+splits = intelligraph.get_splits()
+
+# Print the data splits
+for split_name, data in splits.items():
+    print(f"{split_name.capitalize()} Data:")
+    for graph in data:
+        print(graph)
+    print()
+
+# Save the graphs and splits to text files
+intelligraph.save_graphs(filename='example', file_path='output', zip_compression=False)
+intelligraph.save_splits(filename='example', file_path='output', zip_compression=False)
+
+# Save the graphs and splits to zip compressed text files
+intelligraph.save_graphs(filename='example', file_path='output', zip_compression=True)
+intelligraph.save_splits(filename='example', file_path='output', zip_compression=True)
 ```
 
 ## License

@@ -4,7 +4,11 @@ setup(
     name="intelligraphs",
     version="0.1.0",
     packages=find_packages(),
-    install_requires=[],
+    install_requires=[
+        'tqdm',
+        'bokeh',
+        'graphviz',
+    ],
     author="Thiviyan Thanapalasingam",
     author_email="thiviyan.t@gmail.com",
     description="A simple library to generate synthetic Knowledge Graphs using random triples.",
@@ -21,5 +25,6 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
     ],
+    python_requires='>=3.7',
 )
 
