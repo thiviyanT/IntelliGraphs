@@ -1,18 +1,8 @@
 <p  align="center">
-    <img src="images/IntelliGraph-logo.png" width="150px;" style="max-width: 100%;  margin-right:10px;">
+    <img src="images/IntelliGraph-logo.png" width="200px;" style="max-width: 100%;  margin-right:10px;">
 <p>
-<h1 align="center" dir="auto" style="font-size:60px;">
-    IntelliGraphs
-</h1>
-<p  align="center">
-    <span style="font-size: 60px;">IntelliGraphs</span>
-<p>
-<p align="center" dir="auto" style="
-    font-size: 80px;
-    font-weight: bold;
-">
-    <span>IntelliGraphs</span>
-</p>
+
+---
 
 
 [TODO Ask Paul register dataset with Zenodo and add DOI badge here]
