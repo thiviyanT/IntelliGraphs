@@ -5,16 +5,21 @@
     IntelliGraphs
 </h1>
 
-IntelliGraphs is a collection of graph datasets for benchmarking generative models for knowledge graphs.
+[TODO Ask Paul register dataset with Zenodo and add DOI badge here]
 
-These datasets are intended to be used for benchmarking generative models for knowledge graphs. 
-It can also be used as a testbed for developing new generative models for knowledge graphs.
+IntelliGraphs is a collection of graph datasets for benchmarking generative models for knowledge graphs. 
+These are graphs that are generated according to first order logic rules.
+
+These datasets are intended to be used for benchmarking generative models for knowledge graphs under transductive settings. 
+It can also be used as a testbed for developing new generative models.
+
+This library was designed to be extensible to create synthetic datasets with other custom First Order Rules constraints.
 
 ## Datasets
 
 Here is a description of the datasets:
 
-| Dataset | Description | # Nodes | # Edges | # Relations | # Classes | # Train | # Valid | # Test |
+| Dataset | Rules | # Nodes | # Edges | # Relations | # Classes | # Train | # Valid | # Test |
 |---------|-------------|---------|---------|-------------|-----------|---------|---------|--------|
 |syn-paths|-|-|-|-| - |-|-|-|
 |syn-tipr|-|-|-|-|-|-|-|-|
@@ -22,8 +27,34 @@ Here is a description of the datasets:
 |syn-nl|-|-|-|-|-|-|-|-|
 |-|-|-|-|-|-|-|-|-|
 |-|-|-|-|-|-|-|-|-|
-    
 
+
+## Example
+
+<table>
+  <tr>
+    <th>Dataset</th>
+    <th>Knowledge Graph</th>
+  </tr>
+  <tr>
+    <td>syn-paths</td>
+    <td><pre>
+Element_1 has_shape octagon.
+    </pre></td>
+  </tr>
+  <tr>
+    <td>syn-tipr</td>
+    <td><pre>
+Element_1 has_shape octagon.
+    </pre></td>
+  </tr>
+  <tr>
+    <td>syn-types</td>
+    <td><pre>
+Element_1 has_shape octagon.
+    </pre></td>
+  </tr>
+</table>
 
 
 ## Installation
@@ -38,10 +69,10 @@ pip install intelligraphs
 
 To use IntelliGraphs, simply:
 ```python
-from intelligraphs import Intelligraphs
+from intelligraphs import IntelliGraphs
 
 # Create an instance of Intelligraphs with 50 random triples
-intelligraph = Intelligraphs(num_triples=50)
+intelligraph = IntelliGraphs(num_triples=50)
 
 # Get the list of triples
 triples = intelligraph.triples
@@ -52,15 +83,7 @@ sentences = intelligraph.to_natural_language()
 # Print the sentences
 for sentence in sentences:
     print(sentence)
-
 ```
-
-Requirements: 
-- Write a simple pip installable library called 'intelligraphs'. Always include docstrings and typing for all functions. This library generates synthetic Knowledge Graphs by randomly triples.
-- Generate a Python class that generates synthetic Knowledge Graphs by randomly triples.
-- Now modify this class to also return a text that expresses each triples in natural language.
-- Now modify the class to include a function that only generates a knowledge graph according to certain first order logic.
-- train, valid, test splits
 
 ## License
 MIT License
