@@ -1,5 +1,5 @@
 <p  align="center">
-    <img src="images/IntelliGraph-logo.png" width="200px;" style="max-width: 100%;  margin-right:10px;">
+    <img src="images/IntelliGraph-logo.png" width="450px;" style="max-width: 100%;  margin-right:10px;">
 <p>
 
 ---
