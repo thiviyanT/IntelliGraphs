@@ -7,6 +7,12 @@
 <p  align="center">
     <span style="font-size: 60px;">IntelliGraphs</span>
 <p>
+<p align="center" dir="auto" style="
+    font-size: 80px;
+    font-weight: bold;
+">
+    <span>IntelliGraphs</span>
+</p>
 
 
 IntelliGraphs is a collection of graph datasets for benchmarking generative models for knowledge graphs.
