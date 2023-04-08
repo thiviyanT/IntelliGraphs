@@ -10,6 +10,22 @@ IntelliGraphs is a collection of graph datasets for benchmarking generative mode
 These datasets are intended to be used for benchmarking generative models for knowledge graphs. 
 It can also be used as a testbed for developing new generative models for knowledge graphs.
 
+## Datasets
+
+Here is a description of the datasets:
+
+| Dataset | Description | # Nodes | # Edges | # Relations | # Classes | # Train | # Valid | # Test |
+|---------|-------------|---------|---------|-------------|-----------|---------|---------|--------|
+|syn-paths|-|-|-|-| - |-|-|-|
+|syn-tipr|-|-|-|-|-|-|-|-|
+|syn-type|-|-|-|-|-|-|-|-|
+|syn-nl|-|-|-|-|-|-|-|-|
+|-|-|-|-|-|-|-|-|-|
+|-|-|-|-|-|-|-|-|-|
+    
+
+
+
 ## Installation
 
 To install IntelliGraphs locally, simply:
