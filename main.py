@@ -14,7 +14,6 @@ intelligraph.print_graph(graphs[0])
 
 # Visualize the first graph
 intelligraph.visualize_graph(graphs[0])
-exit()
 
 # Get the natural language sentences for the triples
 all_sentences = intelligraph.to_natural_language()
@@ -26,9 +25,8 @@ for i, sentences in enumerate(all_sentences):
         print(sentence)
     print()
 
-
 # Manually trigger splitting the data into train, valid, and test sets
-intelligraph.split_data(split_ratio=(0.6, 0.3, 0.1))
+intelligraph.split_data(split_ratio=(0.6, 0.3, 0.1), check_transductive_overlap=True)
 
 # Get the data splits
 splits = intelligraph.get_splits()
