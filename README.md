@@ -4,25 +4,26 @@
 
 ---
 
+IntelliGraphs is a library that generates a collection of datasets for benchmarking generative models for knowledge
+graphs. These are graphs that are generated according to first order logic rules. These datasets are intended to be used
+for benchmarking machine learning models under transductive settings. It can also be used as a testbed for developing
+new generative models. This library was designed to be extendable to create new synthetic datasets with other custom 
+First-Order Logical (FOL) constraints.
+
 ### TODO
+
 * Ask Paul: Do we want to register this with Zenodo. If so, add DOI badge here.
 * Ask Paul: How to generate dataset metadata? Is it needed?
+* Ask Paul: When to register dataset? Before or after publication?
 * Ask Paul: Where to put the dataset so that it lasts? (Zenodo, GitHub, etc.)
 * Ask Peter/Paul: Do we want to make it available on PyPI? If so, add badge here.
-* Make GitHub repo anonymous
-
-IntelliGraphs is a collection of graph datasets for benchmarking generative models for knowledge graphs. 
-These are graphs that are generated according to first order logic rules.
-
-These datasets are intended to be used for benchmarking generative models for knowledge graphs under transductive settings. 
-It can also be used as a testbed for developing new generative models.
-
-This library was designed to be extensible to create synthetic datasets with other custom First Order Rules constraints.
+* Make GitHub repo anonymous before submission
 
 ## Advantages
+
 * Easy to use: Generate and manipulate Knowledge Graphs with a simple and clean Python API.
 * Flexible: Customize the number of graphs, triples, and data splits.
-* Extendable: Create more graphs according to custom FOL rules. 
+* Extendable: Create more graphs according to custom FOL rules.
 * Efficient: Fast and memory-efficient graph generation and manipulation using native Python data structures.
 * Visualization: Visualize Knowledge Graphs.
 
@@ -36,9 +37,8 @@ Here is a description of the datasets:
 |syn-tipr|-|-|-|-|-|-|-|-|
 |syn-type|-|-|-|-|-|-|-|-|
 |syn-nl|-|-|-|-|-|-|-|-|
-|-|-|-|-|-|-|-|-|-|
-|-|-|-|-|-|-|-|-|-|
-
+|wd-movies|-|-|-|-|-|-|-|-|
+|wd-articles|-|-|-|-|-|-|-|-|
 
 ## Example
 
@@ -67,7 +67,6 @@ Element_1 has_shape octagon.
   </tr>
 </table>
 
-
 ## Installation
 
 To install IntelliGraphs locally, simply:
@@ -79,6 +78,7 @@ pip install -e .
 ## Usage
 
 Here's a brief example of how to use various features of the IntelliGraphs library:
+
 ```python
 from intelligraphs import IntelliGraphs
 
@@ -129,7 +129,14 @@ intelligraph.save_graphs(filename='example', file_path='output', zip_compression
 intelligraph.save_splits(filename='example', file_path='output', zip_compression=True)
 ```
 
+## Future Work
+
+### Inductive Setting
+
+It would be very useful doing the data split such that it allows for inductive setting.
+
 ## License
+
 MIT License
 
 Copyright (c) 2023 Thiviyan Thanapalasingam
