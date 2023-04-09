@@ -49,6 +49,7 @@ class IntelliGraphs:
         Returns:
             List[List[Tuple[str, str, str]]]: A list of lists of triples, one list for each graph.
         """
+        assert self.graphs is not None, "Graphs have not been generated. Call generate_graphs() first."
         return self.graphs
 
     def get_splits(self):
@@ -112,8 +113,52 @@ class IntelliGraphs:
 
         return all_sentences
 
-    def split_data(self, split_ratio: Tuple[float, float, float] = (0.8, 0.1, 0.1)) -> Dict[
+    @staticmethod
+    def check_transductive_features(data: Dict[str, List[List[Tuple[str, str, str]]]]) -> Dict[
         str, List[List[Tuple[str, str, str]]]]:
+        """
+        THIS COULD BE AN EXPENSIVE OPERATION IF THE NUMBER OF TRIPLES OR/AND THE NUMBER OF GRAPHS IS LARGE.
+
+        Check if entities and relations appear in train/valid and test sets.
+        If they don't, remove entire graphs from the train/valid/test sets.
+        Raise an error if the number of graphs in the train/valid/test sets is less than 1.
+
+        Args:
+            data (Dict[str, List[List[Tuple[str, str, str]]]]): A dictionary containing the train, valid, and test sets.
+
+        Returns:
+            Dict[str, List[List[Tuple[str, str, str]]]]: The updated data dictionary with the removed graphs.
+        """
+        unique_entities = set()
+        unique_relations = set()
+
+        # Collect unique entities and relations from the training set
+        for graph in data['train']:
+            for triple in graph:
+                unique_entities.add(triple[0])
+                unique_entities.add(triple[2])
+                unique_relations.add(triple[1])
+
+        for split_name in ['valid', 'test']:
+            removed_graphs = 0
+            new_graphs = []
+            for graph in data[split_name]:
+                if all(triple[0] in unique_entities and triple[2] in unique_entities and triple[1] in unique_relations
+                       for triple in graph):
+                    new_graphs.append(graph)
+                else:
+                    removed_graphs += 1
+
+            if len(new_graphs) < 1:
+                raise ValueError(f"Error: The number of graphs in the {split_name} set is less than 1.")
+
+            data[split_name] = new_graphs
+            print(f"Removed {removed_graphs} graphs from the {split_name} set due to missing entities/relations.")
+
+        return data
+
+    def split_data(self, split_ratio: Tuple[float, float, float] = (0.8, 0.1, 0.1),
+                   check_transductive_overlap=False) -> Dict[str, List[List[Tuple[str, str, str]]]]:
         """
         Split the knowledge graphs into train, valid, and test sets according to the split ratio.
 
@@ -121,6 +166,9 @@ class IntelliGraphs:
             split_ratio (Tuple[float, float, float]): A tuple with 3 float values representing the ratio for
                                                       train, valid, and test splits, respectively.
                                                       Default is (0.8, 0.1, 0.1).
+            check_transductive_overlap (bool): If True, check if entities and relations appear in train/valid
+                                               and test sets. If they don't, remove those triples from the valid
+                                               and test sets.
 
         Returns:
             Dict[str, List[List[Tuple[str, str, str]]]]: A dictionary with keys 'train', 'valid', and 'test'
@@ -128,17 +176,11 @@ class IntelliGraphs:
         """
         assert self.graphs is not None, "Graphs have not been generated. Call generate_graphs() first."
 
-        def is_unique(graphs: List[List[Tuple[str, str, str]]]) -> bool:
-            seen = set()
-            for graph in graphs:
-                graph_tuple = tuple(sorted(graph))
-                if graph_tuple in seen:
-                    return False
-                seen.add(graph_tuple)
-            return True
-
-        if not is_unique(self.graphs):
-            raise ValueError("The knowledge graphs are not unique.")
+        # Remove duplicate graphs
+        unique_graphs = list(set(map(tuple, self.graphs)))
+        removed_graphs = len(self.graphs) - len(unique_graphs)
+        if removed_graphs > 0:
+            print(f"{removed_graphs} duplicate graphs removed.")
 
         train_ratio, valid_ratio, test_ratio = split_ratio
         total_graphs = len(self.graphs)
@@ -150,7 +192,15 @@ class IntelliGraphs:
         valid_graphs = self.graphs[train_size: train_size + valid_size]
         test_graphs = self.graphs[train_size + valid_size:]
 
-        self.splits = {"train": train_graphs, "valid": valid_graphs, "test": test_graphs}
+        data = {"train": train_graphs, "valid": valid_graphs, "test": test_graphs}
+
+        # Check entities and relations are present in the training set, valid and test sets.
+        # If not, remove those graphs from the valid and test sets.
+        if check_transductive_overlap:
+            data = self.check_transductive_features(data)
+
+        # Update the splits class attribute
+        self.splits = data
         return self.splits
 
     @staticmethod
