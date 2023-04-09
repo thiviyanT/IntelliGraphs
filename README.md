@@ -7,7 +7,9 @@
 ### TODO
 * Ask Paul: Do we want to register this with Zenodo. If so, add DOI badge here.
 * Ask Paul: How to generate dataset metadata? Is it needed?
+* Ask Paul: Where to put the dataset so that it lasts? (Zenodo, GitHub, etc.)
 * Ask Peter/Paul: Do we want to make it available on PyPI? If so, add badge here.
+* Make GitHub repo anonymous
 
 IntelliGraphs is a collection of graph datasets for benchmarking generative models for knowledge graphs. 
 These are graphs that are generated according to first order logic rules.
@@ -71,7 +73,7 @@ Element_1 has_shape octagon.
 To install IntelliGraphs locally, simply:
 
 ```bash
-pip install intelligraphs
+pip install -e .
 ```
 
 ## Usage
