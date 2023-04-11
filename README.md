@@ -131,7 +131,7 @@ intelligraph.save_splits(filename='example', file_path='output', zip_compression
 
 ## Future Work
 
-** Inductive Setting** It would be very useful doing the data split such that it allows for inductive setting.
+**Inductive Setting** It would be very useful doing the data split such that it allows for inductive setting.
 
 ## License
 
