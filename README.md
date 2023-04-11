@@ -129,12 +129,43 @@ intelligraph.save_graphs(filename='example', file_path='output', zip_compression
 intelligraph.save_splits(filename='example', file_path='output', zip_compression=True)
 ```
 
+## First-Order Logic
+
+First-order logic (FOL) is a logic system that is used to describe the world around us. It is a formal language that
+allows us to make statements about the world.
+
+Statements in FOL are made up of two parts: the subject and the predicate. The subject is the thing that is being
+described, and the predicate is the property of the subject. For example, the statement "John is a student" has the
+subject "John" and the predicate "is a student".
+
+FOL statements can be expressed: 
+
+```text
+Connected(x) → (Subject(x, y) ∨ Object(x, z))
+∀x ∀y (¬Root(x) ∨ ¬Object(y, x))
+∀x ∀y (¬Leaf(x) ∨ ¬Subject(y, x))
+```
+
+This can be parsed by the IntelliGraphs library using:
+
+```python
+
+```
+
 ## Future Work
 
 **Inductive Setting** It would be very useful doing the data split such that it allows for inductive setting.
 
+## How to Cite
+
+If you use IntelliGraphs in your research, please cite the following paper:
+
+```bibtex
+
+```
+
 ## License
 
-MIT License
+IntelliGraphs is licensed under MIT License. See [LICENSE](LICENSE) for more information.
 
 Copyright (c) 2023 Thiviyan Thanapalasingam
