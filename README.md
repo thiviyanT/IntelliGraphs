@@ -1,5 +1,5 @@
 <p  align="center">
-    <img src="images/IntelliGraph-logo.png" width="450px;" style="max-width: 100%;  margin-right:10px;">
+    <img src="https://raw.githubusercontent.com/thiviyanT/IntelliGraphs/main/images/IntelliGraph-logo.png?token=GHSAT0AAAAAAB5H4DZTLA4DT3TVAZXVWXPCZBWYCDA" width="450px;" style="max-width: 100%;  margin-right:10px;">
 <p>
 
 ---
