@@ -6,7 +6,7 @@
     
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-IntelliGraphs is a library that generates a collection of datasets for benchmarking. These datasets are intended to be used
+IntelliGraphs is a Python package generates a collection of benchmark datasets. These datasets are intended to be used
 for benchmarking machine learning models under transductive settings. It can also be used as a testbed for developing
 new generative models. This library was designed to be extendable to create new synthetic datasets with custom 
 First-Order Logical (FOL) rules.
