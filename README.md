@@ -74,7 +74,7 @@ Element_1 has_shape octagon.
 To install IntelliGraphs locally, simply:
 
 ```bash
-pip install -e .
+pip install intelligraphs
 ```
 
 ## Usage
