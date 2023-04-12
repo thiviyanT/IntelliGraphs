@@ -21,6 +21,14 @@ First-Order Logical (FOL) rules.
 * Ask Peter/Paul: Do we want to make it available on PyPI? If so, add badge here.
 * Make GitHub repo anonymous before submission
 
+## Installation
+
+To install IntelliGraphs locally, simply:
+
+```bash
+pip install intelligraphs
+```
+
 ## Advantages
 
 * Easy to use: Generate and manipulate Knowledge Graphs with a simple and clean Python API.
@@ -75,14 +83,6 @@ Here is a description of the datasets:
     </pre></td>
   </tr>
 </table>
-
-## Installation
-
-To install IntelliGraphs locally, simply:
-
-```bash
-pip install intelligraphs
-```
 
 ## Usage
 
