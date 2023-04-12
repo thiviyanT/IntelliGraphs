@@ -100,7 +100,6 @@ Here is a description of the datasets:
 |syn-paths|-|-|-|-| - |-|-|-|
 |syn-tipr|-|-|-|-|-|-|-|-|
 |syn-type|-|-|-|-|-|-|-|-|
-|syn-nl|-|-|-|-|-|-|-|-|
 |wd-movies|-|-|-|-|-|-|-|-|
 |wd-articles|-|-|-|-|-|-|-|-|
 
