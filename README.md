@@ -23,7 +23,7 @@ First-Order Logical (FOL) rules.
 
 ## Installation
 
-To install IntelliGraphs locally, simply:
+To install IntelliGraphs, simply use:
 
 ```bash
 pip install intelligraphs
