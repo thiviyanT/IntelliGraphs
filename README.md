@@ -31,11 +31,11 @@ pip install intelligraphs
 
 ## Advantages
 
-* Easy to use: Generate and manipulate Knowledge Graphs with a simple and clean Python API.
-* Flexible: Customize the number of graphs, triples, and data splits.
-* Extendable: Create more graphs according to custom FOL rules.
-* Efficient: Fast and memory-efficient graph generation and manipulation using native Python data structures.
-* Visualization: Visualize Knowledge Graphs.
+* **Easy to use**: Generate and manipulate Knowledge Graphs with a simple and clean Python API.
+* **Flexible**: Customize the number of graphs, triples, and data splits.
+* **Extendable**: Create more graphs according to custom FOL rules.
+* **Efficient**: Fast and memory-efficient graph generation and manipulation using native Python data structures.
+* **Visualization**: Visualize Knowledge Graphs.
 
 ## Usage
 
