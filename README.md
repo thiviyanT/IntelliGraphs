@@ -1,14 +1,16 @@
 <p  align="center">
-    <img src="images/IntelliGraph-logo.png" width="450px;" style="max-width: 100%;  margin-right:10px;">
+    <img src="https://raw.githubusercontent.com/thiviyanT/IntelliGraphs/main/images/IntelliGraph-logo.png?token=GHSAT0AAAAAAB5H4DZTLA4DT3TVAZXVWXPCZBWYCDA" width="450px;" style="max-width: 100%;  margin-right:10px;">
 <p>
 
 ---
 
-IntelliGraphs is a library that generates a collection of datasets for benchmarking generative models for knowledge
-graphs. These are graphs that are generated according to first order logic rules. These datasets are intended to be used
+[![PyPI Latest Release](https://img.shields.io/pypi/v/intelligraphs.svg)]([https://pypi.org/project/pandas/](https://pypi.org/project/intelligraphs/))
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+IntelliGraphs is a Python package that generates a collection of benchmark datasets. These datasets are intended to be used
 for benchmarking machine learning models under transductive settings. It can also be used as a testbed for developing
-new generative models. This library was designed to be extendable to create new synthetic datasets with other custom 
-First-Order Logical (FOL) constraints.
+new generative models. This library was designed to be extendable to create new synthetic datasets with custom 
+First-Order Logical (FOL) rules.
 
 ### TODO
 
@@ -19,6 +21,14 @@ First-Order Logical (FOL) constraints.
 * Ask Peter/Paul: Do we want to make it available on PyPI? If so, add badge here.
 * Make GitHub repo anonymous before submission
 
+## Installation
+
+To install IntelliGraphs locally, simply:
+
+```bash
+pip install intelligraphs
+```
+
 ## Advantages
 
 * Easy to use: Generate and manipulate Knowledge Graphs with a simple and clean Python API.
@@ -26,54 +36,6 @@ First-Order Logical (FOL) constraints.
 * Extendable: Create more graphs according to custom FOL rules.
 * Efficient: Fast and memory-efficient graph generation and manipulation using native Python data structures.
 * Visualization: Visualize Knowledge Graphs.
-
-## Datasets
-
-Here is a description of the datasets:
-
-| Dataset | Rules | # Nodes | # Edges | # Relations | # Classes | # Train | # Valid | # Test |
-|---------|-------------|---------|---------|-------------|-----------|---------|---------|--------|
-|syn-paths|-|-|-|-| - |-|-|-|
-|syn-tipr|-|-|-|-|-|-|-|-|
-|syn-type|-|-|-|-|-|-|-|-|
-|syn-nl|-|-|-|-|-|-|-|-|
-|wd-movies|-|-|-|-|-|-|-|-|
-|wd-articles|-|-|-|-|-|-|-|-|
-
-## Example
-
-<table>
-  <tr>
-    <th>Dataset</th>
-    <th>Knowledge Graph</th>
-  </tr>
-  <tr>
-    <td>syn-paths</td>
-    <td><pre>
-Element_1 has_shape octagon.
-    </pre></td>
-  </tr>
-  <tr>
-    <td>syn-tipr</td>
-    <td><pre>
-Element_1 has_shape octagon.
-    </pre></td>
-  </tr>
-  <tr>
-    <td>syn-types</td>
-    <td><pre>
-Element_1 has_shape octagon.
-    </pre></td>
-  </tr>
-</table>
-
-## Installation
-
-To install IntelliGraphs locally, simply:
-
-```bash
-pip install -e .
-```
 
 ## Usage
 
@@ -129,6 +91,54 @@ intelligraph.save_graphs(filename='example', file_path='output', zip_compression
 intelligraph.save_splits(filename='example', file_path='output', zip_compression=True)
 ```
 
+## Datasets
+
+Here is a description of the datasets:
+
+| Dataset | Rules | # Nodes | # Edges | # Relations | # Classes | # Train | # Valid | # Test |
+|---------|-------------|---------|---------|-------------|-----------|---------|---------|--------|
+|syn-paths|-|-|-|-| - |-|-|-|
+|syn-tipr|-|-|-|-|-|-|-|-|
+|syn-type|-|-|-|-|-|-|-|-|
+|syn-nl|-|-|-|-|-|-|-|-|
+|wd-movies|-|-|-|-|-|-|-|-|
+|wd-articles|-|-|-|-|-|-|-|-|
+
+## Example
+
+<table>
+  <tr>
+    <th>Dataset</th>
+    <th>Knowledge Graph</th>
+  </tr>
+  <tr>
+    <td>syn-paths</td>
+    <td><pre>
+    </pre></td>
+  </tr>
+  <tr>
+    <td>syn-tipr</td>
+    <td><pre>
+    </pre></td>
+  </tr>
+  <tr>
+    <td>syn-types</td>
+    <td><pre>
+    </pre></td>
+  </tr>
+  <tr>
+    <td>wd-movies</td>
+    <td><pre>
+    </pre></td>
+  </tr>
+  <tr>
+    <td>wd-articles</td>
+    <td><pre>
+    </pre></td>
+  </tr>
+</table>
+    
+    
 ## First-Order Logic
 
 First-order logic (FOL) is a logic system that is used to describe the world around us. It is a formal language that
