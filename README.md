@@ -37,53 +37,6 @@ pip install intelligraphs
 * Efficient: Fast and memory-efficient graph generation and manipulation using native Python data structures.
 * Visualization: Visualize Knowledge Graphs.
 
-## Datasets
-
-Here is a description of the datasets:
-
-| Dataset | Rules | # Nodes | # Edges | # Relations | # Classes | # Train | # Valid | # Test |
-|---------|-------------|---------|---------|-------------|-----------|---------|---------|--------|
-|syn-paths|-|-|-|-| - |-|-|-|
-|syn-tipr|-|-|-|-|-|-|-|-|
-|syn-type|-|-|-|-|-|-|-|-|
-|syn-nl|-|-|-|-|-|-|-|-|
-|wd-movies|-|-|-|-|-|-|-|-|
-|wd-articles|-|-|-|-|-|-|-|-|
-
-## Example
-
-<table>
-  <tr>
-    <th>Dataset</th>
-    <th>Knowledge Graph</th>
-  </tr>
-  <tr>
-    <td>syn-paths</td>
-    <td><pre>
-    </pre></td>
-  </tr>
-  <tr>
-    <td>syn-tipr</td>
-    <td><pre>
-    </pre></td>
-  </tr>
-  <tr>
-    <td>syn-types</td>
-    <td><pre>
-    </pre></td>
-  </tr>
-  <tr>
-    <td>wd-movies</td>
-    <td><pre>
-    </pre></td>
-  </tr>
-  <tr>
-    <td>wd-articles</td>
-    <td><pre>
-    </pre></td>
-  </tr>
-</table>
-
 ## Usage
 
 Here's a brief example of how to use various features of the IntelliGraphs library:
@@ -138,6 +91,54 @@ intelligraph.save_graphs(filename='example', file_path='output', zip_compression
 intelligraph.save_splits(filename='example', file_path='output', zip_compression=True)
 ```
 
+## Datasets
+
+Here is a description of the datasets:
+
+| Dataset | Rules | # Nodes | # Edges | # Relations | # Classes | # Train | # Valid | # Test |
+|---------|-------------|---------|---------|-------------|-----------|---------|---------|--------|
+|syn-paths|-|-|-|-| - |-|-|-|
+|syn-tipr|-|-|-|-|-|-|-|-|
+|syn-type|-|-|-|-|-|-|-|-|
+|syn-nl|-|-|-|-|-|-|-|-|
+|wd-movies|-|-|-|-|-|-|-|-|
+|wd-articles|-|-|-|-|-|-|-|-|
+
+## Example
+
+<table>
+  <tr>
+    <th>Dataset</th>
+    <th>Knowledge Graph</th>
+  </tr>
+  <tr>
+    <td>syn-paths</td>
+    <td><pre>
+    </pre></td>
+  </tr>
+  <tr>
+    <td>syn-tipr</td>
+    <td><pre>
+    </pre></td>
+  </tr>
+  <tr>
+    <td>syn-types</td>
+    <td><pre>
+    </pre></td>
+  </tr>
+  <tr>
+    <td>wd-movies</td>
+    <td><pre>
+    </pre></td>
+  </tr>
+  <tr>
+    <td>wd-articles</td>
+    <td><pre>
+    </pre></td>
+  </tr>
+</table>
+    
+    
 ## First-Order Logic
 
 First-order logic (FOL) is a logic system that is used to describe the world around us. It is a formal language that
