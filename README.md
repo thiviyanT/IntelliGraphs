@@ -3,7 +3,8 @@
 <p>
 
 ---
-    
+
+[![PyPI Latest Release](https://img.shields.io/pypi/v/intelligraphs.svg)]([https://pypi.org/project/pandas/](https://pypi.org/project/intelligraphs/))
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 IntelliGraphs is a Python package that generates a collection of benchmark datasets. These datasets are intended to be used
