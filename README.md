@@ -52,19 +52,26 @@ Here is a description of the datasets:
   <tr>
     <td>syn-paths</td>
     <td><pre>
-Element_1 has_shape octagon.
     </pre></td>
   </tr>
   <tr>
     <td>syn-tipr</td>
     <td><pre>
-Element_1 has_shape octagon.
     </pre></td>
   </tr>
   <tr>
     <td>syn-types</td>
     <td><pre>
-Element_1 has_shape octagon.
+    </pre></td>
+  </tr>
+  <tr>
+    <td>wd-movies</td>
+    <td><pre>
+    </pre></td>
+  </tr>
+  <tr>
+    <td>wd-articles</td>
+    <td><pre>
     </pre></td>
   </tr>
 </table>
