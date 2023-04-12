@@ -138,8 +138,7 @@ Statements in FOL are made up of two parts: the subject and the predicate. The s
 described, and the predicate is the property of the subject. For example, the statement "John is a student" has the
 subject "John" and the predicate "is a student".
 
-FOL statements can be expressed: 
-
+FOL statements can be expressed in a text file. For examples, the FOL statements for the syn-paths can be expressed as:
 ```text
 Connected(x) → (Subject(x, y) ∨ Object(x, z))
 ∀x ∀y (¬Root(x) ∨ ¬Object(y, x))
@@ -149,7 +148,7 @@ Connected(x) → (Subject(x, y) ∨ Object(x, z))
 This can be parsed by the IntelliGraphs library using:
 
 ```python
-
+intelligraph.parse_fol_rules('path/to/rules.txt')
 ```
 
 ## Future Work
