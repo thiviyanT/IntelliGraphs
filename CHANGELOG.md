@@ -1,4 +1,4 @@
-Changelog for IntelliGraphs
+# Changelog for IntelliGraphs
 
 Version 1.0.0 - 2023-04-13
 --------------------------
