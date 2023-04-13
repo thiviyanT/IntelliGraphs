@@ -177,6 +177,14 @@ intelligraph.parse_fol_rules('path/to/rules.txt')
 
 **Inductive Setting** It would be very useful doing the data split such that it allows for inductive setting.
 
+## Reproducibility
+
+To reproduce the datasets in the paper, please follow the instructions in the [reproducibility](reproducibility) folder.
+
+The datasets will be uploaded to Zenodo. We will update this README with the DOI once it is available.
+
+Changes to the datasets will be documented in the [CHANGELOG](CHANGELOG.md), and the version numbers will follow [Semantic Versioning](https://semver.org/).
+
 ## Reporting Issues
 
 If you encounter any bugs or have any feature requests, please file an issue [here](https://github.com/thiviyanT/IntelliGraphs/issues).
