@@ -1,8 +1,8 @@
 <p  align="center">
     <img src="images/IntelliGraph-logo.png" width="450px;" style="max-width: 100%;  margin-right:10px;">
-    <h3 align="center">
+    <h1 align="center">
         Change Log
-    </h3>
+    </h1>
 <p>
 
 
