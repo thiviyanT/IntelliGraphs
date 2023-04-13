@@ -165,6 +165,10 @@ intelligraph.parse_fol_rules('path/to/rules.txt')
 
 **Inductive Setting** It would be very useful doing the data split such that it allows for inductive setting.
 
+## Reporting Issues
+
+If you encounter any bugs or have any feature requests, please file an issue [here](/issues).
+
 ## How to Cite
 
 If you use IntelliGraphs in your research, please cite the following paper:
