@@ -186,7 +186,7 @@ If you encounter any bugs or have any feature requests, please file an issue [he
 If you use IntelliGraphs in your research, please cite the following paper:
 
 ```bibtex
-
+[INSERT BIBTEX OF ARXIV PREPRINT HERE]
 ```
 
 ## License
