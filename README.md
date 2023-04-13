@@ -6,18 +6,19 @@
 <p>
 
 <p align=center>
-    <a href="https://doi.org/10.5281/zenodo.7824818"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.7824818.svg" title="DOI of IntelliGraphs"></a>
     <a href="https://pypi.org/project/intelligraphs/"><img src="https://img.shields.io/pypi/v/intelligraphs?color=%23099cec&label=PyPI%20package&logo=pypi&logoColor=white" title="The current version of IntelliGraphs"></a>
+    <a href="https://anaconda.org/thiv/intelligraphs/"><img src="https://anaconda.org/thiv/intelligraphs/badges/version.svg" title="IntelliGraphs on Conda"></a>
     <a href="https://github.com/intelligraphs/layout-parser/blob/main/LICENSE"><img src="https://img.shields.io/pypi/l/intelligraphs" title="IntelliGraphs uses MIT License"></a>
     <img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/intelligraphs">
 </p>
 
-<!---
 <p align=center>
-<a href="https://arxiv.org"><img src="https://img.shields.io/badge/paper-2103.15348-b31b1b.svg" title="IntelliGraphs Paper"></a>
-<a href="https://intelligraphs.readthedocs.io/en/latest/"><img src="https://img.shields.io/badge/doc-layout--parser.readthedocs.io-light.svg" title="IntelliGraphs Documentation"></a>
-</p>
+    <a href="https://doi.org/10.5281/zenodo.7824818"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.7824818.svg" title="DOI of IntelliGraphs"></a>
+<!---
+    <a href="https://arxiv.org"><img src="https://img.shields.io/badge/paper-2103.15348-b31b1b.svg" title="IntelliGraphs Paper"></a>
+    <a href="https://intelligraphs.readthedocs.io/en/latest/"><img src="https://img.shields.io/badge/doc-layout--parser.readthedocs.io-light.svg" title="IntelliGraphs Documentation"></a>
 --->
+</p>
 
 ---
 
@@ -28,7 +29,7 @@ First-Order Logical (FOL) rules.
 
 ### TODO
 
-* Ask Paul: Do we want to register this with Zenodo. If so, add DOI badge here.
+* Ask Paul: Do we want to register this with Zenodo? If so, add DOI badge here.
 * Ask Paul: How to generate dataset metadata? Is it needed?
 * Ask Paul: When to register dataset? Before or after publication?
 * Ask Paul: Where to put the dataset so that it lasts? (Zenodo, GitHub, etc.)
@@ -37,10 +38,16 @@ First-Order Logical (FOL) rules.
 
 ## Installation
 
-To install IntelliGraphs, simply use:
+To install IntelliGraphs, using pip:
 
 ```bash
 pip install intelligraphs
+```
+
+Or using conda:
+
+```bash
+conda install -c thiv intelligraphs
 ```
 
 ## Advantages

@@ -1,0 +1,29 @@
+package:
+  name: intelligraphs
+  version: 0.1.1
+
+source:
+  url: https://files.pythonhosted.org/packages/d5/80/3f81dc783e92a84801827d5f591bf1974bce1a4f48f350c1eb227a5e2f18/intelligraphs-0.1.1.tar.gz
+  sha256: bca68bac9d39b080d653c8f4e2c4f55db6cb3d41063308172afca97d05821fb0
+
+build:
+  number: 0
+  script: python -m pip install --no-deps --ignore-installed .
+
+requirements:
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+    - tqdm
+    - bokeh
+    - graphviz
+
+about:
+  home: https://github.com/thiviyanT/intelligraphs
+  license: MIT
+  summary: A simple library to generate synthetic Knowledge Graphs using random triples.
+  author: Thiviyan Thanapalasingam
+  author_email: thiviyan.t@gmail.com
+  description: A simple library to generate synthetic Knowledge Graphs using random triples.
