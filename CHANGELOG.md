@@ -1,4 +1,11 @@
-# Changelog for IntelliGraphs
+<p  align="center">
+    <img src="images/IntelliGraph-logo.png" width="450px;" style="max-width: 100%;  margin-right:10px;">
+    <h3 align="center">
+        Change Log
+    </h3>
+<p>
+
+
 
 Version 1.0.0 - 2023-04-13
 --------------------------
