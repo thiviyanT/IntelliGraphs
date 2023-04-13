@@ -205,6 +205,18 @@ If you use IntelliGraphs in your research, please cite the following paper:
 [INSERT BIBTEX OF ARXIV PREPRINT HERE]
 ```
 
+## Future Work
+
+## 2D and 3D Scene Graph Generation
+
+In the future, we plan to extend IntelliGraphs to generate 2D and 3D scene graphs. Here are some examples of 2D and 3D scene graphs:
+
+<p  align="center">
+    <img src="images/2d_objects.jpg" width="250px;" style="max-width: 100%;  margin-right:10px;">
+    <img src="images/3d_objects.jpg" width="250px;" style="max-width: 100%;  margin-right:10px;">
+<p>
+
+
 ## License
 
 IntelliGraphs is licensed under MIT License. See [LICENSE](LICENSE) for more information.
