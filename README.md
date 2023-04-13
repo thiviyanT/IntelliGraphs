@@ -179,7 +179,7 @@ intelligraph.parse_fol_rules('path/to/rules.txt')
 
 ## Reporting Issues
 
-If you encounter any bugs or have any feature requests, please file an issue [here](/issues).
+If you encounter any bugs or have any feature requests, please file an issue [here](https://github.com/thiviyanT/IntelliGraphs/issues).
 
 ## How to Cite
 
