@@ -212,8 +212,8 @@ If you use IntelliGraphs in your research, please cite the following paper:
 In the future, we plan to extend IntelliGraphs to generate 2D and 3D scene graphs. Here are some examples of 2D and 3D scene graphs:
 
 <p  align="center">
-    <img src="images/2d_objects.jpg" width="250px;" style="max-width: 100%;  margin-right:10px;">
-    <img src="images/3d_objects.jpg" width="250px;" style="max-width: 100%;  margin-right:10px;">
+    <img src="images/2d_objects.jpg" width="200px;" style="max-width: 100%;  margin-right:10px;">
+    <img src="images/3d_objects.jpg" width="400px;" style="max-width: 100%;  margin-right:10px;">
 <p>
 
 
