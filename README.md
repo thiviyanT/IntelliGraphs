@@ -207,7 +207,7 @@ If you use IntelliGraphs in your research, please cite the following paper:
 
 ## Future Work
 
-## 2D and 3D Scene Graph Generation
+### 2D and 3D Scene Graph Generation
 
 In the future, we plan to extend IntelliGraphs to generate 2D and 3D scene graphs. Here are some examples of 2D and 3D scene graphs:
 
