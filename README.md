@@ -1,11 +1,24 @@
 <p  align="center">
     <img src="images/IntelliGraph-logo.png" width="450px;" style="max-width: 100%;  margin-right:10px;">
+    <h3 align="center">
+        Benchmark Datasets for Knowledge Graph Generation
+    </h3>
 <p>
 
----
+<p align=center>
+    <a href="https://pypi.org/project/intelligraphs/"><img src="https://img.shields.io/pypi/v/intelligraphs?color=%23099cec&label=PyPI%20package&logo=pypi&logoColor=white" title="The current version of IntelliGraphs"></a>
+    <a href="https://github.com/intelligraphs/layout-parser/blob/main/LICENSE"><img src="https://img.shields.io/pypi/l/intelligraphs" title="IntelliGraphs uses MIT License"></a>
+    <img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/intelligraphs">
+</p>
 
-[![PyPI Latest Release](https://img.shields.io/pypi/v/intelligraphs.svg)](https://pypi.org/project/intelligraphs/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+<!---
+<p align=center>
+<a href="https://arxiv.org"><img src="https://img.shields.io/badge/paper-2103.15348-b31b1b.svg" title="IntelliGraphs Paper"></a>
+<a href="https://intelligraphs.readthedocs.io/en/latest/"><img src="https://img.shields.io/badge/doc-layout--parser.readthedocs.io-light.svg" title="IntelliGraphs Documentation"></a>
+</p>
+--->
+
+---
 
 IntelliGraphs is a Python package that generates a collection of benchmark datasets. These datasets are intended to be used
 for benchmarking machine learning models under transductive settings. It can also be used as a testbed for developing
