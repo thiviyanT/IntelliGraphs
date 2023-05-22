@@ -22,13 +22,16 @@
 
 ## Table of Contents
 
-* [About IntelliGraphs](#about-intelligraphs)ß
+* [About IntelliGraphs](#about-intelligraphs)
 * [Installation](#installation)
 * [Advantages](#advantages)
 * [Usage](#usage)
 * [IntelliGraphs Data Loader](#intelligraphs-data-loader)
 * [Datasets](#datasets)
-* [Citation](#citation)
+* [First-Order Logic](#first-order-logic)
+* [Reproducibility](#reproducibility)
+* [Reporting Issues](#reporting-issues)
+* [How to Contribute](#how-to-contribute)
 * [License](#license)
 
 
