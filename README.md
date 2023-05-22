@@ -164,7 +164,33 @@ for batch in test_loader:
 
 ## Datasets
 
-Here is a description of the datasets:
+### Downloading the Datasets
+
+The datasets can be downloaded manually or automatically without IntelliGraphs.
+
+#### Manual Download
+
+The datasets can be directly downloaded from the following links:
+* syn-paths.zip: https://www.dropbox.com/s/kp1xp2rbieib4gl/syn-paths.zip?dl=1
+* syn-tipr.zip: https://www.dropbox.com/s/wgm2yr7h8dhcj52/syn-tipr.zip?dl=1
+* syn-types.zip: https://www.dropbox.com/s/yx7vrvsxme53xce/syn-types.zip?dl=1
+* wd-articles.zip: https://www.dropbox.com/s/37etzy2pkix84o8/wd-articles.zip?dl=1
+* wd-movies.zip: https://www.dropbox.com/s/gavyilqy1kb750f/wd-movies.zip?dl=1
+
+
+#### Automatic Download
+
+You can also download and unzip the datasets using the download.sh script. This 
+script will download all five datasets: 
+
+```bash
+bash download.sh
+```
+
+Wait for the script to complete. It will download the specified zip files from the provided URLs and unzip them into a 
+`.data` directory. Once the script finishes executing, you can find the extracted files in the `.data` directory.
+
+### Dataset Statistics
 
 | Dataset | Rules | # Nodes | # Edges | # Relations | # Classes | # Train | # Valid | # Test |
 |---------|-------------|---------|---------|-------------|-----------|---------|---------|--------|
@@ -174,7 +200,7 @@ Here is a description of the datasets:
 |wd-movies|-|-|-|-|-|-|-|-|
 |wd-articles|-|-|-|-|-|-|-|-|
 
-## Example
+### Example
 
 <table>
   <tr>
@@ -230,32 +256,6 @@ This can be parsed by the IntelliGraphs library using:
 ```python
 intelligraph.parse_fol_rules('path/to/rules.txt')
 ```
-
-## Downloading the Datasets
-
-The datasets can be downloaded manually or automatically without IntelliGraphs.
-
-### Manual Download
-
-The datasets can be directly downloaded from the following links:
-* syn-paths.zip: https://www.dropbox.com/s/kp1xp2rbieib4gl/syn-paths.zip?dl=1
-* syn-tipr.zip: https://www.dropbox.com/s/wgm2yr7h8dhcj52/syn-tipr.zip?dl=1
-* syn-types.zip: https://www.dropbox.com/s/yx7vrvsxme53xce/syn-types.zip?dl=1
-* wd-articles.zip: https://www.dropbox.com/s/37etzy2pkix84o8/wd-articles.zip?dl=1
-* wd-movies.zip: https://www.dropbox.com/s/gavyilqy1kb750f/wd-movies.zip?dl=1
-
-
-### Automatic Download
-
-You can also download and unzip the datasets using the download.sh script. This 
-script will download all five datasets: 
-
-```bash
-bash download.sh
-```
-
-Wait for the script to complete. It will download the specified zip files from the provided URLs and unzip them into a 
-`.data` directory. Once the script finishes executing, you can find the extracted files in the `.data` directory.
 
 ## Reproducibility
 
