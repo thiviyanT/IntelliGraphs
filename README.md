@@ -36,8 +36,6 @@ First-Order Logical (FOL) rules.
 * [Datasets](#datasets)
 * [Citation](#citation)
 * [License](#license)
-* [Contributing](#contributing)
-* [Acknowledgements](#acknowledgements)
 
 
 ## Installation
