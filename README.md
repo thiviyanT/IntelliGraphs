@@ -22,11 +22,6 @@
 
 ---
 
-IntelliGraphs is a Python package that generates a collection of benchmark datasets. These datasets are intended to be used
-for benchmarking machine learning models under transductive settings. It can also be used as a testbed for developing
-new generative models. This library was designed to be extendable to create new synthetic datasets with custom 
-First-Order Logical (FOL) rules.
-
 ## Table of Contents
 
 * [Installation](#installation)
@@ -36,6 +31,22 @@ First-Order Logical (FOL) rules.
 * [Datasets](#datasets)
 * [Citation](#citation)
 * [License](#license)
+
+
+## About IntelliGraphs
+
+IntelliGraphs is a Python package that generates a collection of benchmark datasets. These datasets are intended to be used
+for benchmarking machine learning models under transductive settings. It can also be used as a testbed for developing
+new generative models. This library was designed to be extendable to create new synthetic datasets with custom 
+First-Order Logical (FOL) rules.
+
+### Advantages
+
+* **Easy to use**: Generate and manipulate Knowledge Graphs with a simple and clean Python API.
+* **Flexible**: Customize the number of graphs, triples, and data splits.
+* **Extendable**: Create more graphs according to custom FOL rules.
+* **Efficient**: Fast and memory-efficient graph generation and manipulation using native Python data structures.
+* **Visualization**: Visualize Knowledge Graphs.
 
 
 ## Installation
@@ -51,14 +62,6 @@ Or using conda:
 ```bash
 conda install -c thiv intelligraphs
 ```
-
-## Advantages
-
-* **Easy to use**: Generate and manipulate Knowledge Graphs with a simple and clean Python API.
-* **Flexible**: Customize the number of graphs, triples, and data splits.
-* **Extendable**: Create more graphs according to custom FOL rules.
-* **Efficient**: Fast and memory-efficient graph generation and manipulation using native Python data structures.
-* **Visualization**: Visualize Knowledge Graphs.
 
 ## Usage
 
