@@ -20,20 +20,13 @@ https://doi.org/10.5281/zenodo.7824818
 <!-- scope: telescope -->
 <!-- info: Provide the names of the institution or organization responsible
 for publishing the dataset: -->
-Organization Name
+University of Amsterdam
 
 #### Industry Type(s)
 <!-- scope: periscope -->
 <!-- info: Select **all applicable** industry types to which the publishing
 organizations belong: -->
-- Corporate - Tech
-- Corporate - Non-Tech (please specify)
 - Academic - Tech
-- Academic - Non-Tech (please specify)
-- Not-for-profit - Tech
-- Not-for-profit - Non-Tech (please specify)
-- Individual (please specify)
-- Others (please specify)
 
 #### Contact Detail(s)
 <!-- scope: microscope -->
@@ -65,34 +58,10 @@ Name of Group or Team
 
 (Usage Note: Provide the affiliation and year if different from publishing
 institutions or multiple affiliations.) -->
-- Name, Title, Affiliation, YYYY
-- Name, Title, Affiliation, YYYY
-- Name, Title, Affiliation, YYYY
-- Name, Title, Affiliation, YYYY
-
-### Funding Sources
-#### Institution(s)
-<!-- scope: telescope -->
-<!-- info: Provide the names of the funding institution(s): -->
-- Name of Institution
-- Name of Institution
-- Name of Institution
-
-#### Funding or Grant Summary(ies)
-<!-- scope: periscope -->
-<!-- width: full -->
-<!-- info: Provide a short summary of programs or projects that may have funded
-the creation, collection, or curation of the dataset.
-
-Use additional notes to capture any other relevant information or
-considerations. -->
-*For example, Institution 1 and institution 2 jointly funded this dataset as a
-part of the XYZ data program, funded by XYZ grant awarded by institution 3 for
-the years YYYY-YYYY.*
-
-Summarize here. Link to documents if available.
-
-**Additional Notes:** Add here
+- Thiviyan Thanapalasingam, UvA
+- Emile van Krieken, VU
+- Peter Bloem, VU
+- Paul Groth, UvA
 
 ## Dataset Overview
 #### Data Subject(s)
@@ -117,12 +86,11 @@ Category | Data
 Size of Dataset | 123456 MB
 Number of Instances | 123456
 Number of Fields | 123456
-Labeled Classes | 123456
-Number of Labels | 123456789
-Average Labeles Per Instance | 123456
-Algorithmic Labels | 123456789
-Human Labels | 123456789
-Other Characteristics | 123456
+Labeled Classes | 0
+Number of Labels | 0
+Average Labeles Per Instance | 0
+Algorithmic Labels | 0
+Human Labels | 0
 
 **Above:** Provide a caption for the above table of visualization.
 
