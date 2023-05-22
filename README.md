@@ -27,15 +27,6 @@ for benchmarking machine learning models under transductive settings. It can als
 new generative models. This library was designed to be extendable to create new synthetic datasets with custom 
 First-Order Logical (FOL) rules.
 
-### TODO
-
-* Ask Paul: Do we want to register this with Zenodo? If so, add DOI badge here.
-* Ask Paul: How to generate dataset metadata? Is it needed?
-* Ask Paul: When to register dataset? Before or after publication?
-* Ask Paul: Where to put the dataset so that it lasts? (Zenodo, GitHub, etc.)
-* Ask Peter/Paul: Do we want to make it available on PyPI? If so, add badge here.
-* Make GitHub repo anonymous before submission
-
 ## Table of Contents
 
 * [Installation](#installation)
