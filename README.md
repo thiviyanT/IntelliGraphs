@@ -1,8 +1,8 @@
 <p  align="center">
     <img src="images/IntelliGraph-logo.png" width="450px;" style="max-width: 100%;  margin-right:10px;">
-    <h2 align="center">
+    <h3 align="center">
         Benchmark Datasets for Knowledge Graph Generation
-    </h2>
+    </h3>
 <p>
 
 <p align=center>
