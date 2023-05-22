@@ -132,6 +132,7 @@ The `IntelliGraphsDataLoader` class is a utility for loading IntelliGraphs datas
 ### Usage
 1. Instantiate the DataLoader:
 ``` python
+from intelligraphs import IntelliGraphsDataLoader
 data_loader = IntelliGraphsDataLoader(dataset_name='syn-paths')
 ```
 2. Load the Data:
