@@ -7,7 +7,7 @@
 
 
 
-Version 1.0.0 - 2023-04-13
+Version 0.0.1 - 2023-04-13
 --------------------------
 - Initial dataset release
 - Five new datasets released: syn-paths, syn-tipr, syn-types, wd-movies, wd-articles

@@ -2,12 +2,14 @@ from setuptools import setup, find_packages
 
 setup(
     name="intelligraphs",
-    version="0.1.0",
+    version="0.1.1",
     packages=find_packages(),
     install_requires=[
         'tqdm',
         'bokeh',
         'graphviz',
+        'requests',
+        'torch',
     ],
     author="Thiviyan Thanapalasingam",
     author_email="thiviyan.t@gmail.com",

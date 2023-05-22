@@ -36,6 +36,19 @@ First-Order Logical (FOL) rules.
 * Ask Peter/Paul: Do we want to make it available on PyPI? If so, add badge here.
 * Make GitHub repo anonymous before submission
 
+## Table of Contents
+
+* [Installation](#installation)
+* [Advantages](#advantages)
+* [Usage](#usage)
+* [IntelliGraphs Data Loader](#intelligraphs-data-loader)
+* [Datasets](#datasets)
+* [Citation](#citation)
+* [License](#license)
+* [Contributing](#contributing)
+* [Acknowledgements](#acknowledgements)
+
+
 ## Installation
 
 To install IntelliGraphs, using pip:
@@ -112,6 +125,43 @@ intelligraph.save_graphs(filename='example', file_path='output', zip_compression
 intelligraph.save_splits(filename='example', file_path='output', zip_compression=True)
 ```
 
+## IntelliGraphs Data Loader
+
+The `IntelliGraphsDataLoader` class is a utility for loading IntelliGraphs datasets, simplifying the process of accessing and organizing the data for machine learning tasks. It provides functionalities to download, extract, and load the datasets into PyTorch tensors.
+
+### Features and Benefits
+* **PyTorch Integration**: Seamless integration with PyTorch for graph-based machine learning tasks.
+* **Configuration Options**: Customizable options for batch size, padding, and shuffling.
+* **Reproducibility**: Facilitates documentation and reproduction of experiments for improved research integrity.
+* **Data Preprocessing**: Simplifies dataset preprocessing with automated download, extraction, and conversion.
+
+### Usage
+1. Instantiate the DataLoader:
+``` python
+data_loader = IntelliGraphsDataLoader(dataset_name='syn-paths')
+```
+2. Load the Data:
+``` python
+train_loader, valid_loader, test_loader = data_loader.load_torch(
+    batch_size=32,
+    padding=True,
+    shuffle_train=False,
+    shuffle_valid=False,
+    shuffle_test=False
+)
+```
+3. Access the Data:
+``` python
+for batch in train_loader:
+    # Perform training steps with the batch
+
+for batch in valid_loader:
+    # Perform validation steps with the batch
+
+for batch in test_loader:
+    # Perform testing steps with the batch
+```
+
 ## Datasets
 
 Here is a description of the datasets:
@@ -181,13 +231,33 @@ This can be parsed by the IntelliGraphs library using:
 intelligraph.parse_fol_rules('path/to/rules.txt')
 ```
 
-## Future Work
+## Downloading the Datasets
 
-**Inductive Setting** It would be very useful doing the data split such that it allows for inductive setting.
+The datasets can be downloaded manually or automatically without IntelliGraphs.
+
+### Manual Download
+
+The datasets can be directly downloaded from the following links:
+* syn-paths.zip: https://www.dropbox.com/s/kp1xp2rbieib4gl/syn-paths.zip?dl=1
+* syn-tipr.zip: https://www.dropbox.com/s/wgm2yr7h8dhcj52/syn-tipr.zip?dl=1
+* syn-types.zip: https://www.dropbox.com/s/yx7vrvsxme53xce/syn-types.zip?dl=1
+* wd-articles.zip: https://www.dropbox.com/s/37etzy2pkix84o8/wd-articles.zip?dl=1
+* wd-movies.zip: https://www.dropbox.com/s/gavyilqy1kb750f/wd-movies.zip?dl=1
+
+
+### Automatic Download
+
+You can also download and unzip the datasets using the download.sh script. This 
+script will download all five datasets: 
+
+```bash
+bash download.sh
+```
+
+Wait for the script to complete. It will download the specified zip files from the provided URLs and unzip them into a 
+`.data` directory. Once the script finishes executing, you can find the extracted files in the `.data` directory.
 
 ## Reproducibility
-
-To reproduce the datasets in the paper, please follow the instructions in the [reproducibility](reproducibility) folder.
 
 The datasets will be uploaded to Zenodo. We will update this README with the DOI once it is available.
 
@@ -207,9 +277,9 @@ If you use IntelliGraphs in your research, please cite the following paper:
 
 ## Future Work
 
-### 2D and 3D Scene Graph Generation
+* **Inductive Setting** It would be very useful doing the data split such that it allows for inductive setting.
 
-In the future, we plan to extend IntelliGraphs to generate 2D and 3D scene graphs. Here are some examples of 2D and 3D scene graphs:
+* **2D and 3D Scene Graph Generation with corresponding knowledge graphs** Here are some examples of 2D and 3D scene graphs:
 
 <p  align="center">
     <img src="images/2d_objects.jpg" width="200px;" style="max-width: 100%;  margin-right:10px;">

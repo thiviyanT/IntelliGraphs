@@ -19,6 +19,8 @@ requirements:
     - tqdm
     - bokeh
     - graphviz
+    - requests
+    - torch
 
 about:
   home: https://github.com/thiviyanT/intelligraphs
