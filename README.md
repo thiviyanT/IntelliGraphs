@@ -239,11 +239,59 @@ Statements in FOL are made up of two parts: the subject and the predicate. The s
 described, and the predicate is the property of the subject. For example, the statement "John is a student" has the
 subject "John" and the predicate "is a student".
 
-FOL statements can be expressed in a text file. For examples, the FOL statements for the syn-paths can be expressed as:
+FOL statements can be expressed in a text file. 
+
+### SYN-PATHS
+
+#### Natural language: 
+
+* It should be a connected graph, i.e. each subject and object should be connected to at least one other triple.
+* Must contain directed edges
+* directions of the edges should follow a path from the root to the leaf nodes
+
+#### FOL statements:
 ```text
-Connected(x) → (Subject(x, y) ∨ Object(x, z))
-∀x ∀y (¬Root(x) ∨ ¬Object(y, x))
-∀x ∀y (¬Leaf(x) ∨ ¬Subject(y, x))
+forall x,y,z (connected(x,y) ^ connected(y,z) -> connected(x,z))
+forall x,y (connected(x,y) -> edge(x,y))
+forall x,y,z (path(x,y) ^ edge(y,z) -> path(x,z))
+forall x,y (root(x) ^ leaf(y) -> path(x,y))
+```
+
+### SYN-TYPES:
+
+#### Natural language: 
+
+Must satisfy the following type constraints:
+* the predicate  'spoken in' can only exist between a 'language' and 'country'
+* the predicate 'part of' can only exist between a city and a country.
+* the predicate 'same as' can only exist between the same types (language, city, country)
+
+#### FOL statements:
+```text
+forall x,y (spoken_in(x, y) -> (language(x) ^ country(y)))
+forall x,y (part_of(x, y) -> (city(x) ^ country(y)))
+forall x,y (same_as(x, y) -> (language(x) ^ language(y))) v
+forall x,y (same_as(x, y) -> (city(x) ^ city(y))) v
+forall x,y (same_as(x, y) -> (country(x) ^ country(y)))
+```
+
+### SYN-TIPR:
+
+#### Natural language: 
+
+Must contain all edges:
+• has role( academic, role) ∧ has name( academic, name)∧
+has time( academic, time) ∧ start year( time, year) ∧ end year( time, year)
+• end year ≥ start year
+
+#### FOL statements:
+```text
+forall x,y (has_role(x, y) -> (academic(x) ^ role(y)))
+forall x,y (has_name(x, y) -> (academic(x) ^ name(y)))
+forall x,y (has_time(x, y) -> (academic(x) ^ time(y)))
+forall x,y (start_year(x, y) -> (time(x) ^ year(y)))
+forall x,y (end_year(x, y) -> (time(x) ^ year(y)))
+forall x,y (end_year(x, y) ^ start_year(x, z) -> (year(y) >= year(z)))
 ```
 
 This can be parsed by the IntelliGraphs library using:
