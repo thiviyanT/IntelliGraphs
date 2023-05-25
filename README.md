@@ -304,13 +304,6 @@ forall x role(x) -> ¬ academic(x) ^ ¬ time(x) ^ ¬ name (x) ^ ¬ year(x)
 forall x time(x) -> ¬ academic(x) ^ ¬ role(x) ^ ¬ name (x) ^ ¬ year(x)
 forall x year(x) -> ¬ academic(x) ^ ¬ role(x) ^ ¬ name (x) ^ ¬ time(x)
 forall x name(x) -> ¬ academic(x) ^ ¬ role(x) ^ ¬ year (x) ^ ¬ time(x)
-
-forall x,y start_year(x, y) -> ¬ has_role(x, y) ^ ¬ has_name(x, y) ^ ¬ has_time(x, y) ^ ¬ end_year(x, y) ^ ¬ after(x, y)
-forall x,y has_role(x, y) -> ¬ start_year(x, y) ^ ¬ has_name(x, y) ^ ¬ has_time(x, y) ^ ¬ end_year(x, y) ^ ¬ after(x, y)
-forall x,y has_name(x, y) -> ¬ has_role(x, y) ^ ¬ start_year(x, y) ^ ¬ has_time(x, y) ^ ¬ end_year(x, y) ^ ¬ after(x, y)
-forall x,y has_time(x, y) -> ¬ has_role(x, y) ^ ¬ has_name(x, y) ^ ¬ start_year(x, y) ^ ¬ end_year(x, y) ^ ¬ after(x, y)
-forall x,y end_year(x, y) -> ¬ has_role(x, y) ^ ¬ has_name(x, y) ^ ¬ has_time(x, y) ^ ¬ start_year(x, y) ^ ¬ after(x, y)
-forall x,y after(x, y) -> ¬ has_role(x, y) ^ ¬ has_name(x, y) ^ ¬ has_time(x, y) ^ ¬ start_year(x, y) ^ ¬ start_year(x, y)
 ```
 
 This can be parsed by the IntelliGraphs library using:
