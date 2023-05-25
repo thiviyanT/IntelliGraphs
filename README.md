@@ -268,11 +268,15 @@ Must satisfy the following type constraints:
 
 #### FOL statements:
 ```text
-forall x,y (spoken_in(x, y) -> (language(x) ^ country(y)))
-forall x,y (part_of(x, y) -> (city(x) ^ country(y)))
-forall x,y (same_as(x, y) -> (language(x) ^ language(y))) v
-forall x,y (same_as(x, y) -> (city(x) ^ city(y))) v
-forall x,y (same_as(x, y) -> (country(x) ^ country(y)))
+forall x,y spoken_in(x, y) -> (language(x) ^ country(y))
+forall x,y part_of(x, y) -> (city(x) ^ country(y)))
+forall x,y (same_as(x, y) -> (language(x) ^ language(y)) v (city(x) ^ city(y)) v (country(x) ^ country(y))
+
+forall x language(x) -> ¬ country(x) ^ ¬ city(x)
+forall x country(x) -> ¬ language(x) ^ ¬ city(x)
+forall x city(x) -> ¬ language(x) ^ ¬ country(x)
+
+forall x,y same_as(x, y) -> ¬ same_as(x, y)
 ```
 
 ### SYN-TIPR:
