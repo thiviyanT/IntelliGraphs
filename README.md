@@ -286,12 +286,31 @@ has time( academic, time) ∧ start year( time, year) ∧ end year( time, year)
 
 #### FOL statements:
 ```text
-forall x,y (has_role(x, y) -> (academic(x) ^ role(y)))
-forall x,y (has_name(x, y) -> (academic(x) ^ name(y)))
-forall x,y (has_time(x, y) -> (academic(x) ^ time(y)))
-forall x,y (start_year(x, y) -> (time(x) ^ year(y)))
-forall x,y (end_year(x, y) -> (time(x) ^ year(y)))
-forall x,y (end_year(x, y) ^ start_year(x, z) -> (year(y) >= year(z)))
+forall x,y has_role(x, y) -> academic(x) ^ role(y)
+forall x,y has_name(x, y) -> academic(x) ^ name(y)
+forall x,y has_time(x, y) -> academic(x) ^ time(y)
+forall x,y start_year(x, y) -> time(x) ^ year(y)
+forall x,y end_year(x, y) -> time(x) ^ year(y)
+forall x,y,z end_year(x, y) ^ start_year(x, z) -> after(y, z)
+
+forall x ¬ has_role(x, x)
+forall x ¬ has_name(x, x)
+forall x ¬ has_time(x, x)
+forall x ¬ start_year(x, x)
+forall x ¬ end_year(x, x)
+
+forall x academic(x) -> ¬ role(x) ^ ¬ time(x) ^ ¬ name (x) ^ ¬ year(x)
+forall x role(x) -> ¬ academic(x) ^ ¬ time(x) ^ ¬ name (x) ^ ¬ year(x)
+forall x time(x) -> ¬ academic(x) ^ ¬ role(x) ^ ¬ name (x) ^ ¬ year(x)
+forall x year(x) -> ¬ academic(x) ^ ¬ role(x) ^ ¬ name (x) ^ ¬ time(x)
+forall x name(x) -> ¬ academic(x) ^ ¬ role(x) ^ ¬ year (x) ^ ¬ time(x)
+
+forall x,y start_year(x, y) -> ¬ has_role(x, y) ^ ¬ has_name(x, y) ^ ¬ has_time(x, y) ^ ¬ end_year(x, y) ^ ¬ after(x, y)
+forall x,y has_role(x, y) -> ¬ start_year(x, y) ^ ¬ has_name(x, y) ^ ¬ has_time(x, y) ^ ¬ end_year(x, y) ^ ¬ after(x, y)
+forall x,y has_name(x, y) -> ¬ has_role(x, y) ^ ¬ start_year(x, y) ^ ¬ has_time(x, y) ^ ¬ end_year(x, y) ^ ¬ after(x, y)
+forall x,y has_time(x, y) -> ¬ has_role(x, y) ^ ¬ has_name(x, y) ^ ¬ start_year(x, y) ^ ¬ end_year(x, y) ^ ¬ after(x, y)
+forall x,y end_year(x, y) -> ¬ has_role(x, y) ^ ¬ has_name(x, y) ^ ¬ has_time(x, y) ^ ¬ start_year(x, y) ^ ¬ after(x, y)
+forall x,y after(x, y) -> ¬ has_role(x, y) ^ ¬ has_name(x, y) ^ ¬ has_time(x, y) ^ ¬ start_year(x, y) ^ ¬ start_year(x, y)
 ```
 
 This can be parsed by the IntelliGraphs library using:
