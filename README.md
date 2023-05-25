@@ -251,10 +251,8 @@ FOL statements can be expressed in a text file.
 
 #### FOL statements:
 ```text
-forall x,y,z (connected(x,y) ^ connected(y,z) -> connected(x,z))
-forall x,y (connected(x,y) -> edge(x,y))
-forall x,y,z (path(x,y) ^ edge(y,z) -> path(x,z))
-forall x,y (root(x) ^ leaf(y) -> path(x,y))
+forall x,y,z connected(x,y) ^ connected(y,z) -> connected(x,z)
+forall x,y edge(x,y) -> connected(x,y)
 ```
 
 ### SYN-TYPES:
