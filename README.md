@@ -20,6 +20,12 @@
 --->
 </p>
 
+TODO: 
+* Make sure that the semantic checker is doing FOL as written down below 
+* Mention in natural language that the size constraint applies to synthetic graphs. Although, it can be expressed in first order logic we leave it out for brevity.
+* Model checking complexity increases with the number of rules
+* Check if the reasoner is strong enough - SAT solving
+
 ## Table of Contents
 
 * [About IntelliGraphs](#about-intelligraphs)
@@ -352,19 +358,23 @@ forall x,y has_genre(x,y) -> genre(y)  (TODO: revisit this rule in the semantic 
 
 ### WD-ARTICLES:
 
+# TODO: make sure cites relation is had_reference
+
+**TODO: Formalising inductive nodes**
+
 #### Natural language:
 - There is one or more triple with the relation `has_author`.
   - Exactly one node is the subject of all of these. Call this the article node.
-  - The article node is labeled '_article' or labeled with an IRI
+  - The article node is labeled '_article' or labeled with an IRI.  ***- Ask Peter if mutually exclusive **
   - The object of every has_author triple has a label starting with '_authorpos'
   - Every _authorpos node is the object of only this triple.
   - Every _authorpos node is the subject of exactly two triples:
-      - One with the relation `has_name`. The object of this triple is an IRI or starts with `_author`
-      - One with the relation `has_order`. The object of this triple starts with `ordinal_`
+       - One with the relation `has_name`. The object of this triple is an IRI or starts with `_author`
+       - One with the relation `has_order`. The object of this triple starts with `ordinal_`
   - If there are n authorpos nodes, then taken together, all their ordinals coincide with the range from one to n
     inclusive.
 
-- There are zero or more triples with the relation `has_reference`.
+- There are zero or more triples with the relation `cites`.
     - The subject of all such triples is the article node
     - The object of all such triples is an IRI
 
@@ -381,17 +391,36 @@ forall x,y has_genre(x,y) -> genre(y)  (TODO: revisit this rule in the semantic 
 
 ```text
 
-has_author(article_node) ^
-forall x has_author(x) -> (x = article_node) ^
-labeled(article_node, "_article") v iri(article_node) ^
-forall x has_author(article_node) ^ has_author(x) -> authorpos(x) ^ object_label(x, "_authorpos") ^
-forall x authorpos(x) -> has_author(x) ^ has_name(x) ^ has_order(x) ^
-forall x authorpos(x) ^ has_order(x) -> (ordinal(object_label(x, "ordinal_"))) ^
-forall x,y,z authorpos(x) ^ has_name(x, y) -> (iri(y) v object_label(y, "_author")) ^
-forall x,y,z subclass_of(x, y) ^ subclass_of(y, z) -> subclass_of(x, z) ^
-forall x,y has_reference(article_node, y) -> iri(y) ^
-forall x,y has_subject(x, article_node) -> (subject(x) v iri(x))
+exists x has_author(article_node, x)
 
+forall x,y connected(x,y) <-> has_author(x,y) v has_name(x,y) v has_order(x,y) v cites(x,y) v has_subject(x,y) v subclass_of(x,y)
+forall x,y connected(x,y) -> ¬ connected(y,x) v cites(y, x)
+forall x ¬ connected(x, x)
+
+forall x, y has_author(x, y) -> x = article_node
+
+article(article_node) v iri(article_node)
+
+forall x has_author(article_node, x) -> authorpos(x)
+forall x authorpos(x) <-> exists y has_order(x, y) ^ exists y has_name(x, y)
+forall x,y has_order(x,y) -> authorpos(x) ^ ordinal(y)
+forall x, y has_name(x, y) -> authorpos(x) ^ name(y) v iri(y)
+forall x, y, z has_order(x, y) ^ has_order(x, z) -> y = z
+forall x, y, z has_name(x, y) ^ has_order(x, z) -> y = z
+
+forall x author(x) -> ¬ subject(x) ^ ¬ iri(x) ^ ¬ name(x) ^ ¬ oridinal(x) ^ ¬ author_pos(x) 
+forall x subject(x) -> ¬ author(x) ^ ¬ iri(x) ^ ¬ name(x) ^ ¬ oridinal(x) ^ ¬ author_pos(x) 
+forall x iri(x) -> ¬ author(x) ^ ¬ subject(x) ^ ¬ name(x) ^ ¬ oridinal(x) ^ ¬ author_pos(x) 
+forall x name(x) -> ¬ subject(x) ^ ¬ iri(x) ^ ¬ author(x) ^ ¬ oridinal(x) ^ ¬ author_pos(x) 
+forall x oridinal(x) -> ¬ subject(x) ^ ¬ iri(x) ^ ¬ name(x) ^ ¬ author(x) ^ ¬ author_pos(x) 
+forall x author_pos(x) -> ¬ subject(x) ^ ¬ iri(x) ^ ¬ name(x) ^ ¬ author(x) ^ ¬ oridinal(x) 
+
+forall x,y,z subclass2(x, y) ^ subclass2(y, z) -> subclass_of(x, z) 
+forall x,y subclass_of(x,y) -> subclass2(x,y) ^ (iri(x) v subject(x)) ^ (iri(y) v subject(y))
+forall x,y subclass_of(x,y) -> exists z subclass2(x,z) ^ has_subject(article_node, z)
+
+forall x,y cites(x, y) -> iri(y) ^ x=article_node
+forall x,y has_subject(x, y) -> (subject(y) v iri(y)) ^ x=article_node
 ```
 
 ## Reproducibility
