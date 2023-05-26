@@ -235,11 +235,11 @@ Wait for the script to complete. It will download the specified zip files from t
 First-order logic (FOL) is a logic system that is used to describe the world around us. It is a formal language that
 allows us to make statements about the world.
 
-Statements in FOL are made up of two parts: the subject and the predicate. The subject is the thing that is being
-described, and the predicate is the property of the subject. For example, the statement "John is a student" has the
-subject "John" and the predicate "is a student".
+Intelligraphs can process FOL statements that are expressed in `.txt` files. This can be parsed by the IntelliGraphs library using:
 
-FOL statements can be expressed in a text file. 
+```python
+intelligraph.parse_fol_rules('path/to/rules.txt')
+```
 
 ### SYN-PATHS
 
@@ -319,10 +319,67 @@ forall x year(x) -> ¬ academic(x) ^ ¬ role(x) ^ ¬ name (x) ^ ¬ time(x)
 forall x name(x) -> ¬ academic(x) ^ ¬ role(x) ^ ¬ year (x) ^ ¬ time(x)
 ```
 
-This can be parsed by the IntelliGraphs library using:
+### WD-MOVIES:
 
-```python
-intelligraph.parse_fol_rules('path/to/rules.txt')
+#### Natural language:
+* This inductive node does not connect to itself by any relation
+* There is at least one person connected to the inductive node by the director relation 
+* There is at least one person connected to the inductive node by the actor relation. 
+* Only the inductive node occurs in the subject position of any triples, and the inductive node only ever occurs in the subject position of any triples.
+
+NB: This method assumes that `_movie` is the label of the inductive node and that any other nodes have valid transductive labels. This is not checked.
+
+#### FOL statements:
+
+```text
+forall x ¬connected(x, x)
+exists y connected(y, inductive_node) ^ director(y, inductive_node)
+exists z connected(z, inductive_node) ^ actor(z, inductive_node)
+forall x,y,z triple(x, y, z) -> ((x = inductive_node) ^ (x = subject_position)) ???
+```
+
+### WD-ARTICLES:
+
+#### Natural language:
+- There is one or more triple with the relation `has_author`.
+  - Exactly one node is the subject of all of these. Call this the article node.
+  - The article node is labeled '_article' or labeled with an IRI
+  - The object of every has_author triple has a label starting with '_authorpos'
+  - Every _authorpos node is the object of only this triple.
+  - Every _authorpos node is the subject of exactly two triples:
+      - One with the relation `has_name`. The object of this triple is an IRI or starts with `_author`
+      - One with the relation `has_order`. The object of this triple starts with `ordinal_`
+  - If there are n authorpos nodes, then taken together, all their ordinals coincide with the range from one to n
+    inclusive.
+
+- There are zero or more triples with the relation `has_reference`.
+    - The subject of all such triples is the article node
+    - The object of all such triples is an IRI
+
+- There are zero or more triples with the relation `has_subject`
+    - The object of all such triples is the article node.
+    - The subject of all such triples starts with `_subject` or is an IRI
+
+- There are zero or more triples with the relation `subclass_of`
+    - The object and subject of such a triple either start with `_subject` or are IRIs
+    - Either the subject of the triple is connected to the article by a `has_subject` relation or it is connected to
+      such a subject by a chain of `subclass_of` relations
+
+#### FOL statements:
+
+```text
+
+has_author(article_node) ^
+forall x has_author(x) -> (x = article_node) ^
+labeled(article_node, "_article") v iri(article_node) ^
+forall x has_author(article_node) ^ has_author(x) -> authorpos(x) ^ object_label(x, "_authorpos") ^
+forall x authorpos(x) -> has_author(x) ^ has_name(x) ^ has_order(x) ^
+forall x authorpos(x) ^ has_order(x) -> (ordinal(object_label(x, "ordinal_"))) ^
+forall x,y,z authorpos(x) ^ has_name(x, y) -> (iri(y) v object_label(y, "_author")) ^
+forall x,y,z subclass_of(x, y) ^ subclass_of(y, z) -> subclass_of(x, z) ^
+forall x,y has_reference(article_node, y) -> iri(y) ^
+forall x,y has_subject(x, article_node) -> (subject(x) v iri(x))
+
 ```
 
 ## Reproducibility
