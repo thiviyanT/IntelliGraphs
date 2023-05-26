@@ -345,6 +345,9 @@ exists x has_genre(x, inductive_node)
 forall x x ≠ inductive_node -> connected(inductive_node, x) 
 forall x,y x ≠ inductive_node ^ y ≠ inductive_node -> ¬connected(x, y)
 forall x ¬connected(x, inductive_node)
+
+forall x,y has_director(x,y) v has_actor(x,y) -> person(y)  (TODO: revisit this rule in the semantic checker)
+forall x,y has_genre(x,y) -> genre(y)  (TODO: revisit this rule in the semantic checker)
 ```
 
 ### WD-ARTICLES:
