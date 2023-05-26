@@ -323,19 +323,28 @@ forall x name(x) -> ¬ academic(x) ^ ¬ role(x) ^ ¬ year (x) ^ ¬ time(x)
 
 #### Natural language:
 * This inductive node does not connect to itself by any relation
-* There is at least one person connected to the inductive node by the director relation 
-* There is at least one person connected to the inductive node by the actor relation. 
+* There is at least one person connected to the inductive node by the has_director relation 
+* There is at least one person connected to the inductive node by the has_actor relation. 
+* There is at least one genre connected to the inductive node by the has_genre relation. 
 * Only the inductive node occurs in the subject position of any triples, and the inductive node only ever occurs in the subject position of any triples.
 
 NB: This method assumes that `_movie` is the label of the inductive node and that any other nodes have valid transductive labels. This is not checked.
 
+Question: Sets of directors and actors: Mutually exclusive? 
+
 #### FOL statements:
 
+Assume we have constants **inductive_nodes**, which means ...
 ```text
-forall x ¬connected(x, x)
-exists y connected(y, inductive_node) ^ director(y, inductive_node)
-exists z connected(z, inductive_node) ^ actor(z, inductive_node)
-forall x,y,z triple(x, y, z) -> ((x = inductive_node) ^ (x = subject_position)) ???
+forall x,y connected(x,y) <-> has_director(x,y) v has_actor(x,y) v has_genre(x,y)
+
+exists x has_director(x, inductive_node)
+exists x has_actor(x, inductive_node)
+exists x has_genre(x, inductive_node)
+
+forall x x ≠ inductive_node -> connected(inductive_node, x) 
+forall x,y x ≠ inductive_node ^ y ≠ inductive_node -> ¬connected(x, y)
+forall x ¬connected(x, inductive_node)
 ```
 
 ### WD-ARTICLES:
