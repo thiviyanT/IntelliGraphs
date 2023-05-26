@@ -260,8 +260,8 @@ forall x root(x) <-> forall y ¬ edge(y,x)
 
 forall x,y connected(x,y) -> x≠y
 forall x root(x) -> forall y connected(x,y) v x=y
-forall x,y,z edge(y,x) ^ edge(z,x) -> x=z
-forall y,z edge(x,y) ^ edge(x,z) -> y=z
+forall x,y,z edge(y,x) ^ edge(z,x) -> y=z
+forall x,y,z edge(x,y) ^ edge(x,z) -> y=z
 
 for x,y edge(x,y) <-> cycle_to(x,y) v drive_to(x,y) v train_to(x,y)
 ```
