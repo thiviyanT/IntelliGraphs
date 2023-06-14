@@ -8,7 +8,7 @@
 <p align=center>
     <a href="https://pypi.org/project/intelligraphs/"><img src="https://img.shields.io/pypi/v/intelligraphs?color=%23099cec&label=PyPI%20package&logo=pypi&logoColor=white" title="The current version of IntelliGraphs"></a>
     <a href="https://anaconda.org/thiv/intelligraphs/"><img src="https://img.shields.io/pypi/v/intelligraphs?color=%23099cec&label=Anaconda.org&logo=anaconda&logoColor=white" title="IntelliGraphs on Conda"></a>
-    <a href="https://github.com/intelligraphs/layout-parser/blob/main/LICENSE"><img src="https://img.shields.io/pypi/l/intelligraphs" title="IntelliGraphs uses MIT License"></a>
+    <a href="https://github.com/intelligraphs/layout-parser/blob/main/LICENSE"><img src="https://img.shields.io/pypi/l/intelligraphs" title="IntelliGraphs uses CC-BY License"></a>
     <img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/intelligraphs">
 </p>
 
@@ -421,11 +421,9 @@ forall x,y cites(x, y) -> iri(y) ^ x=article_node
 forall x,y has_subject(x, y) -> (subject(y) v iri(y)) ^ x=article_node
 ```
 
-## Reproducibility
+## Long-term Storage of Datasets
 
-The datasets will be uploaded to Zenodo. We will update this README with the DOI once it is available.
-
-Changes to the datasets will be documented in the [CHANGELOG](CHANGELOG.md), and the version numbers will follow [Semantic Versioning](https://semver.org/).
+The datasets has been uploaded to Zenodo.
 
 ## Reporting Issues
 
@@ -436,23 +434,11 @@ If you encounter any bugs or have any feature requests, please file an issue [he
 If you use IntelliGraphs in your research, please cite the following paper:
 
 ```bibtex
-[INSERT BIBTEX OF ARXIV PREPRINT HERE]
+[COMING SOON]
 ```
-
-## Future Work
-
-* **Inductive Setting** It would be very useful doing the data split such that it allows for inductive setting.
-
-* **2D and 3D Scene Graph Generation with corresponding knowledge graphs** Here are some examples of 2D and 3D scene graphs:
-
-<p  align="center">
-    <img src="images/2d_objects.jpg" width="200px;" style="max-width: 100%;  margin-right:10px;">
-    <img src="images/3d_objects.jpg" width="400px;" style="max-width: 100%;  margin-right:10px;">
-<p>
-
 
 ## License
 
-IntelliGraphs is licensed under MIT License. See [LICENSE](LICENSE) for more information.
+IntelliGraphs is licensed under CC-BY License. See [LICENSE](LICENSE) for more information.
 
 Copyright (c) 2023 Thiviyan Thanapalasingam
