@@ -1,4 +1,4 @@
-.data  # data files
+.data/  # data files
 .DS_Store  # MacOS
 
 # Byte-compiled / optimized / DLL files
