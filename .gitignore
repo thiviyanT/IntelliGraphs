@@ -1,3 +1,6 @@
+.data  # data files
+.DS_Store  # MacOS
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -131,4 +134,6 @@ dmypy.json
 *.egg-info
 build
 dist
+
+ignore
 
