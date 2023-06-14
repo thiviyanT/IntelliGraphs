@@ -20,11 +20,13 @@
 --->
 </p>
 
+<!---
 TODO: 
 * Make sure that the semantic checker is doing FOL as written down below 
 * Mention in natural language that the size constraint applies to synthetic graphs. Although, it can be expressed in first order logic we leave it out for brevity.
 * Model checking complexity increases with the number of rules
 * Check if the reasoner is strong enough - SAT solving
+--->
 
 ## Table of Contents
 
@@ -357,10 +359,6 @@ forall x,y has_genre(x,y) -> genre(y)  (TODO: revisit this rule in the semantic 
 ```
 
 ### WD-ARTICLES:
-
-# TODO: make sure cites relation is had_reference
-
-**TODO: Formalising inductive nodes**
 
 #### Natural language:
 - There is one or more triple with the relation `has_author`.
