@@ -440,5 +440,3 @@ If you use IntelliGraphs in your research, please cite the following paper:
 ## License
 
 IntelliGraphs is licensed under CC-BY License. See [LICENSE](LICENSE) for more information.
-
-Copyright (c) 2023 Thiviyan Thanapalasingam
