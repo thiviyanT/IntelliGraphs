@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="intelligraphs",
-    version="0.1.1",
+    version="0.1.2",
     packages=find_packages(),
     install_requires=[
         'tqdm',
@@ -13,7 +13,7 @@ setup(
     ],
     author="Thiviyan Thanapalasingam",
     author_email="thiviyan.t@gmail.com",
-    description="A simple library to generate synthetic Knowledge Graphs using random triples.",
+    description="A Python package for generating synthetic and real-world Knowledge Graphs.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     url="https://github.com/thiviyanT/intelligraphs",

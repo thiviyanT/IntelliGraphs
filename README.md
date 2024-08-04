@@ -37,7 +37,7 @@ TODO:
 * [IntelliGraphs Data Loader](#intelligraphs-data-loader)
 * [Datasets](#datasets)
 * [First-Order Logic](#first-order-logic)
-* [Reproducibility](#reproducibility)
+* [Baseline Models](#baseline-models)
 * [Reporting Issues](#reporting-issues)
 * [How to Contribute](#how-to-contribute)
 * [License](#license)
@@ -45,10 +45,14 @@ TODO:
 
 ## About IntelliGraphs
 
-IntelliGraphs is a Python package that generates a collection of benchmark datasets. These datasets are intended to be used
-for benchmarking machine learning models under transductive settings. It can also be used as a testbed for developing
-new generative models. This library was designed to be extendable to create new synthetic datasets with custom 
-First-Order Logical (FOL) rules.
+IntelliGraphs is a collection of datasets for benchmarking Knowledge Graph Generation models. 
+This is a Python package that loads the datasets and verifing graphs using logical rules expressed in 
+First-Order Logical (FOL) rules. It can also be used as a testbed for developing
+new generative models.  
+
+### Long-term Storage of Datasets
+
+The datasets have been uploaded to Zenodo. Here is the link: https://doi.org/10.5281/zenodo.7824818
 
 ### Advantages
 
@@ -421,9 +425,55 @@ forall x,y cites(x, y) -> iri(y) ^ x=article_node
 forall x,y has_subject(x, y) -> (subject(y) v iri(y)) ^ x=article_node
 ```
 
-## Long-term Storage of Datasets
+## Baseline Models
 
-The datasets has been uploaded to Zenodo.
+Baseline Models for compressing graphs based on traditional Knowledge Graph Embedding methods: TransE, DistMult and ComplEx.
+
+### Prerequisites
+
+* Python 3.10
+* PyTorch 1.12 ` pip install torch==1.12.0 `
+* Weight & Biases ` pip install wandb `
+* TQDM ` pip install tqdm `
+* 
+### Hyperparameters 
+
+The hyperparameters for each experiment can be found under the `baselines/configs` folder.
+
+### Experiments
+
+The following commands can be used to train and test the baseline models:
+
+```bash
+python baselines/experiments/train_baseline.py  --config configs/syn-paths-complex.yaml
+python baselines/experiments/train_baseline.py  --config configs/syn-paths-distmult.yaml
+python baselines/experiments/train_baseline.py  --config configs/syn-paths-transe.yaml
+```
+
+```bash
+python baselines/experiments/train_baseline.py  --config configs/syn-tipr-complex.yaml
+python baselines/experiments/train_baseline.py  --config configs/syn-tipr-distmult.yaml
+python baselines/experiments/train_baseline.py  --config configs/syn-tipr-transe.yaml
+```
+
+```bash
+python baselines/experiments/train_baseline.py  --config configs/syn-types-complex.yaml
+python baselines/experiments/train_baseline.py  --config configs/syn-types-distmult.yaml
+python baselines/experiments/train_baseline.py  --config configs/syn-types-transe.yaml
+```
+
+```bash
+python baselines/experiments/train_baseline.py  --config configs/wd-movies-complex.yaml
+python baselines/experiments/train_baseline.py  --config configs/wd-movies-distmult.yaml
+python baselines/experiments/train_baseline.py  --config configs/wd-movies-transe.yaml
+```
+
+```bash
+python baselines/experiments/train_baseline.py  --config configs/wd-articles-complex.yaml
+python baselines/experiments/train_baseline.py  --config configs/wd-articles-distmult.yaml
+python baselines/experiments/train_baseline.py  --config configs/wd-articles-transe.yaml
+```
+
 
 ## Reporting Issues
 
@@ -434,7 +484,7 @@ If you encounter any bugs or have any feature requests, please file an issue [he
 If you use IntelliGraphs in your research, please cite the following paper:
 
 ```bibtex
-[COMING SOON]
+[ Submission under review. To be made available after acceptance.]
 ```
 
 ## License

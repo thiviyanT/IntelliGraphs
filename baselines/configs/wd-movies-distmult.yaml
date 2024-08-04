@@ -1,0 +1,7 @@
+dataset: wd-movies
+batch-size: 4096
+emb-size: 181
+learn-rate: 0.00307853821840767
+decoder: distmult
+biases: True
+init_method: uniform

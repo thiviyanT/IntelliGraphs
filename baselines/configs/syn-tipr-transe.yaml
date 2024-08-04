@@ -1,0 +1,7 @@
+dataset: syn-tipr
+batch-size: 2048
+emb-size: 147
+learn-rate: 0.0008716274682049251
+decoder: transe
+biases: True
+init_method: normal

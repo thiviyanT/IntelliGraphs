@@ -1,0 +1,7 @@
+dataset: wd-movies
+batch-size: 4096
+emb-size: 102
+learn-rate: 0.019520125878695407
+decoder: complex
+biases: False
+init_method: uniform

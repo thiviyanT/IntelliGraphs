@@ -1,0 +1,7 @@
+dataset: wd-articles
+batch-size: 32
+emb-size: 283
+learn-rate: 0.002251396972378282
+decoder: complex
+biases: False
+init_method: normal

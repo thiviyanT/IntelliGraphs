@@ -1,0 +1,7 @@
+dataset: wd-articles
+batch-size: 32
+emb-size: 65
+learn-rate: 0.03833121378755901
+decoder: distmult
+biases: False
+init_method: uniform

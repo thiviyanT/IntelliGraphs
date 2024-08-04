@@ -1,0 +1,7 @@
+dataset: wd-articles
+batch-size: 32
+emb-size: 888
+learn-rate: 0.00006094053758340765
+decoder: transe
+biases: True
+init_method: normal

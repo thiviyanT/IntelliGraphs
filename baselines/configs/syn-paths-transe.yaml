@@ -1,0 +1,7 @@
+dataset: syn-paths
+batch-size: 4096
+emb-size: 1531
+learn-rate: 0.00007029817939842623
+decoder: transe
+biases: False
+init_method: uniform

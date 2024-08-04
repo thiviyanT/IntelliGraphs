@@ -1,0 +1,7 @@
+dataset: syn-types
+batch-size: 2048
+emb-size: 996
+learn-rate: 0.00005603405855158606
+decoder: complex
+biases: False
+init_method: uniform
