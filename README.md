@@ -30,31 +30,19 @@ TODO:
 
 ## Table of Contents
 
-* [About IntelliGraphs](#about-intelligraphs)
+* [Overview](#overview)
 * [Installation](#installation)
-* [Advantages](#advantages)
-* [Usage](#usage)
+* [Getting Started](#getting-started)
 * [IntelliGraphs Data Loader](#intelligraphs-data-loader)
 * [Datasets](#datasets)
+* [Baseline Implementations](#baseline-implementations)
 * [Reporting Issues](#reporting-issues)
-* [License](#license)
+* [License Information](#license-information)
 
 
-## About IntelliGraphs
+## Overview
 
-IntelliGraphs is a Python package that generates a collection of benchmark datasets. These datasets are intended to be used
-for benchmarking machine learning models under transductive settings. It can also be used as a testbed for developing
-new generative models. This library was designed to be extendable to create new synthetic datasets with custom 
-First-order logical (FOL) rules.
-
-### Advantages
-
-* **Easy to use**: Generate and manipulate Knowledge Graphs with a simple and clean Python API.
-* **Flexible**: Customize the number of graphs, triples, and data splits.
-* **Extendable**: Create more graphs according to custom FOL rules.
-* **Efficient**: Fast and memory-efficient graph generation and manipulation using native Python data structures.
-* **Visualization**: Visualize Knowledge Graphs.
-
+IntelliGraphs is a Python package designed to generate a collection of benchmark datasets specifically for use in benchmarking machine learning models under transductive settings. Additionally, it serves as a testbed for developing new generative models. The library is extendable, allowing users to create new synthetic datasets with custom First-order Logical (FOL) rules.
 
 ## Installation
 
@@ -70,7 +58,7 @@ Or using conda:
 conda install -c thiv intelligraphs
 ```
 
-## Usage
+## Getting Started
 
 Here's a brief example of how to use various features of the IntelliGraphs library:
 
@@ -243,6 +231,16 @@ To download datasets automatically:
 3. Run the script, and it will automatically download the datasets from Zenodo, extract them, and place them in the appropriate directories for use.
 
 It will download the specified dataset files into a `.data` directory. 
+
+## Baseline Implementations
+
+### Uniform baseline
+
+TO DO
+
+### Probabilistic KGE models
+
+TO DO
 
 ## Reporting Issues
 
