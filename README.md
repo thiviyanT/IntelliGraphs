@@ -21,7 +21,7 @@
 </p>
 
 IntelliGraphs is a collection of benchmark datasets specifically for use in 
-benchmarking generative models for knowledge graphs. You can read about it in our paper: 
+benchmarking generative models for knowledge graphs. You can learn more about it in our preprint: 
 [*IntelliGraphs: Datasets for Benchmarking Knowledge Graph Generation*](https://arxiv.org/abs/2307.06698).
 
 <!---
