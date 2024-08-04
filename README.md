@@ -1,5 +1,5 @@
 <p  align="center">
-    <img src="images/IntelliGraph-logo.png" width="200px;" style="max-width: 100%;  margin-right:10px;">
+    <img src="assets/IntelliGraphs-logo 222x222(32-bit).png" width="150px;" style="max-width: 100%;  margin-right:10px;">
     <h3 align="center" >
         Benchmark Datasets for Knowledge Graph Generation
     </h3>
