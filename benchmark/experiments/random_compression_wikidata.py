@@ -1,4 +1,4 @@
-from _context import baselines
+from _context import models
 from tqdm import trange
 import torch
 import math
@@ -8,12 +8,12 @@ def compute_bits(dataset):
     """ Estimate the compression bits for storing graphs sampled using uniform distribution """
 
     train, val, test, (e2i, i2e), (r2i, i2r), (min_edges, max_edges), (min_nodes, max_nodes) = (
-        baselines.load_data(dataset, padding=True))
+        models.load_data(dataset, padding=True))
 
     # TODO: Peter, do we iterate through all the splits or just train and validation?
     data = torch.cat([train, val], dim=0)
 
-    # TODO: Peter, the concept of null entity is only True for the VAE. The KGE baselines do not use it
+    # TODO: Peter, the concept of null entity is only True for the VAE. The KGE models do not use it
     num_entities = len(e2i) + 1  # Add one for null entities
     num_relations = len(i2r)
     num_graphs = len(data)

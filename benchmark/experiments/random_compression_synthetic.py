@@ -1,4 +1,4 @@
-from _context import baselines
+from _context import models
 import torch
 import math
 
@@ -6,9 +6,9 @@ import math
 def compute_bits(dataset):
     """ Estimate the compression bits for storing graphs sampled using uniform distribution """
 
-    train, val, test, (e2i, i2e), (r2i, i2r), _, _ = baselines.load_data(dataset, padding=True)
+    train, val, test, (e2i, i2e), (r2i, i2r), _, _ = models.load_data(dataset, padding=True)
 
-    # TODO: Peter, the concept of null entity is only True for the VAE. The KGE baselines do not use it
+    # TODO: Peter, the concept of null entity is only True for the VAE. The KGE models do not use it
     num_entities = len(e2i) + 1  # Add one for null entities
     num_relations = len(i2r)
     num_edges = train.size(1)

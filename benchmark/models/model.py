@@ -1,6 +1,6 @@
 import torch
 from torch import nn
-from decoders import TransE, DistMult, Complex
+from .decoders import TransE, DistMult, Complex
 
 
 class KGEModel(nn.Module):

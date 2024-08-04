@@ -1,8 +1,9 @@
 import torch
 from torch import nn
 from torch.nn.functional import normalize
-from util import initialize
+from .util import initialize
 from abc import abstractmethod
+
 
 class Decoder(nn.Module):
     def __init__(self, e, n, r, init_method, reciprocal, init, edropout, rdropout):
