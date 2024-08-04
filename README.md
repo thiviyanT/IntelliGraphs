@@ -268,7 +268,7 @@ The uniform baseline model is designed to serve as a simple reference point. It 
 Run the following command to apply the uniform baseline model to synthetic datasets:
 
 ```bash
-python benchmark/experiments/random_compression_synthetic.py
+python benchmark/experiments/random_compression.py
 ```
 
 2. **Wikidata Compression**
