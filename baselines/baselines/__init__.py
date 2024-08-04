@@ -1,4 +1,2 @@
 from .model import KGEModel
-
-from .data import load_data
-
+from .util.data import load_data

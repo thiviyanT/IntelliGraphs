@@ -1,6 +1,5 @@
 import torch
 import os
-import util
 
 VALPROP = 0.4
 REST = '.rest'
