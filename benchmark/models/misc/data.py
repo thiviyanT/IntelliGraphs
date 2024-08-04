@@ -1,27 +1,16 @@
 import torch
 import os
 
-VALPROP = 0.4
-REST = '.rest'
-INV = '.inv'
-
-S = os.sep
-
-
-def add_neighbors(set, graph, node, depth=2):
-    if depth == 0:
-        return
-
-    for s, p, o in graph.triples((node, None, None)):
-        set.add((s, p, o))
-        add_neighbors(set, graph, o, depth=depth - 1)
-
-    for s, p, o in graph.triples((None, None, node)):
-        set.add((s, p, o))
-        add_neighbors(set, graph, s, depth=depth - 1)
-
 
 def load_strings(file, split_tab=False):
+    """
+    Load and process lines from a file.
+
+    :param file: Path to the file containing strings.
+    :param split_tab: Boolean flag indicating whether to split each line by tabs ('\t').
+                      If False, lines are split by whitespace. Default is False.
+    :return: List of lists, where each inner list represents a processed line from the file.
+    """
     with open(file, 'r') as f:
         if split_tab:
             return [line.replace('\n', '').split('\t') for line in f]
@@ -29,16 +18,24 @@ def load_strings(file, split_tab=False):
             return [line.split() for line in f]
 
 
-def split_subgaphs(x):
-    y = list()
-    z = list()
-    for i in x:
-        if not i == ['']:
-            z.append(i)
+def split_subgraphs(lists):
+    """
+    Split a list of lists into subgraphs based on empty lists as separators.
+
+    :param x: List of lists, where each inner list contains strings. Empty lists are used as separators.
+    :return: A list of subgraphs, where each subgraph is a list of lists of strings.
+    """
+    subgraphs = []
+    current_subgraph = []
+
+    for inner_list in lists:
+        if inner_list != ['']:
+            current_subgraph.append(inner_list)
         else:
-            y.append(z)
-            z = list()
-    return y
+            subgraphs.append(current_subgraph)
+            current_subgraph = []
+
+    return subgraphs
 
 
 def compute_min_max_edges(subgraphs):
@@ -97,9 +94,9 @@ def load_data(name, limit=None, padding=False):
     val = load_strings(val_file, split_tab=True)
     test = load_strings(test_file, split_tab=True)
 
-    train = split_subgaphs(train)
-    val = split_subgaphs(val)
-    test = split_subgaphs(test)
+    train = split_subgraphs(train)
+    val = split_subgraphs(val)
+    test = split_subgraphs(test)
 
     if limit:
         train = train[:limit]

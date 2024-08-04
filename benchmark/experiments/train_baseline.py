@@ -55,7 +55,7 @@ def train(wandb):
     if config["loss"] == 'log-loss':
         weight = config["nweight"] if config["nweight"] else None
     else:
-        weight = torch.tensor([config["nweight"], 1.0], device=d()) if config["nweight"] else None
+        weight = torch.tensor([config["nweight"], 1.0], device=get_device()) if config["nweight"] else None
 
     # Compute entity frequency from the training data
     frq = compute_entity_frequency(train)
@@ -74,7 +74,7 @@ def train(wandb):
             model.train(True)
 
             opt.zero_grad()
-            positives = train[fr:to].to(d())
+            positives = train[fr:to].to(get_device())
 
             # Negative sampling through matrix inversion
             assert len(positives.size()) == 3
@@ -100,7 +100,7 @@ def train(wandb):
                 num_relations = len(i2r)
 
                 # construct an adjacency matrix and invert it
-                adj = torch.ones(((num_relations, num_entities, num_entities)), dtype=torch.long, device=d())
+                adj = torch.ones(((num_relations, num_entities, num_entities)), dtype=torch.long, device=get_device())
                 adj[p_pos, s_pos, o_pos] = 0
                 idx = adj.nonzero()
 
@@ -222,7 +222,7 @@ def train(wandb):
                 for fr in trange(0, testsub.size(0), config["batch-size"]):
 
                     to = min(testsub.size(0), fr + config["batch-size"])
-                    eval_graphs = testsub[fr:to].to(d())
+                    eval_graphs = testsub[fr:to].to(get_device())
 
                     for b, subgraph in enumerate(eval_graphs):
 
@@ -240,7 +240,7 @@ def train(wandb):
                         num_relations = len(i2r)
 
                         # construct an adjacency matrix and invert it
-                        adj = torch.ones(((num_relations, num_entities, num_entities)), dtype=torch.long, device=d())
+                        adj = torch.ones(((num_relations, num_entities, num_entities)), dtype=torch.long, device=get_device())
                         adj[p_pos, s_pos, o_pos] = 0
                         idx = adj.nonzero()
 
@@ -357,7 +357,7 @@ def sample_entities_structure(frq, test, model, training_data, i2n, i2r, config)
     for fr in trange(0, testsub.size(0), config["batch-size"]):
 
         to = min(testsub.size(0), fr + config["batch-size"])
-        eval_graphs = testsub[fr:to].to(d())
+        eval_graphs = testsub[fr:to].to(get_device())
 
         for b, _ in enumerate(eval_graphs):
 
@@ -463,7 +463,7 @@ def sample_structure(frq, test, model, training_data, i2n, i2r, config):
     for fr in trange(0, testsub.size(0), config["batch-size"]):
 
         to = min(testsub.size(0), fr + config["batch-size"])
-        eval_graphs = testsub[fr:to].to(d())
+        eval_graphs = testsub[fr:to].to(get_device())
 
         for b, subgraph in enumerate(eval_graphs):
 

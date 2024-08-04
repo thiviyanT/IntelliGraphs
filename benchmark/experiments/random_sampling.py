@@ -87,7 +87,7 @@ def sample_entities_structure(test, training_data, i2n, i2r, config, num_entitie
     for fr in trange(0, testsub.size(0), config["batch-size"]):
 
         to = min(testsub.size(0), fr + config["batch-size"])
-        eval_graphs = testsub[fr:to].to(d())
+        eval_graphs = testsub[fr:to].to(get_device())
 
         for b, subgraph in enumerate(eval_graphs):
 
@@ -191,7 +191,7 @@ def sample_structure(test, training_data, i2n, i2r, config, num_entities, num_re
     for fr in trange(0, testsub.size(0), config["batch-size"]):
 
         to = min(testsub.size(0), fr + config["batch-size"])
-        eval_graphs = testsub[fr:to].to(d())
+        eval_graphs = testsub[fr:to].to(get_device())
 
         for b, subgraph in enumerate(eval_graphs):
 
