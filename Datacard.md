@@ -68,7 +68,7 @@ This section was not applicable to our datasets.
 updates to the data.
 
 #### Version Details
-- **Current Version:** 0.1.2
+- **Current Version:** 1.0.0
 
 - **Last Updated:** 06/2023
 
@@ -261,7 +261,6 @@ subgraphs.
 
 ## Known Applications & Benchmarks
 
-These datasets are intended for Subgraph Inference, which is a novel research problem. We are not aware of any 
-existing benchmarks for this task. 
+These datasets are intended for evaluating subgraph inference in Knowledge Graphs, which is a novel research problem. We are not aware of any existing benchmarks for this task. 
 
 
