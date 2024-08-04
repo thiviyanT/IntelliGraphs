@@ -164,7 +164,60 @@ for batch in test_loader:
 
 ## Datasets
 
-The datasets required for this project can be obtained either manually or automatically through IntelliGraphs.
+### Downloading the Datasets
+
+The datasets required for this project can be obtained either manually or automatically through IntelliGraphs Python package.
+
+#### Manual Download
+
+The datasets are hosted on Zenodo and can be downloaded directly from the following link:
+
+**Zenodo Download Link:** [https://doi.org/10.5281/zenodo.7824818](https://doi.org/10.5281/zenodo.7824818)
+
+To manually download the datasets:
+
+1. Click on the provided link above.
+2. You will be redirected to the Zenodo page hosting the datasets.
+3. On the Zenodo page, click the **Download** button or select specific files to download as needed.
+4. Once downloaded, extract the files (if compressed) to a directory of your choice on your local machine.
+
+#### Automatic Download with IntelliGraphs
+
+Alternatively, you can use the `IntelliGraphsDataLoader` class to download and prepare the datasets automatically. This method is convenient if you want to streamline the process and ensure that all required data is correctly organized.
+
+To download datasets automatically:
+
+1. Ensure you have the necessary dependencies installed, including `intelligraphs`.
+
+2. Use the following code snippet to download and load the dataset:
+
+    ```python
+    from your_project import IntelliGraphsDataLoader  # Replace with the actual import path
+
+    # Initialize the data loader with the desired dataset name
+    dataset_name = 'syn-paths'  # Example dataset name, replace with the dataset you want to download
+    data_loader = IntelliGraphsDataLoader(dataset_name)
+
+    # Load data into PyTorch DataLoader objects
+    train_loader, valid_loader, test_loader = data_loader.load_torch(batch_size=32)
+    ```
+
+3. The dataset will be automatically downloaded and extracted to the `.data` directory if it does not already exist.
+
+4. The data will be loaded into PyTorch `DataLoader` objects (`train_loader`, `valid_loader`, `test_loader`) for easy use in training and evaluation.
+
+5. If you prefer to download the dataset only (without loading into PyTorch), simply instantiate the `IntelliGraphsDataLoader` class and it will handle the download and extraction automatically:
+
+    ```python
+    from your_project import IntelliGraphsDataLoader  # Replace with the actual import path
+
+    # Initialize the data loader to download the dataset
+    dataset_name = 'syn-paths'  # Example dataset name, replace with the dataset you want to download
+    data_loader = IntelliGraphsDataLoader(dataset_name)
+    ```
+
+    The dataset will be saved in the `.data` directory by default.
+
 
 #### Manual Download
 
