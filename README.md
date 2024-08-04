@@ -20,6 +20,10 @@
 --->
 </p>
 
+IntelliGraphs is a collection of benchmark datasets specifically for use in 
+benchmarking generative models for knowledge graphs. You can read about it in our paper: 
+[*IntelliGraphs: Datasets for Benchmarking Knowledge Graph Generation*](https://arxiv.org/abs/2307.06698).
+
 <!---
 TODO: 
 * Make sure that the semantic checker is doing FOL as written down below 
@@ -30,7 +34,6 @@ TODO:
 
 ## Table of Contents
 
-* [Overview](#overview)
 * [Installation](#installation)
 * [Getting Started](#getting-started)
 * [IntelliGraphs Data Loader](#intelligraphs-data-loader)
@@ -40,23 +43,43 @@ TODO:
 * [License Information](#license-information)
 
 
-## Overview
-
-IntelliGraphs is a Python package designed to generate a collection of benchmark datasets specifically for use in benchmarking machine learning models under transductive settings. Additionally, it serves as a testbed for developing new generative models. The library is extendable, allowing users to create new synthetic datasets with custom First-order Logical (FOL) rules.
-
 ## Installation
 
-To install IntelliGraphs, use pip:
+IntelliGraphs can be installed using either `pip` or `conda`, depending on your preferred package management system.
+
+### Installing with pip
+
+`pip` is the Python package installer, and it's commonly used for installing Python packages from the Python Package Index (PyPI). To install IntelliGraphs using `pip`, open your terminal or command prompt and run the following command:
 
 ```bash
 pip install intelligraphs
 ```
+This command will automatically download and install the IntelliGraphs package along with any dependencies required for it to function properly.
 
-Or using conda:
+### Installing with conda
+
+If you prefer to use conda, you can install IntelliGraphs by running the following command in your terminal or command prompt:
 
 ```bash
 conda install -c thiv intelligraphs
 ```
+
+### Verifying the Installation
+
+After installation, you can verify that IntelliGraphs has been successfully installed by running the following command in your Python environment:
+
+```python
+import intelligraphs
+
+print(intelligraphs.__version__)
+```
+
+### Platform Compatibility
+
+This package has been tested and verified to work on macOS and Linux operating systems. 
+However, users on Windows may encounter issues during installation or while running the package. 
+If you experience any problems on Windows, please [raise an issue on the project's GitHub repository](https://github.com/thiviyanT/IntelliGraphs/issues).
+
 
 ## Getting Started
 
