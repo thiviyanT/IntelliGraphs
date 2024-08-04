@@ -36,10 +36,7 @@ TODO:
 * [Usage](#usage)
 * [IntelliGraphs Data Loader](#intelligraphs-data-loader)
 * [Datasets](#datasets)
-* [First-Order Logic](#first-order-logic)
-* [Reproducibility](#reproducibility)
 * [Reporting Issues](#reporting-issues)
-* [How to Contribute](#how-to-contribute)
 * [License](#license)
 
 
@@ -48,7 +45,7 @@ TODO:
 IntelliGraphs is a Python package that generates a collection of benchmark datasets. These datasets are intended to be used
 for benchmarking machine learning models under transductive settings. It can also be used as a testbed for developing
 new generative models. This library was designed to be extendable to create new synthetic datasets with custom 
-First-Order Logical (FOL) rules.
+First-order logical (FOL) rules.
 
 ### Advantages
 
@@ -61,7 +58,7 @@ First-Order Logical (FOL) rules.
 
 ## Installation
 
-To install IntelliGraphs, using pip:
+To install IntelliGraphs, use pip:
 
 ```bash
 pip install intelligraphs
@@ -167,263 +164,32 @@ for batch in test_loader:
 
 ## Datasets
 
-### Downloading the Datasets
-
-The datasets can be downloaded manually or automatically without IntelliGraphs.
+The datasets required for this project can be obtained either manually or automatically through IntelliGraphs.
 
 #### Manual Download
 
-The datasets can be directly downloaded from the following links:
-* syn-paths.zip: https://www.dropbox.com/s/kp1xp2rbieib4gl/syn-paths.zip?dl=1
-* syn-tipr.zip: https://www.dropbox.com/s/wgm2yr7h8dhcj52/syn-tipr.zip?dl=1
-* syn-types.zip: https://www.dropbox.com/s/yx7vrvsxme53xce/syn-types.zip?dl=1
-* wd-articles.zip: https://www.dropbox.com/s/37etzy2pkix84o8/wd-articles.zip?dl=1
-* wd-movies.zip: https://www.dropbox.com/s/gavyilqy1kb750f/wd-movies.zip?dl=1
+The datasets are hosted on Zenodo and can be downloaded directly from the following link:
 
+**Zenodo Download Link:** [https://doi.org/10.5281/zenodo.7824818](https://doi.org/10.5281/zenodo.7824818)
 
-#### Automatic Download
+To manually download the datasets:
 
-You can also download and unzip the datasets using the download.sh script. This 
-script will download all five datasets: 
+1. Click on the provided link above.
+2. You will be redirected to the Zenodo page hosting the datasets.
+3. On the Zenodo page, click the **Download** button or select specific files to download as needed.
+4. Once downloaded, extract the files (if compressed) to a directory of your choice on your local machine.
 
-```bash
-bash download.sh
-```
+#### Automatic Download with IntelliGraphs
 
-Wait for the script to complete. It will download the specified zip files from the provided URLs and unzip them into a 
-`.data` directory. Once the script finishes executing, you can find the extracted files in the `.data` directory.
+Alternatively, you can use the IntelliGraphs tool to download and prepare the datasets automatically. This method is convenient if you want to streamline the process and ensure that all required data is correctly organized.
 
-### Dataset Statistics
+To download datasets automatically:
 
-| Dataset | Rules | # Nodes | # Edges | # Relations | # Classes | # Train | # Valid | # Test |
-|---------|-------------|---------|---------|-------------|-----------|---------|---------|--------|
-|syn-paths|-|-|-|-| - |-|-|-|
-|syn-tipr|-|-|-|-|-|-|-|-|
-|syn-types|-|-|-|-|-|-|-|-|
-|wd-movies|-|-|-|-|-|-|-|-|
-|wd-articles|-|-|-|-|-|-|-|-|
+1. Ensure you have IntelliGraphs installed and properly configured. If not, refer to the IntelliGraphs documentation for setup instructions.
+2. Use the IntelliGraphs download command or script provided in the project (usually a script named `download_datasets.py` or similar).
+3. Run the script, and it will automatically download the datasets from Zenodo, extract them, and place them in the appropriate directories for use.
 
-### Example
-
-<table>
-  <tr>
-    <th>Dataset</th>
-    <th>Knowledge Graph</th>
-  </tr>
-  <tr>
-    <td>syn-paths</td>
-    <td><pre>
-    </pre></td>
-  </tr>
-  <tr>
-    <td>syn-tipr</td>
-    <td><pre>
-    </pre></td>
-  </tr>
-  <tr>
-    <td>syn-types</td>
-    <td><pre>
-    </pre></td>
-  </tr>
-  <tr>
-    <td>wd-movies</td>
-    <td><pre>
-    </pre></td>
-  </tr>
-  <tr>
-    <td>wd-articles</td>
-    <td><pre>
-    </pre></td>
-  </tr>
-</table>
-    
-    
-## First-Order Logic
-
-First-order logic (FOL) is a logic system that is used to describe the world around us. It is a formal language that
-allows us to make statements about the world.
-
-Intelligraphs can process FOL statements that are expressed in `.txt` files. This can be parsed by the IntelliGraphs library using:
-
-```python
-intelligraph.parse_fol_rules('path/to/rules.txt')
-```
-
-### SYN-PATHS
-
-#### Natural language: 
-
-* It should be a connected graph, i.e. each subject and object should be connected to at least one other triple.
-* Must contain directed edges
-* directions of the edges should follow a path from the root to the leaf nodes
-
-#### FOL statements:
-```text
-forall x,y,z connected(x,y) ^ connected(y,z) -> connected(x,z)
-forall x,y edge(x,y) -> connected(x,y)
-
-exists x root(x)
-forall x,y root(x) ^ root(b) -> a=b
-forall x root(x) <-> forall y ¬ edge(y,x)
-
-forall x,y connected(x,y) -> x≠y
-forall x root(x) -> forall y connected(x,y) v x=y
-forall x,y,z edge(y,x) ^ edge(z,x) -> y=z
-forall x,y,z edge(x,y) ^ edge(x,z) -> y=z
-
-forall x,y edge(x,y) <-> cycle_to(x,y) v drive_to(x,y) v train_to(x,y)
-```
-
-### SYN-TYPES:
-
-#### Natural language: 
-
-Must satisfy the following type constraints:
-* the predicate  'spoken in' can only exist between a 'language' and 'country'
-* the predicate 'part of' can only exist between a city and a country.
-* the predicate 'same as' can only exist between the same types (language, city, country)
-
-#### FOL statements:
-```text
-forall x,y spoken_in(x, y) -> (language(x) ^ country(y))
-forall x,y part_of(x, y) -> (city(x) ^ country(y)))
-forall x,y (same_as(x, y) -> (language(x) ^ language(y)) v (city(x) ^ city(y)) v (country(x) ^ country(y))
-
-forall x language(x) -> ¬ country(x) ^ ¬ city(x)
-forall x country(x) -> ¬ language(x) ^ ¬ city(x)
-forall x city(x) -> ¬ language(x) ^ ¬ country(x)
-
-forall x,y same_as(x, y) -> ¬ same_as(x, y)
-```
-
-### SYN-TIPR:
-
-#### Natural language: 
-
-Must contain all edges:
-• has role( academic, role) ∧ has name( academic, name)∧
-has time( academic, time) ∧ start year( time, year) ∧ end year( time, year)
-• end year ≥ start year
-
-#### FOL statements:
-```text
-forall x,y has_role(x, y) -> academic(x) ^ role(y)
-forall x,y has_name(x, y) -> academic(x) ^ name(y)
-forall x,y has_time(x, y) -> academic(x) ^ time(y)
-forall x,y start_year(x, y) -> time(x) ^ year(y)
-forall x,y end_year(x, y) -> time(x) ^ year(y)
-forall x,y,z end_year(x, y) ^ start_year(x, z) -> after(y, z)
-
-forall x ¬ has_role(x, x)
-forall x ¬ has_name(x, x)
-forall x ¬ has_time(x, x)
-forall x ¬ start_year(x, x)
-forall x ¬ end_year(x, x)
-
-forall x academic(x) -> ¬ role(x) ^ ¬ time(x) ^ ¬ name (x) ^ ¬ year(x)
-forall x role(x) -> ¬ academic(x) ^ ¬ time(x) ^ ¬ name (x) ^ ¬ year(x)
-forall x time(x) -> ¬ academic(x) ^ ¬ role(x) ^ ¬ name (x) ^ ¬ year(x)
-forall x year(x) -> ¬ academic(x) ^ ¬ role(x) ^ ¬ name (x) ^ ¬ time(x)
-forall x name(x) -> ¬ academic(x) ^ ¬ role(x) ^ ¬ year (x) ^ ¬ time(x)
-```
-
-### WD-MOVIES:
-
-#### Natural language:
-* This inductive node does not connect to itself by any relation
-* There is at least one person connected to the inductive node by the has_director relation 
-* There is at least one person connected to the inductive node by the has_actor relation. 
-* There is at least one genre connected to the inductive node by the has_genre relation. 
-* Only the inductive node occurs in the subject position of any triples, and the inductive node only ever occurs in the subject position of any triples.
-
-NB: This method assumes that `_movie` is the label of the inductive node and that any other nodes have valid transductive labels. This is not checked.
-
-Question: Sets of directors and actors: Mutually exclusive? 
-
-#### FOL statements:
-
-Assume we have constants **inductive_nodes**, which means ...
-```text
-forall x,y connected(x,y) <-> has_director(x,y) v has_actor(x,y) v has_genre(x,y)
-
-exists x has_director(x, inductive_node)
-exists x has_actor(x, inductive_node)
-exists x has_genre(x, inductive_node)
-
-forall x x ≠ inductive_node -> connected(inductive_node, x) 
-forall x,y x ≠ inductive_node ^ y ≠ inductive_node -> ¬connected(x, y)
-forall x ¬connected(x, inductive_node)
-
-forall x,y has_director(x,y) v has_actor(x,y) -> person(y)  (TODO: revisit this rule in the semantic checker)
-forall x,y has_genre(x,y) -> genre(y)  (TODO: revisit this rule in the semantic checker)
-```
-
-### WD-ARTICLES:
-
-#### Natural language:
-- There is one or more triple with the relation `has_author`.
-  - Exactly one node is the subject of all of these. Call this the article node.
-  - The article node is labeled '_article' or labeled with an IRI.  ***- Ask Peter if mutually exclusive **
-  - The object of every has_author triple has a label starting with '_authorpos'
-  - Every _authorpos node is the object of only this triple.
-  - Every _authorpos node is the subject of exactly two triples:
-       - One with the relation `has_name`. The object of this triple is an IRI or starts with `_author`
-       - One with the relation `has_order`. The object of this triple starts with `ordinal_`
-  - If there are n authorpos nodes, then taken together, all their ordinals coincide with the range from one to n
-    inclusive.
-
-- There are zero or more triples with the relation `cites`.
-    - The subject of all such triples is the article node
-    - The object of all such triples is an IRI
-
-- There are zero or more triples with the relation `has_subject`
-    - The object of all such triples is the article node.
-    - The subject of all such triples starts with `_subject` or is an IRI
-
-- There are zero or more triples with the relation `subclass_of`
-    - The object and subject of such a triple either start with `_subject` or are IRIs
-    - Either the subject of the triple is connected to the article by a `has_subject` relation or it is connected to
-      such a subject by a chain of `subclass_of` relations
-
-#### FOL statements:
-
-```text
-
-exists x has_author(article_node, x)
-
-forall x,y connected(x,y) <-> has_author(x,y) v has_name(x,y) v has_order(x,y) v cites(x,y) v has_subject(x,y) v subclass_of(x,y)
-forall x,y connected(x,y) -> ¬ connected(y,x) v cites(y, x)
-forall x ¬ connected(x, x)
-
-forall x, y has_author(x, y) -> x = article_node
-
-article(article_node) v iri(article_node)
-
-forall x has_author(article_node, x) -> authorpos(x)
-forall x authorpos(x) <-> exists y has_order(x, y) ^ exists y has_name(x, y)
-forall x,y has_order(x,y) -> authorpos(x) ^ ordinal(y)
-forall x, y has_name(x, y) -> authorpos(x) ^ name(y) v iri(y)
-forall x, y, z has_order(x, y) ^ has_order(x, z) -> y = z
-forall x, y, z has_name(x, y) ^ has_order(x, z) -> y = z
-
-forall x author(x) -> ¬ subject(x) ^ ¬ iri(x) ^ ¬ name(x) ^ ¬ oridinal(x) ^ ¬ author_pos(x) 
-forall x subject(x) -> ¬ author(x) ^ ¬ iri(x) ^ ¬ name(x) ^ ¬ oridinal(x) ^ ¬ author_pos(x) 
-forall x iri(x) -> ¬ author(x) ^ ¬ subject(x) ^ ¬ name(x) ^ ¬ oridinal(x) ^ ¬ author_pos(x) 
-forall x name(x) -> ¬ subject(x) ^ ¬ iri(x) ^ ¬ author(x) ^ ¬ oridinal(x) ^ ¬ author_pos(x) 
-forall x oridinal(x) -> ¬ subject(x) ^ ¬ iri(x) ^ ¬ name(x) ^ ¬ author(x) ^ ¬ author_pos(x) 
-forall x author_pos(x) -> ¬ subject(x) ^ ¬ iri(x) ^ ¬ name(x) ^ ¬ author(x) ^ ¬ oridinal(x) 
-
-forall x,y,z subclass2(x, y) ^ subclass2(y, z) -> subclass_of(x, z) 
-forall x,y subclass_of(x,y) -> subclass2(x,y) ^ (iri(x) v subject(x)) ^ (iri(y) v subject(y))
-forall x,y subclass_of(x,y) -> exists z subclass2(x,z) ^ has_subject(article_node, z)
-
-forall x,y cites(x, y) -> iri(y) ^ x=article_node
-forall x,y has_subject(x, y) -> (subject(y) v iri(y)) ^ x=article_node
-```
-
-## Long-term Storage of Datasets
-
-The datasets has been uploaded to Zenodo.
+It will download the specified dataset files into a `.data` directory. 
 
 ## Reporting Issues
 
@@ -434,7 +200,12 @@ If you encounter any bugs or have any feature requests, please file an issue [he
 If you use IntelliGraphs in your research, please cite the following paper:
 
 ```bibtex
-[PAPER UNDER SUBMISSION]
+@article{thanapalasingam2023intelligraphs,
+  title={IntelliGraphs: Datasets for Benchmarking Knowledge Graph Generation},
+  author={Thanapalasingam, Thiviyan and van Krieken, Emile and Bloem, Peter and Groth, Paul},
+  journal={arXiv preprint arXiv:2307.06698},
+  year={2023}
+}
 ```
 
 ## License
