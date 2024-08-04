@@ -1,4 +1,3 @@
-.data/__MACOSX  # data files
 .DS_Store  # MacOS
 wandb
 
