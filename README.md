@@ -234,9 +234,27 @@ It will download the specified dataset files into a `.data` directory.
 
 ## Baseline Implementations
 
-### Uniform baseline
+This project includes several baseline implementations that are used for comparison with advanced models.
 
-TO DO
+### Uniform Baseline Model
+
+The uniform baseline model is designed to serve as a simple reference point. It applies a random compression strategy to synthetic and real-world datasets. You can run this baseline using the following commands:
+
+1. **Synthetic Data Compression**
+
+Run the following command to apply the uniform baseline model to synthetic datasets:
+
+```bash
+python benchmark/experiments/random_compression_synthetic.py
+```
+
+2. **Wikidata Compression**
+
+To apply the uniform baseline model to the Wikidata datasets, use this command:
+
+```bash
+python benchmark/experiments/random_compression_wikidata.py
+```
 
 ### Probabilistic KGE models
 
