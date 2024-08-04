@@ -1,4 +1,4 @@
-from data import compute_min_max_edges, compute_min_max_nodes
+from .misc.data import compute_min_max_edges, compute_min_max_nodes
 
 
 def test_compute_min_max_edges():

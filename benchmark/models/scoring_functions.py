@@ -1,7 +1,7 @@
 import torch
 from torch import nn
 from torch.nn.functional import normalize
-from .util import initialize
+from .misc import initialize
 from abc import abstractmethod
 
 
