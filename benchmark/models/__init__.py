@@ -1,3 +1,3 @@
-from .model import KGEModel
-from .decoders import TransE, DistMult, Complex
+from .kge_model import KGEModel
+from .scoring_functions import TransE, DistMult, Complex
 from .util.data import load_data
