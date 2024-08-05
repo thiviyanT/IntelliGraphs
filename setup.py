@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="intelligraphs",
-    version="0.1.2",
+    version="0.0.3",
     packages=find_packages(),
     install_requires=[
         'tqdm',
@@ -13,7 +13,7 @@ setup(
     ],
     author="Thiviyan Thanapalasingam",
     author_email="thiviyan.t@gmail.com",
-    description="A Python package for generating synthetic and real-world Knowledge Graphs.",
+    description="A Python package for using IntelliGraphs benchmarking datasets.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     url="https://github.com/thiviyanT/intelligraphs",
