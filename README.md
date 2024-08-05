@@ -35,10 +35,10 @@ TODO:
 ## Table of Contents
 
 * [Installation](#installation)
+* [Downloading IntelliGraphs datasets](#downloading-the-datasets)
 * [IntelliGraphs Data Loader](#intelligraphs-data-loader)
 * [IntelliGraphs KG Generator](#intelligraphs-synthetic-kg-generator)
 * [IntelliGraphs Verifier](#intelligraphs-verifier)
-* [Datasets](#datasets)
 * [Baseline Implementations](#baseline-implementations)
 * [Reporting Issues](#reporting-issues)
 * [License Information](#license-information)
@@ -174,52 +174,6 @@ If you experience any problems on Windows, please [raise an issue on the project
 
 [//]: # (```)
 
-## IntelliGraphs Data Loader
-
-The `IntelliGraphsDataLoader` class is a utility for loading IntelliGraphs datasets, simplifying the process of accessing and organizing the data for machine learning tasks. It provides functionalities to download, extract, and load the datasets into PyTorch tensors.
-
-### Features and Benefits
-* **PyTorch Integration**: Seamless integration with PyTorch for graph-based machine learning tasks.
-* **Configuration Options**: Customizable options for batch size, padding, and shuffling.
-* **Reproducibility**: Facilitates documentation and reproduction of experiments for improved research integrity.
-* **Data Preprocessing**: Simplifies dataset preprocessing with automated download, extraction, and conversion.
-
-### Usage
-1. Instantiate the DataLoader:
-``` python
-from intelligraphs import IntelliGraphsDataLoader
-data_loader = IntelliGraphsDataLoader(dataset_name='syn-paths')
-```
-2. Load the Data:
-``` python
-train_loader, valid_loader, test_loader = data_loader.load_torch(
-    batch_size=32,
-    padding=True,
-    shuffle_train=False,
-    shuffle_valid=False,
-    shuffle_test=False
-)
-```
-3. Access the Data:
-``` python
-for batch in train_loader:
-    # Perform training steps with the batch
-
-for batch in valid_loader:
-    # Perform validation steps with the batch
-
-for batch in test_loader:
-    # Perform testing steps with the batch
-```
-
-## IntelliGraphs Synthetic KG Generator
-
-TODO
-
-## IntelliGraphs Verifier
-
-TODO
-
 ## Downloading the Datasets
 
 The datasets required for this project can be obtained either manually or automatically through IntelliGraphs Python package.
@@ -271,34 +225,53 @@ To download datasets automatically:
     dataset_name = 'syn-paths'  # Example dataset name, replace with the dataset you want to download
     data_loader = IntelliGraphsDataLoader(dataset_name)
     ```
+The dataset will be saved in the `.data` directory by default.
 
-    The dataset will be saved in the `.data` directory by default.
+## IntelliGraphs Data Loader
 
+The `IntelliGraphsDataLoader` class is a utility for loading IntelliGraphs datasets, simplifying the process of accessing and organizing the data for machine learning tasks. It provides functionalities to download, extract, and load the datasets into PyTorch tensors.
 
-#### Manual Download
+### Features and Benefits
+* **PyTorch Integration**: Seamless integration with PyTorch for graph-based machine learning tasks.
+* **Configuration Options**: Customizable options for batch size, padding, and shuffling.
+* **Reproducibility**: Facilitates documentation and reproduction of experiments for improved research integrity.
+* **Data Preprocessing**: Simplifies dataset preprocessing with automated download, extraction, and conversion.
 
-The datasets are hosted on Zenodo and can be downloaded directly from the following link:
+### Usage
+1. Instantiate the DataLoader:
+``` python
+from intelligraphs import IntelliGraphsDataLoader
+data_loader = IntelliGraphsDataLoader(dataset_name='syn-paths')
+```
+2. Load the Data:
+``` python
+train_loader, valid_loader, test_loader = data_loader.load_torch(
+    batch_size=32,
+    padding=True,
+    shuffle_train=False,
+    shuffle_valid=False,
+    shuffle_test=False
+)
+```
+3. Access the Data:
+``` python
+for batch in train_loader:
+    # Perform training steps with the batch
 
-**Zenodo Download Link:** [https://doi.org/10.5281/zenodo.7824818](https://doi.org/10.5281/zenodo.7824818)
+for batch in valid_loader:
+    # Perform validation steps with the batch
 
-To manually download the datasets:
+for batch in test_loader:
+    # Perform testing steps with the batch
+```
 
-1. Click on the provided link above.
-2. You will be redirected to the Zenodo page hosting the datasets.
-3. On the Zenodo page, click the **Download** button or select specific files to download as needed.
-4. Once downloaded, extract the files (if compressed) to a directory of your choice on your local machine.
+## IntelliGraphs Synthetic KG Generator
 
-#### Automatic Download with IntelliGraphs
+TODO
 
-Alternatively, you can use the IntelliGraphs tool to download and prepare the datasets automatically. This method is convenient if you want to streamline the process and ensure that all required data is correctly organized.
+## IntelliGraphs Verifier
 
-To download datasets automatically:
-
-1. Ensure you have IntelliGraphs installed and properly configured. If not, refer to the IntelliGraphs documentation for setup instructions.
-2. Use the IntelliGraphs download command or script provided in the project (usually a script named `download_datasets.py` or similar).
-3. Run the script, and it will automatically download the datasets from Zenodo, extract them, and place them in the appropriate directories for use.
-
-It will download the specified dataset files into a `.data` directory. 
+TODO
 
 ## Baseline Implementations
 
