@@ -1,6 +1,8 @@
 .DS_Store  # MacOS
 wandb
 .data/
+ignore
+output/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -135,6 +137,4 @@ dmypy.json
 *.egg-info
 build
 dist
-
-ignore
 
