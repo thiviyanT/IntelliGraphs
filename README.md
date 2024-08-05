@@ -35,7 +35,6 @@ TODO:
 ## Table of Contents
 
 * [Installation](#installation)
-* [Getting Started](#getting-started)
 * [IntelliGraphs Data Loader](#intelligraphs-data-loader)
 * [Datasets](#datasets)
 * [Baseline Implementations](#baseline-implementations)
@@ -81,59 +80,97 @@ However, users on Windows may encounter issues during installation or while runn
 If you experience any problems on Windows, please [raise an issue on the project's GitHub repository](https://github.com/thiviyanT/IntelliGraphs/issues).
 
 
-## Getting Started
+[//]: # (## Getting Started)
 
-Here's a brief example of how to use various features of the IntelliGraphs library:
+[//]: # ()
+[//]: # (Here's a brief example of how to use various features of the IntelliGraphs library:)
 
-```python
-from intelligraphs import IntelliGraphs
+[//]: # ()
+[//]: # (```python)
 
-# Create an instance of IntelliGraphs with 10 graphs, variable length triples, and a random seed of 42
-intelligraph = IntelliGraphs(random_seed=42, num_graphs=10, var_length=True, min_triples=2, max_triples=5)
+[//]: # (from intelligraphs import IntelliGraphs)
 
-# Manually generate the graphs
-intelligraph.generate_graphs()
+[//]: # ()
+[//]: # (# Create an instance of IntelliGraphs with 10 graphs, variable length triples, and a random seed of 42)
 
-# Get the list of graphs
-graphs = intelligraph.get_graphs()
+[//]: # (intelligraph = IntelliGraphs&#40;random_seed=42, num_graphs=10, var_length=True, min_triples=2, max_triples=5&#41;)
 
-# Print the first graph
-intelligraph.print_graph(graphs[0])
+[//]: # ()
+[//]: # (# Manually generate the graphs)
 
-# Visualize the first graph
-intelligraph.visualize_graph(graphs[0])
+[//]: # (intelligraph.generate_graphs&#40;&#41;)
 
-# Get the natural language sentences for the triples
-all_sentences = intelligraph.to_natural_language()
+[//]: # ()
+[//]: # (# Get the list of graphs)
 
-# Print the sentences for each graph
-for i, sentences in enumerate(all_sentences):
-    print(f"Graph {i + 1}:")
-    for sentence in sentences:
-        print(sentence)
-    print()
+[//]: # (graphs = intelligraph.get_graphs&#40;&#41;)
 
-# Manually trigger splitting the data into train, valid, and test sets
-intelligraph.split_data(split_ratio=(0.6, 0.3, 0.1))
+[//]: # ()
+[//]: # (# Print the first graph)
 
-# Get the data splits
-splits = intelligraph.get_splits()
+[//]: # (intelligraph.print_graph&#40;graphs[0]&#41;)
 
-# Print the data splits
-for split_name, data in splits.items():
-    print(f"{split_name.capitalize()} Data:")
-    for graph in data:
-        print(graph)
-    print()
+[//]: # ()
+[//]: # (# Visualize the first graph)
 
-# Save the graphs and splits to text files
-intelligraph.save_graphs(filename='example', file_path='output', zip_compression=False)
-intelligraph.save_splits(filename='example', file_path='output', zip_compression=False)
+[//]: # (intelligraph.visualize_graph&#40;graphs[0]&#41;)
 
-# Save the graphs and splits to zip compressed text files
-intelligraph.save_graphs(filename='example', file_path='output', zip_compression=True)
-intelligraph.save_splits(filename='example', file_path='output', zip_compression=True)
-```
+[//]: # ()
+[//]: # (# Get the natural language sentences for the triples)
+
+[//]: # (all_sentences = intelligraph.to_natural_language&#40;&#41;)
+
+[//]: # ()
+[//]: # (# Print the sentences for each graph)
+
+[//]: # (for i, sentences in enumerate&#40;all_sentences&#41;:)
+
+[//]: # (    print&#40;f"Graph {i + 1}:"&#41;)
+
+[//]: # (    for sentence in sentences:)
+
+[//]: # (        print&#40;sentence&#41;)
+
+[//]: # (    print&#40;&#41;)
+
+[//]: # ()
+[//]: # (# Manually trigger splitting the data into train, valid, and test sets)
+
+[//]: # (intelligraph.split_data&#40;split_ratio=&#40;0.6, 0.3, 0.1&#41;&#41;)
+
+[//]: # ()
+[//]: # (# Get the data splits)
+
+[//]: # (splits = intelligraph.get_splits&#40;&#41;)
+
+[//]: # ()
+[//]: # (# Print the data splits)
+
+[//]: # (for split_name, data in splits.items&#40;&#41;:)
+
+[//]: # (    print&#40;f"{split_name.capitalize&#40;&#41;} Data:"&#41;)
+
+[//]: # (    for graph in data:)
+
+[//]: # (        print&#40;graph&#41;)
+
+[//]: # (    print&#40;&#41;)
+
+[//]: # ()
+[//]: # (# Save the graphs and splits to text files)
+
+[//]: # (intelligraph.save_graphs&#40;filename='example', file_path='output', zip_compression=False&#41;)
+
+[//]: # (intelligraph.save_splits&#40;filename='example', file_path='output', zip_compression=False&#41;)
+
+[//]: # ()
+[//]: # (# Save the graphs and splits to zip compressed text files)
+
+[//]: # (intelligraph.save_graphs&#40;filename='example', file_path='output', zip_compression=True&#41;)
+
+[//]: # (intelligraph.save_splits&#40;filename='example', file_path='output', zip_compression=True&#41;)
+
+[//]: # (```)
 
 ## IntelliGraphs Data Loader
 
@@ -268,7 +305,7 @@ The uniform baseline model is designed to serve as a simple reference point. It 
 Run the following command to apply the uniform baseline model to synthetic datasets:
 
 ```bash
-python benchmark/experiments/random_compression.py
+python benchmark/experiments/uniform_compression.py
 ```
 
 2. **Wikidata Compression**
@@ -303,3 +340,16 @@ If you use IntelliGraphs in your research, please cite the following paper:
 ## License
 
 IntelliGraphs is licensed under CC-BY License. See [LICENSE](LICENSE) for more information.
+
+## Unit tests
+
+To run the unit tests, install pytest and verify installation:
+```bash
+pip install pytest
+pytest --version
+```
+
+Execute the units tests using: 
+```bash
+pytest
+```

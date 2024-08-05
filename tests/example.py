@@ -1,7 +1,7 @@
-from intelligraphs import IntelliGraphs
+from intelligraphs import SyntheticGraphGenerator
 
 # Create an instance of IntelliGraphs with 3 graphs, variable length triples, and a random seed of 42
-intelligraph = IntelliGraphs(random_seed=42, num_graphs=10, var_length=True, min_triples=2, max_triples=5)
+intelligraph = SyntheticGraphGenerator(random_seed=42, num_graphs=10, var_length=True, min_triples=2, max_triples=5)
 
 # Manually generate the graphs
 intelligraph.generate_graphs()
