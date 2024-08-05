@@ -36,6 +36,8 @@ TODO:
 
 * [Installation](#installation)
 * [IntelliGraphs Data Loader](#intelligraphs-data-loader)
+* [IntelliGraphs KG Generator](#intelligraphs-synthetic-kg-generator)
+* [IntelliGraphs Verifier](#intelligraphs-verifier)
 * [Datasets](#datasets)
 * [Baseline Implementations](#baseline-implementations)
 * [Reporting Issues](#reporting-issues)
@@ -210,13 +212,19 @@ for batch in test_loader:
     # Perform testing steps with the batch
 ```
 
-## Datasets
+## IntelliGraphs Synthetic KG Generator
 
-### Downloading the Datasets
+TODO
+
+## IntelliGraphs Verifier
+
+TODO
+
+## Downloading the Datasets
 
 The datasets required for this project can be obtained either manually or automatically through IntelliGraphs Python package.
 
-#### Manual Download
+### Manual Download
 
 The datasets are hosted on Zenodo and can be downloaded directly from the following link:
 
@@ -229,7 +237,7 @@ To manually download the datasets:
 3. On the Zenodo page, click the **Download** button or select specific files to download as needed.
 4. Once downloaded, extract the files (if compressed) to a directory of your choice on your local machine.
 
-#### Automatic Download with IntelliGraphs
+### Automatic Download with IntelliGraphs
 
 Alternatively, you can use the `IntelliGraphsDataLoader` class to download and prepare the datasets automatically. This method is convenient if you want to streamline the process and ensure that all required data is correctly organized.
 
@@ -298,23 +306,15 @@ This project includes several baseline implementations that are used for compari
 
 ### Uniform Baseline Model
 
-The uniform baseline model is designed to serve as a simple reference point. It applies a random compression strategy to synthetic and real-world datasets. You can run this baseline using the following commands:
-
-1. **Synthetic Data Compression**
-
-Run the following command to apply the uniform baseline model to synthetic datasets:
+The uniform baseline model is designed to serve as a simple reference point. 
+It applies a random compression strategy to synthetic and real-world datasets. 
+You can run this baseline using the following commands:
 
 ```bash
 python benchmark/experiments/uniform_compression.py
 ```
 
-2. **Wikidata Compression**
-
-To apply the uniform baseline model to the Wikidata datasets, use this command:
-
-```bash
-python benchmark/experiments/random_compression_wikidata.py
-```
+It should complete in about a minute, and GPU acceleration is not necessary for this step.
 
 ### Probabilistic KGE models
 
