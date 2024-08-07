@@ -291,8 +291,6 @@ python benchmark/experiments/uniform_compression.py
 
 It should complete in about a minute, and GPU acceleration is not necessary for this step.
 
-### Probabilistic KGE models
-
 ### Probabilistic KGE Models
 
 We have developed three probabilistic Knowledge Graph Embedding (KGE) models based on [TransE](https://papers.nips.cc/paper/2013/file/1cecc7a77928ca8133fa24680a88d2f9-Paper.pdf), [DistMult](https://arxiv.org/abs/1412.6575), and [ComplEx](https://proceedings.mlr.press/v48/trouillon16.pdf). These models are CUDA-compatible and can take advantage of GPU acceleration for improved performance.
