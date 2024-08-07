@@ -277,8 +277,6 @@ TODO
 
 ## Baseline Models
 
-IntelliGraphs comes with several baseline models.
-
 ### Uniform Baseline Model
 
 The uniform baseline model is designed to serve as a simple reference baseline. 
