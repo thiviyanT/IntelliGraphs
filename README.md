@@ -291,7 +291,24 @@ It should complete in about a minute, and GPU acceleration is not necessary for 
 
 ### Probabilistic KGE models
 
-TO DO
+Create a new conda environment and activate it:
+```bash
+conda create -n intelligraph_baseline python=3.10
+```
+
+```bash
+conda activate intelligraph_baseline
+```
+
+Install intelligraphs 
+`pip install -e .`
+`pip install intelligraphs`
+`conda install -c thiv intelligraphs`
+
+To run the baselines, extra dependencies are required: 
+```bash
+pip install torch pyyaml tqdm wandb numpy scipy pyyaml
+```
 
 ## Reporting Issues
 
