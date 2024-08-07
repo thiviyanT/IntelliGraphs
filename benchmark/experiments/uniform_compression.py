@@ -5,6 +5,22 @@ import torch
 import math
 
 
+def log2comb(n, k):
+    """
+    Sampling edges from a selection of all possible edges without replacement
+
+    Using gammaln helps to avoid overflow when n is very large
+
+    This is functionally equivalent to doing the following operation:
+        bits_p_s_given_e = math.log2( math.comb(n, k)  )
+
+    :param n:
+    :param k:
+    :return:
+    """
+    return (gammaln(n+1) - gammaln(n-k+1) - gammaln(k+1)) / math.log(2)
+
+
 def compute_bits_for_synthetic_data(dataset, verbose=False, include_null_entity=False):
     """ Estimate the compression bits for storing graphs sampled using uniform distribution """
 
@@ -36,9 +52,10 @@ def compute_bits_for_synthetic_data(dataset, verbose=False, include_null_entity=
 
     # Model assumes that self-loops are not allowed and edge independence
     num_possible_edges = ((num_nodes)**2-num_nodes) * num_relations
-    bits_p_s_given_e = math.log2(num_possible_edges) * num_edges
+    bits_p_s_given_e = log2comb(num_possible_edges, num_edges)
 
-    bits_p_e = math.log2(num_entities) * num_nodes
+    # bits_p_e = math.log2(num_entities) * num_nodes
+    bits_p_e = log2comb(num_entities, num_nodes)
     compression_bits = bits_p_s_given_e + bits_p_e
 
     print(f"Dataset: {dataset}")
@@ -90,13 +107,12 @@ def compute_bits_for_wikidata_data(dataset, verbose=False):
         num_edges = graph.size(0)
 
         _bits_p_e += math.log2(max_nodes)  # Explain in the paper that for simplicity we take the maximum nodes from the data (train, val, test)
-        _bits_p_e += math.log2(num_entities) * num_nodes
-        # TODO: Use choose operator
+        _bits_p_e += log2comb(num_entities, num_nodes)
 
         _bits_p_s_given_e += math.log2(max_edges)
         assert num_edges <= max_edges
         num_possible_edges = ((num_nodes)**2-num_nodes) * num_relations
-        _bits_p_s_given_e += math.log2(num_possible_edges) * num_edges  # TODO: Use choose operator - nice to have
+        _bits_p_s_given_e += log2comb(num_possible_edges, num_edges)
 
         _compression_bits = _bits_p_e + _bits_p_s_given_e
 

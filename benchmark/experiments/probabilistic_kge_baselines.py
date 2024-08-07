@@ -1,4 +1,5 @@
-from _context import baselines
+import math
+from _context import models
 from util import d, tic, toc, get_slug, compute_entity_frequency, read_config
 from util.semantic_checker import check_semantics, check_pathgraph, check_academic_graph, check_location_graph, check_movie_graph, check_article_graph, save_model
 import torch.nn.functional as F
@@ -11,7 +12,7 @@ import torch
 import argparse
 
 
-def train(wandb):
+def train(wandb, lmbda=1e-4):
     """ Train baseline models on a dataset """
 
     dev = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -19,8 +20,8 @@ def train(wandb):
 
     config = wandb.config
 
-    train, val, test, (n2i, i2n), (r2i, i2r) = \
-        baselines.load(config["dataset"], padding=config["padding"])
+    train, val, test, (n2i, i2n), (r2i, i2r), (min_edges, max_edges), (min_nodes, max_nodes) = \
+        models.load_data(config["dataset"], padding=config["padding"])
 
     if config["final"]:
         train, test = torch.cat([train, val], dim=0), test
@@ -33,7 +34,7 @@ def train(wandb):
     print(test.size(0), 'test triples')
     print(train.size(0) + test.size(0), 'total triples')
 
-    model = baselines.KGEModel(
+    model = models.KGEModel(
         n=len(i2n), r=len(i2r), embedding=config["emb-size"], biases=config["biases"],
         edropout=config["edropout"], rdropout=config["rdropout"], decoder=config["decoder"],
         reciprocal=config["reciprocal"], init_method=config["init_method"])
@@ -55,148 +56,15 @@ def train(wandb):
     if config["loss"] == 'log-loss':
         weight = config["nweight"] if config["nweight"] else None
     else:
-        weight = torch.tensor([config["nweight"], 1.0], device=get_device()) if config["nweight"] else None
+        weight = torch.tensor([config["nweight"], 1.0], device=d()) if config["nweight"] else None
 
     # Compute entity frequency from the training data
     frq = compute_entity_frequency(train)
 
     for e in range(config["epochs"]):
-        seeni, sumloss = 0, 0.0
-        tforward = tbackward = 0
-        rforward = rbackward = 0
-        tprep = tloss = 0
-        tic()
-
-        for fr in trange(0, train.size(0), config["batch-size"]):
-            batch_loss = 0
-            to = min(train.size(0), fr + config["batch-size"])
-
-            model.train(True)
-
-            opt.zero_grad()
-            positives = train[fr:to].to(get_device())
-
-            # Negative sampling through matrix inversion
-            assert len(positives.size()) == 3
-            bs, _, _ = positives.size()
-
-            _s_pos = list(); _p_pos = list(); _o_pos = list()
-            _s_neg = list(); _p_neg = list(); _o_neg = list()
-
-            for b, subgraph in enumerate(positives):
-
-                if wandb.config["padding"]:
-                    subgraph = subgraph[subgraph[:, 1] != -1]  # Remove padding
-
-                tic()
-                # Map global indices to local indices for entities
-                entities = torch.unique(torch.cat([subgraph[:, 0], subgraph[:, 2]])).tolist()
-                entity_map_ = {e: entities.index(e) for e in entities}
-                s_pos = torch.tensor([entity_map_[i] for i in subgraph[:, 0].tolist()])
-                p_pos = subgraph[:, 1]
-                o_pos = torch.tensor([entity_map_[i] for i in subgraph[:, 2].tolist()])
-
-                num_entities = len(entities)
-                num_relations = len(i2r)
-
-                # construct an adjacency matrix and invert it
-                adj = torch.ones(((num_relations, num_entities, num_entities)), dtype=torch.long, device=get_device())
-                adj[p_pos, s_pos, o_pos] = 0
-                idx = adj.nonzero()
-
-                p_neg, s_neg, o_neg = idx[:, 0], idx[:, 1], idx[:, 2]
-
-                _s_pos.append(s_pos); _p_pos.append(p_pos); _o_pos.append(o_pos)
-                _s_neg.append(s_neg); _p_neg.append(p_neg); _o_neg.append(o_neg)
-
-            s_pos = torch.cat(_s_pos, dim=0)
-            p_pos = torch.cat(_p_pos, dim=0)
-            o_pos = torch.cat(_o_pos, dim=0)
-            s_neg = torch.cat(_s_neg, dim=0)
-            p_neg = torch.cat(_p_neg, dim=0)
-            o_neg = torch.cat(_o_neg, dim=0)
-
-            tprep += toc()
-
-            tic()
-            s_pos = model(s_pos, p_pos, o_pos)
-            s_neg = model(s_neg, p_neg, o_neg)
-            tforward += toc()
-
-            tic()
-            # Compute bits per graph = -log[ p(S|E) ] - log[ p(E) ]
-            # Here we compute the compression bits by taking the negative log-probability of structure and entity
-
-            # Compute -log[ p(S|E) ]
-            lprobs_pos = F.logsigmoid(s_pos)
-            structure_nats_pos = (- lprobs_pos).sum()
-            structure_bits_pos = structure_nats_pos / np.log(2)  # nats to bits conversion
-
-            s_neg *= -1.0
-            lprobs_neg = F.logsigmoid(s_neg)
-            structure_nats_neg = (- lprobs_neg).sum()
-            structure_bits_neg = structure_nats_neg / np.log(2)  # nats to bits conversion
-
-            structure_bits = structure_bits_pos + (weight * structure_bits_neg)
-
-            # # Compute -log[ p(E) ] - Since this is a constant, we can ignore it during training
-            entity_bits = 0
-            # for s, _, o in subgraph.tolist():
-            #     entity_bits += - np.log2(frq[s]) + np.log2(sum(frq.values()))
-            #     entity_bits += - np.log2(frq[o]) + np.log2(sum(frq.values()))
-            loss = structure_bits + entity_bits
-            tloss += toc()
-
-            assert not torch.isnan(loss), 'Loss has become NaN'
-
-            batch_loss += loss
-
-            tic()
-            loss.backward()  # No step yet, we accumulate the gradients over all subgraphs.
-            tbackward += toc()
-
-            wandb.log(
-                {
-                    "batch_train_compression_loss": float(batch_loss.item() / positives.size(0)),
-                    "epoch": e,
-                }
-            )
-            sumloss += float(batch_loss.item())
-
-            # tic()
-            # regloss = None
-            # if config["reg-eweight"] is not None:
-            #     regloss = model.penalty(which='entities', p=config["reg-exp"], rweight=config["reg-eweight"])
-            #
-            # if config["reg-rweight"] is not None:
-            #     regloss = model.penalty(which='relations', p=config["reg-exp"], rweight=config["reg-rweight"])
-            # rforward += toc()
-            #
-            # tic()
-            # if regloss is not None:
-            #     sumloss += float(regloss.item())
-            #     regloss.backward()
-            # rbackward += toc()
-
-            # Now we have accumulated the gradients over all subgraphs, so we can step.
-            opt.step()
-
-        wandb.log(
-            {
-                "epoch_train_compression_loss": sumloss / train.size(0),
-                "epoch": e,
-             }
-        )
-
-        if e == 0:
-            print(f'\n pred: forward {tforward:.4f}s, backward {tbackward:.4f}s')
-            print(f'   reg: forward {rforward:.4f}s, backward {rbackward:.4f}s')
-            print(f'           prep {tprep:.4f}s, loss {tloss:.4f}s')
-            print(f' total: {toc():.4f}')
-            # -- NB: these numbers will not be accurate for GPU runs unless CUDA_LAUNCH_BLOCKING is set to 1
 
         # Evaluate on validation set
-        if ((e+1) % config["eval-int"] == 0) or e == config["epochs"] - 1:
+        if ((e + 1) % config["eval-int"] == 0) or e == config["epochs"] - 1:
             with torch.no_grad():
 
                 model.train(False)
@@ -222,25 +90,28 @@ def train(wandb):
                 for fr in trange(0, testsub.size(0), config["batch-size"]):
 
                     to = min(testsub.size(0), fr + config["batch-size"])
-                    eval_graphs = testsub[fr:to].to(get_device())
+                    eval_graphs = testsub[fr:to].to(d())
 
-                    for b, subgraph in enumerate(eval_graphs):
+                    for b, padded_subgraph in enumerate(eval_graphs):
 
-                        if wandb.config["padding"]:
-                            subgraph = subgraph[subgraph[:, 1] != -1]  # Remove padding
+                        # Filter out rows that are not equal to the padding triple
+                        padding_triple = torch.tensor([-1, -1, -1])
+                        subgraph = padded_subgraph[~torch.all(padded_subgraph == padding_triple, dim=1)]
 
                         # Map global indices to local indices for entities
                         entities = torch.unique(torch.cat([subgraph[:, 0], subgraph[:, 2]])).tolist()
                         entity_map_ = {e: entities.index(e) for e in entities}
+
                         s_pos = torch.tensor([entity_map_[i] for i in subgraph[:, 0].tolist()])
                         p_pos = subgraph[:, 1]
                         o_pos = torch.tensor([entity_map_[i] for i in subgraph[:, 2].tolist()])
 
-                        num_entities = len(entities)
-                        num_relations = len(i2r)
+                        num_entities = len(entities)  # Number of unique entities in the subgraph (local)
+                        num_relations = len(i2r)  # Number of relations in the subgraph (global)
+                        num_edges = subgraph.size(0)
 
                         # construct an adjacency matrix and invert it
-                        adj = torch.ones(((num_relations, num_entities, num_entities)), dtype=torch.long, device=get_device())
+                        adj = torch.ones(((num_relations, num_entities, num_entities)), dtype=torch.long, device=d())
                         adj[p_pos, s_pos, o_pos] = 0
                         idx = adj.nonzero()
 
@@ -252,15 +123,25 @@ def train(wandb):
                         _pos.append(pos)
                         _neg.append(neg)
 
-                        for s, _, o in subgraph.tolist():
-                            entity_bits += - np.log2(frq[s]) + np.log2(sum(frq.values()))
-                            entity_bits += - np.log2(frq[o]) + np.log2(sum(frq.values()))
+                        sum_e = sum(frq.values())
+                        for entity in entities:
+                            # TODO: Ensure we explain why we use relative frequency for prob KGE (i.e. sampling with replacement)
+                            # TODO: Explain why it would hurt syn-types and syn-tipr. For wikidata, the benefits outweigh the outestimation resulted from sampling with replacement.
+                            # TODO: Include Laplace smoothing in the model description for the paper
+                            p_e = (frq[entity] + lmbda) / (sum_e + (lmbda * num_entities))
+                            entity_bits += - math.log2(p_e)
+
+                        # In the sender-receiver framework, one only needs to communicate the number of nodes.
+                        # We assume that the receiver knows the number of relations.
+                        if config["dataset"] in ["wd-articles", "wd-movies"]:
+                            entity_bits += math.log2(max_nodes)
 
                 _pos = torch.cat(_pos, dim=0)
                 _neg = torch.cat(_neg, dim=0)
 
                 # Compute bits per graph = -log[ p(S|E) ] - log[ p(E) ]
                 # We compute the compression bits by taking the negative log-probability of structure and entity
+                # Here we are sampling edges without replacement by nature
 
                 # Compute -log[ p(S|E) ]
                 lprobs_pos = F.logsigmoid(_pos)
@@ -272,19 +153,157 @@ def train(wandb):
                 structure_nats_neg = (- lprobs_neg).sum()
                 structure_bits_neg = structure_nats_neg / np.log(2)  # nats to bits conversion
 
-                structure_bits = structure_bits_pos + (weight * structure_bits_neg)
+                structure_bits = structure_bits_pos + structure_bits_neg
 
-                # Compute -log[ p(E) ]
-                valid_compression_bits = (structure_bits + entity_bits) / testsub.size(0)
+                entity_bits = entity_bits / testsub.size(0)
+                structure_bits = structure_bits / testsub.size(0)
+                structure_bits = structure_bits.item()  # Convert torch tensor to float
+
+                compression_bits = entity_bits + structure_bits
 
                 wandb.log({
-                    "valid_compression_bits": valid_compression_bits.item(),
-                    "valid_structure_bits": structure_bits.item(),
+                    "valid_compression_bits": compression_bits,
+                    "valid_structure_bits": structure_bits,
                     "valid_entity_bits": entity_bits,
                     "epoch": e,
                 })
 
-                print("Evaluated on after epoch: ", e, "Compression bits: ", valid_compression_bits.item() / testsub.size(0))
+                print("Evaluated on after epoch: ", e,
+                      "Entity bits: ", entity_bits,
+                      "Structure bits: ", structure_bits,
+                      "Compression bits: ", compression_bits)
+
+        # Training loop
+        seeni, sumloss = 0, 0.0
+        tforward = tbackward = 0
+        rforward = rbackward = 0
+        tprep = tloss = 0
+        num_batches = 0
+        tic()
+
+        for fr in trange(0, train.size(0), config["batch-size"]):
+            num_batches += 1
+            to = min(train.size(0), fr + config["batch-size"])
+
+            model.train(True)
+
+            opt.zero_grad()
+            positives = train[fr:to].to(d())
+
+            # Full-batch negative edges
+            assert len(positives.size()) == 3
+            bs, _, _ = positives.size()
+
+            _s_pos = list(); _p_pos = list(); _o_pos = list()
+            _s_neg = list(); _p_neg = list(); _o_neg = list()
+
+            for b, padded_subgraph in enumerate(positives):
+
+                # Filter out rows that are not equal to the padding triple
+                padding_triple = torch.tensor([-1, -1, -1])
+                subgraph = padded_subgraph[~torch.all(padded_subgraph == padding_triple, dim=1)]
+
+                tic()
+
+                # Map global indices to local indices for entities
+                entities = torch.unique(torch.cat([subgraph[:, 0], subgraph[:, 2]])).tolist()
+                entity_map_ = {e: entities.index(e) for e in entities}
+
+                s_pos = torch.tensor([entity_map_[i] for i in subgraph[:, 0].tolist()])
+                p_pos = subgraph[:, 1]
+                o_pos = torch.tensor([entity_map_[i] for i in subgraph[:, 2].tolist()])
+
+                num_entities = len(entities)  # Number of unique entities in the subgraph (local)
+                num_relations = len(i2r)  # Number of relations in the subgraph (global)
+
+                # construct an adjacency matrix and invert it
+                adj = torch.ones(((num_relations, num_entities, num_entities)), dtype=torch.long, device=d())
+                adj[p_pos, s_pos, o_pos] = 0
+                idx = adj.nonzero()
+
+                p_neg, s_neg, o_neg = idx[:, 0], idx[:, 1], idx[:, 2]
+
+                _s_pos.append(s_pos); _p_pos.append(p_pos); _o_pos.append(o_pos)
+                _s_neg.append(s_neg); _p_neg.append(p_neg); _o_neg.append(o_neg)
+
+            s_pos = torch.cat(_s_pos, dim=0)
+            p_pos = torch.cat(_p_pos, dim=0)
+            o_pos = torch.cat(_o_pos, dim=0)
+            s_neg = torch.cat(_s_neg, dim=0)
+            p_neg = torch.cat(_p_neg, dim=0)
+            o_neg = torch.cat(_o_neg, dim=0)
+
+            tprep += toc()
+
+            tic()
+            pos_scores = model(s_pos, p_pos, o_pos)
+            neg_scores = model(s_neg, p_neg, o_neg)
+            tforward += toc()
+
+            tic()
+
+            # Compute bits per graph = -log[ p(S|E) ] - log[ p(E) ]
+            # Here we compute the compression bits by taking the negative log-probability of structure and entity
+
+            # Compute -log[ p(S|E) ]
+            lprobs_pos = F.logsigmoid(pos_scores)
+            structure_nats_pos = (- lprobs_pos).sum()
+            structure_bits_pos = structure_nats_pos / np.log(2)  # nats to bits conversion
+
+            lprobs_neg = F.logsigmoid(-1.0 * neg_scores)
+            structure_nats_neg = (- lprobs_neg).sum()
+            structure_bits_neg = structure_nats_neg / np.log(2)  # nats to bits conversion
+
+            # KGE models are training using compression as a learning objective
+            # KGE models are required to learn how to reconstruct the structures
+            # KGE models are not required to learn how to select entities since they choose entities based on entity frequencies
+            loss = structure_bits_pos + (weight * structure_bits_neg)
+            loss = loss.mean()
+
+            tloss += toc()
+            assert not torch.isnan(loss), 'Loss has become NaN'
+
+            wandb.log(
+                {
+                    "batch_train_compression_loss": loss,
+                    "epoch": e,
+                }
+            )
+
+            tic()
+            # Initialize the combined loss with the main loss
+            combined_loss = loss
+
+            if config["reg-eweight"] is not None:
+                e_regloss = model.penalty(which='entities', p=config["reg-exp"], rweight=config["reg-eweight"])
+                combined_loss += e_regloss  # Add entity regularization loss to the combined loss
+
+            if config["reg-rweight"] is not None:
+                r_regloss = model.penalty(which='relations', p=config["reg-exp"], rweight=config["reg-rweight"])
+                combined_loss += r_regloss  # Add relation regularization loss to the combined loss
+            rforward += toc()
+
+            # Backward pass for the combined loss
+            tic()
+            combined_loss.backward()  # Compute gradients for the combined loss
+            rbackward += toc()
+
+            # Now we have accumulated the gradients over all subgraphs, so we can step.
+            opt.step()
+
+        wandb.log(
+            {
+                "epoch_train_compression_loss": sumloss / num_batches,
+                "epoch": e,
+             }
+        )
+
+        if e == 0:
+            print(f'\n pred: forward {tforward:.4f}s, backward {tbackward:.4f}s')
+            print(f'   reg: forward {rforward:.4f}s, backward {rbackward:.4f}s')
+            print(f'           prep {tprep:.4f}s, loss {tloss:.4f}s')
+            print(f' total: {toc():.4f}')
+            # -- NB: these numbers will not be accurate for GPU runs unless CUDA_LAUNCH_BLOCKING is set to 1
 
     print('Training finished.')
 
@@ -357,7 +376,7 @@ def sample_entities_structure(frq, test, model, training_data, i2n, i2r, config)
     for fr in trange(0, testsub.size(0), config["batch-size"]):
 
         to = min(testsub.size(0), fr + config["batch-size"])
-        eval_graphs = testsub[fr:to].to(get_device())
+        eval_graphs = testsub[fr:to].to(d())
 
         for b, _ in enumerate(eval_graphs):
 
@@ -463,7 +482,7 @@ def sample_structure(frq, test, model, training_data, i2n, i2r, config):
     for fr in trange(0, testsub.size(0), config["batch-size"]):
 
         to = min(testsub.size(0), fr + config["batch-size"])
-        eval_graphs = testsub[fr:to].to(get_device())
+        eval_graphs = testsub[fr:to].to(d())
 
         for b, subgraph in enumerate(eval_graphs):
 
@@ -554,7 +573,7 @@ if __name__ == "__main__":
         "learn-rate": 0.0001,  # Learning rate
         "reg-exp": 2,  # Regularization exponent
         "reg-eweight": None,  # Regularization weight for entity embeddings
-        "reg-rweight": None,  # Regularization weight for relation embeddings
+        "reg-rweight": 0.1,  # Regularization weight for relation embeddings
         "final": True,  # Whether to use final regularization
         "loss": 'log-loss',  # Loss function to use
         "negative-sampling-strategy": 'matrix inversion',  # Negative sampling strategy
@@ -567,8 +586,13 @@ if __name__ == "__main__":
         "padding": True,  # Whether to use padding
     }
 
+    # Initialize wandb
     wandb.init(mode="disabled")
 
+    # Set default hyperparameters in wandb.config
+    wandb.config.update(hyperparameter_defaults, allow_val_change=True)
+
+    # Override with values from the config file if provided
     if args.config is not None:
         my_yaml_file = read_config(args.config)
         wandb.config.update(my_yaml_file, allow_val_change=True)
