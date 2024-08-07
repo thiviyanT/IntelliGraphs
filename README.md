@@ -310,6 +310,41 @@ To run the baselines, extra dependencies are required:
 pip install torch pyyaml tqdm wandb numpy scipy pyyaml
 ```
 
+###  syn-paths
+```bash
+python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/syn-paths-transe.yaml
+python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/syn-paths-complex.yaml
+python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/syn-paths-distmult.yaml
+```
+
+###  syn-tipr
+```bash
+python experiments/train_baseline.py  --config benchmark/configs/syn-tipr-transe.yaml
+python experiments/train_baseline.py  --config benchmark/configs/syn-tipr-complex.yaml
+python experiments/train_baseline.py  --config benchmark/configs/syn-tipr-distmult.yaml
+```
+
+###  syn-types
+```bash
+python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/syn-types-transe.yaml
+python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/syn-types-complex.yaml
+python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/syn-types-distmult.yaml
+```
+
+###  wd-articles
+```bash
+python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/wd-articles-transe.yaml
+python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/wd-articles-complex.yaml
+python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/wd-articles-distmult.yaml
+```
+
+###  wd-movies
+```bash
+python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/wd-movies-transe.yaml
+python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/wd-movies-complex.yaml
+python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/wd-movies-distmult.yaml
+```
+
 ## Reporting Issues
 
 If you encounter any bugs or have any feature requests, please file an issue [here](https://github.com/thiviyanT/IntelliGraphs/issues).
