@@ -39,14 +39,16 @@ TODO:
 * [IntelliGraphs Data Loader](#intelligraphs-data-loader)
 * [IntelliGraphs KG Generator](#intelligraphs-synthetic-kg-generator)
 * [IntelliGraphs Verifier](#intelligraphs-verifier)
-* [Baseline Implementations](#baseline-implementations)
+* [Baseline Models](#baseline-models)
 * [Reporting Issues](#reporting-issues)
 * [License Information](#license-information)
 
 
 ## Installation
 
-IntelliGraphs can be installed using either `pip` or `conda`, depending on your preferred package management system.
+IntelliGraphs can be installed using either `pip` or `conda`, depending on your preferred package management system. 
+The IntelliGraphs python package requires a number of dependencies which will also be installed during the 
+installation process. 
 
 ### Installing with pip
 
@@ -273,14 +275,14 @@ TODO
 
 TODO
 
-## Baseline Implementations
+## Baseline Models
 
-This project includes several baseline implementations that are used for comparison with advanced models.
+IntelliGraphs comes with several baseline models.
 
 ### Uniform Baseline Model
 
-The uniform baseline model is designed to serve as a simple reference point. 
-It applies a random compression strategy to synthetic and real-world datasets. 
+The uniform baseline model is designed to serve as a simple reference baseline. 
+It applies a random compression strategy for the synthetic and real-world datasets. 
 You can run this baseline using the following commands:
 
 ```bash
@@ -291,54 +293,85 @@ It should complete in about a minute, and GPU acceleration is not necessary for 
 
 ### Probabilistic KGE models
 
-Create a new conda environment and activate it:
-```bash
-conda create -n intelligraph_baseline python=3.10
-```
+### Probabilistic KGE Models
 
-```bash
-conda activate intelligraph_baseline
-```
+We have developed three probabilistic Knowledge Graph Embedding (KGE) models based on [TransE](https://papers.nips.cc/paper/2013/file/1cecc7a77928ca8133fa24680a88d2f9-Paper.pdf), [DistMult](https://arxiv.org/abs/1412.6575), and [ComplEx](https://proceedings.mlr.press/v48/trouillon16.pdf). These models are CUDA-compatible and can take advantage of GPU acceleration for improved performance.
 
-Install intelligraphs 
-`pip install -e .`
-`pip install intelligraphs`
-`conda install -c thiv intelligraphs`
 
-To run the baselines, extra dependencies are required: 
-```bash
-pip install torch pyyaml tqdm wandb numpy scipy pyyaml
-```
+#### 1. Create and activate a new conda environment:
+- First, create a dedicated environment named `intelligraph_baseline` with Python 3.10:
+    ```bash
+    conda create -n intelligraph_baseline python=3.10
+    ```
+- Activate the newly created environment:
+    ```bash
+    conda activate intelligraph_baseline
+    ```
 
-###  syn-paths
+#### 2. Install the `intelligraphs` package:
+- To install the `intelligraphs` package, choose one of the following methods:
+    ```bash
+    pip install -e .
+    ```
+    ```bash
+    pip install intelligraphs
+    ```
+    ```bash
+    conda install -c thiv intelligraphs
+    ```
+
+
+#### 3. Install additional dependencies for running baselines:
+- The baseline experiments require some extra Python packages. These packages include popular libraries such as PyTorch (for machine learning), PyYAML (for configuration file management), tqdm (for progress bars), Weights & Biases (for experiment tracking), NumPy, and SciPy. Install them using:
+    ```bash
+    pip install torch pyyaml tqdm wandb numpy scipy
+    ```
+
+### 4. Set up Weights & Biases (wandb) for experiment tracking:
+- We use [Weights & Biases](https://wandb.ai/site) (wandb) to track experiments, log metrics, and visualize results.
+- To start using wandb, create an account on their platform and log in from the command line:
+    ```bash
+    wandb login
+    ```
+- If you prefer not to use wandb for tracking, you can disable it by setting wandb to offline mode:
+    ```bash
+    wandb offline
+    ```
+- When set to offline, wandb will not sync any data to the cloud, but you can still run experiments locally.
+
+### Running Experiments
+
+The following commands allow you to run baseline experiments on various synthetic and real-world datasets. Each experiment is configured through a YAML file, which specifies the model and dataset parameters.
+
+#### For the `syn-paths` dataset:
 ```bash
 python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/syn-paths-transe.yaml
 python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/syn-paths-complex.yaml
 python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/syn-paths-distmult.yaml
 ```
 
-###  syn-tipr
+#### For the `syn-tipr` dataset:
 ```bash
 python experiments/train_baseline.py  --config benchmark/configs/syn-tipr-transe.yaml
 python experiments/train_baseline.py  --config benchmark/configs/syn-tipr-complex.yaml
 python experiments/train_baseline.py  --config benchmark/configs/syn-tipr-distmult.yaml
 ```
 
-###  syn-types
+#### For the `syn-types` dataset:
 ```bash
 python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/syn-types-transe.yaml
 python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/syn-types-complex.yaml
 python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/syn-types-distmult.yaml
 ```
 
-###  wd-articles
+#### For the `wd-articles` dataset:
 ```bash
 python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/wd-articles-transe.yaml
 python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/wd-articles-complex.yaml
 python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/wd-articles-distmult.yaml
 ```
 
-###  wd-movies
+#### For the `wd-movies` dataset:
 ```bash
 python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/wd-movies-transe.yaml
 python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/wd-movies-complex.yaml
@@ -365,6 +398,8 @@ If you use IntelliGraphs in your research, please cite the following paper:
 ## License
 
 IntelliGraphs is licensed under CC-BY License. See [LICENSE](LICENSE) for more information.
+
+---
 
 ## Unit tests
 
