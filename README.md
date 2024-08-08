@@ -35,6 +35,7 @@ TODO:
 ## Table of Contents
 
 * [Installation](#installation)
+* [Datasets](#datasets)
 * [Downloading IntelliGraphs datasets](#downloading-the-datasets)
 * [IntelliGraphs Data Loader](#intelligraphs-data-loader)
 * [IntelliGraphs KG Generator](#intelligraphs-synthetic-kg-generator)
@@ -176,6 +177,14 @@ If you experience any problems on Windows, please [raise an issue on the project
 
 [//]: # (```)
 
+## Datasets
+
+TODO 
+
+### Subgraph inference
+
+TODO
+
 ## Downloading the Datasets
 
 The datasets required for this project can be obtained either manually or automatically through IntelliGraphs Python package.
@@ -204,7 +213,7 @@ To download datasets automatically:
 2. Use the following code snippet to download and load the dataset:
 
     ```python
-    from your_project import IntelliGraphsDataLoader  # Replace with the actual import path
+    from intelligraphs import IntelliGraphsDataLoader  
 
     # Initialize the data loader with the desired dataset name
     dataset_name = 'syn-paths'  # Example dataset name, replace with the dataset you want to download

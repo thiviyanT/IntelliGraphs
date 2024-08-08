@@ -1,6 +1,6 @@
 import math
 from _context import models
-from util import d, tic, toc, get_slug, compute_entity_frequency, read_config
+from util import get_device, tic, toc, compute_entity_frequency, read_config
 from util.semantic_checker import check_semantics, check_pathgraph, check_academic_graph, check_location_graph, check_movie_graph, check_article_graph, save_model
 import torch.nn.functional as F
 from tqdm import trange
@@ -56,7 +56,7 @@ def train(wandb, lmbda=1e-4):
     if config["loss"] == 'log-loss':
         weight = config["nweight"] if config["nweight"] else None
     else:
-        weight = torch.tensor([config["nweight"], 1.0], device=d()) if config["nweight"] else None
+        weight = torch.tensor([config["nweight"], 1.0], device=get_device()) if config["nweight"] else None
 
     # Compute entity frequency from the training data
     frq = compute_entity_frequency(train)
@@ -90,7 +90,7 @@ def train(wandb, lmbda=1e-4):
                 for fr in trange(0, testsub.size(0), config["batch-size"]):
 
                     to = min(testsub.size(0), fr + config["batch-size"])
-                    eval_graphs = testsub[fr:to].to(d())
+                    eval_graphs = testsub[fr:to].to(get_device())
 
                     for b, padded_subgraph in enumerate(eval_graphs):
 
@@ -111,7 +111,7 @@ def train(wandb, lmbda=1e-4):
                         num_edges = subgraph.size(0)
 
                         # construct an adjacency matrix and invert it
-                        adj = torch.ones(((num_relations, num_entities, num_entities)), dtype=torch.long, device=d())
+                        adj = torch.ones(((num_relations, num_entities, num_entities)), dtype=torch.long, device=get_device())
                         adj[p_pos, s_pos, o_pos] = 0
                         idx = adj.nonzero()
 
@@ -188,7 +188,7 @@ def train(wandb, lmbda=1e-4):
             model.train(True)
 
             opt.zero_grad()
-            positives = train[fr:to].to(d())
+            positives = train[fr:to].to(get_device())
 
             # Full-batch negative edges
             assert len(positives.size()) == 3
@@ -200,7 +200,7 @@ def train(wandb, lmbda=1e-4):
             for b, padded_subgraph in enumerate(positives):
 
                 # Filter out rows that are not equal to the padding triple
-                padding_triple = torch.tensor([-1, -1, -1])
+                padding_triple = torch.tensor([-1, -1, -1], device=get_device())
                 subgraph = padded_subgraph[~torch.all(padded_subgraph == padding_triple, dim=1)]
 
                 tic()
@@ -217,7 +217,7 @@ def train(wandb, lmbda=1e-4):
                 num_relations = len(i2r)  # Number of relations in the subgraph (global)
 
                 # construct an adjacency matrix and invert it
-                adj = torch.ones(((num_relations, num_entities, num_entities)), dtype=torch.long, device=d())
+                adj = torch.ones(((num_relations, num_entities, num_entities)), dtype=torch.long, device=get_device())
                 adj[p_pos, s_pos, o_pos] = 0
                 idx = adj.nonzero()
 
@@ -302,7 +302,7 @@ def train(wandb, lmbda=1e-4):
             print(f'\n pred: forward {tforward:.4f}s, backward {tbackward:.4f}s')
             print(f'   reg: forward {rforward:.4f}s, backward {rbackward:.4f}s')
             print(f'           prep {tprep:.4f}s, loss {tloss:.4f}s')
-            print(f' total: {toc():.4f}')
+            print(f' total: {toc():.4f}s')
             # -- NB: these numbers will not be accurate for GPU runs unless CUDA_LAUNCH_BLOCKING is set to 1
 
     print('Training finished.')
@@ -376,7 +376,7 @@ def sample_entities_structure(frq, test, model, training_data, i2n, i2r, config)
     for fr in trange(0, testsub.size(0), config["batch-size"]):
 
         to = min(testsub.size(0), fr + config["batch-size"])
-        eval_graphs = testsub[fr:to].to(d())
+        eval_graphs = testsub[fr:to].to(get_device())
 
         for b, _ in enumerate(eval_graphs):
 
@@ -482,7 +482,7 @@ def sample_structure(frq, test, model, training_data, i2n, i2r, config):
     for fr in trange(0, testsub.size(0), config["batch-size"]):
 
         to = min(testsub.size(0), fr + config["batch-size"])
-        eval_graphs = testsub[fr:to].to(d())
+        eval_graphs = testsub[fr:to].to(get_device())
 
         for b, subgraph in enumerate(eval_graphs):
 
@@ -587,7 +587,7 @@ if __name__ == "__main__":
     }
 
     # Initialize wandb
-    wandb.init(mode="disabled")
+    wandb.init()
 
     # Set default hyperparameters in wandb.config
     wandb.config.update(hyperparameter_defaults, allow_val_change=True)
