@@ -65,57 +65,6 @@ class SyntheticGraphGenerator:
         assert self.splits is not None, "Data splits have not been generated. Call split_data() first."
         return self.splits
 
-    def generate_graphs(self):
-        """
-        Generate random triples for the specified number of graphs.
-        """
-        self.graphs = [self.generate_random_triples() for _ in tqdm(range(self.num_graphs), desc="Generating graphs")]
-
-    def generate_random_triples(self) -> List[Tuple[str, str, str]]:
-        """
-        Generate random triples to create a synthetic Knowledge Graph.
-
-        Returns:
-            List[Tuple[str, str, str]]: A list of random triples.
-        """
-        subjects = ["Alice", "Bob", "Charlie", "David", "Eve"]
-        predicates = ["likes", "dislikes", "knows", "loves", "hates"]
-        objects = ["pizza", "ice cream", "sushi", "football", "music"]
-
-        triples = []
-        num_triples = self.num_triples
-
-        if self.var_length:
-            num_triples = random.randint(self.min_triples, self.max_triples)
-
-        for _ in range(num_triples):
-            subject = random.choice(subjects)
-            predicate = random.choice(predicates)
-            obj = random.choice(objects)
-            triples.append((subject, predicate, obj))
-
-        return triples
-
-    def to_natural_language(self) -> List[List[str]]:
-        """
-        Generate a list of natural language sentences representing the triples.
-
-        Returns:
-            List[List[str]]: A list of lists of natural language sentences, one list for each graph.
-        """
-        assert self.graphs is not None, "Graphs have not been generated. Call generate_graphs() first."
-        all_sentences = []
-
-        for graph in tqdm(self.graphs, desc="Converting to natural language"):
-            sentences = []
-            for triple in graph:
-                subject, predicate, obj = triple
-                sentence = f"{subject} {predicate} {obj}."
-                sentences.append(sentence)
-            all_sentences.append(sentences)
-
-        return all_sentences
-
     @staticmethod
     def check_transductive_features(data: Dict[str, List[List[Tuple[str, str, str]]]]) -> Dict[
         str, List[List[Tuple[str, str, str]]]]:
@@ -287,58 +236,5 @@ class SyntheticGraphGenerator:
         src = Source(dot_format)
         src.render(format='png', filename='graph', cleanup=True, view=True)
 
-    def parse_fol_rules(self, file_path: str) -> List[str]:
-        """
-        Read FOL rules from a text file.
 
-        Args:
-            file_path (str): The path to the file containing the FOL rules.
-
-        Returns:
-            List[str]: A list of FOL rules.
-        """
-        # Define the grammar for parsing first-order logic rules
-        identifier = Word(alphas)
-        predicate = identifier
-        argument = identifier
-
-        predicate_expression = Group(predicate + Suppress("(") + delimitedList(argument) + Suppress(")"))
-        quantifier = Group(Word("∀∃")("quantifier") + identifier("variable"))
-        implication = Suppress("→")
-        expression = Group(
-            Optional(quantifier) + predicate_expression("left") + Optional(implication + predicate_expression("right")))
-
-        def read_rules_from_file(filename):
-            with open(filename, "r") as file:
-                content = file.readlines()
-            return [rule.strip() for rule in content]
-
-        filename = file_path
-        rules = read_rules_from_file(filename)
-        return rules
-
-    @staticmethod
-    def download_dataset(dataset_name: str, output_filepath: str) -> None:
-        """
-        Download a dataset from Zenodo.
-
-        Args:
-            dataset_name (str): The name of the dataset to be downloaded.
-            output_filepath (str): The output filepath to save the downloaded dataset.
-        """
-        # Define the Zenodo base URL and construct the dataset URL
-        zenodo_base_url = "https://zenodo.org/record/"
-        dataset_url = f"{zenodo_base_url}{dataset_name}/files/{dataset_name}.zip"
-
-        # Download the dataset
-        response = requests.get(dataset_url)
-        response.raise_for_status()
-
-        # Save the dataset to the output filepath
-        output_path = Path(output_filepath)
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(output_path, "wb") as output_file:
-            output_file.write(response.content)
-
-        print(f"Dataset '{dataset_name}' downloaded successfully to {output_filepath}")
 
