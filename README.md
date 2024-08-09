@@ -212,16 +212,16 @@ To download datasets automatically:
 
 2. Use the following code snippet to download and load the dataset:
 
-    ```python
-    from intelligraphs import IntelliGraphsDataLoader  
+```python
+from intelligraphs import IntelliGraphsDataLoader  
 
-    # Initialize the data loader with the desired dataset name
-    dataset_name = 'syn-paths'  # Example dataset name, replace with the dataset you want to download
-    data_loader = IntelliGraphsDataLoader(dataset_name)
+# Initialize the data loader with the desired dataset name
+dataset_name = 'syn-paths'  # Example dataset name, replace with the dataset you want to download
+data_loader = IntelliGraphsDataLoader(dataset_name)
 
-    # Load data into PyTorch DataLoader objects
-    train_loader, valid_loader, test_loader = data_loader.load_torch(batch_size=32)
-    ```
+# Load data into PyTorch DataLoader objects
+train_loader, valid_loader, test_loader = data_loader.load_torch(batch_size=32)
+```
 
 3. The dataset will be automatically downloaded and extracted to the `.data` directory if it does not already exist.
 
@@ -229,13 +229,14 @@ To download datasets automatically:
 
 5. If you prefer to download the dataset only (without loading into PyTorch), simply instantiate the `IntelliGraphsDataLoader` class and it will handle the download and extraction automatically:
 
-    ```python
-    from your_project import IntelliGraphsDataLoader  # Replace with the actual import path
+```python
+from intelligraphs import IntelliGraphsDataLoader  # Replace with the actual import path
 
-    # Initialize the data loader to download the dataset
-    dataset_name = 'syn-paths'  # Example dataset name, replace with the dataset you want to download
-    data_loader = IntelliGraphsDataLoader(dataset_name)
-    ```
+# Initialize the data loader to download the dataset
+dataset_name = 'syn-paths'  # Example dataset name, replace with the dataset you want to download
+data_loader = IntelliGraphsDataLoader(dataset_name)
+```
+
 The dataset will be saved in the `.data` directory by default.
 
 ## IntelliGraphs Data Loader
@@ -278,7 +279,56 @@ for batch in test_loader:
 
 ## IntelliGraphs Synthetic KG Generator
 
-TODO
+### `SyntheticPathDatasetGenerator`
+
+This generator creates path graphs where each node represents a city in the Netherlands and each edge represents a mode of transport (`cycle_to`, `drive_to`, `train_to`).
+
+- **Entities:** Dutch cities
+- **Relations:** Modes of transport between cities
+- **Use case:** Pathfinding, graph traversal algorithms
+
+### `SynTIPRGenerator`
+
+This generator creates graphs representing academic roles, timelines, and people. The nodes represent individuals, roles, and years, and the edges represent relationships like `has_name`, `has_role`, `start_year`, and `end_year`.
+
+- **Entities:** Names, roles, years
+- **Relations:** Relationships between academic roles and timeframes
+- **Use case:** Temporal relationship modeling, inductive learning
+
+### `SynTypesGenerator`
+
+This generator creates graphs where nodes represent countries, languages, and cities, and edges represent relationships like `spoken_in`, `part_of`, and `same_as`.
+
+- **Entities:** Countries, languages, cities
+- **Relations:** Geographical and linguistic relationships
+- **Use case:** Typing and categorization, geographical modeling
+
+### Customization
+
+Each generator class inherits from `BaseSyntheticDatasetGenerator` and can be customized by overriding methods or adjusting parameters. The base class provides utility methods for splitting datasets, checking for unique graphs, and visualizing graphs.
+
+#### Extending Functionality
+
+To create a new dataset generator, simply create a new class that inherits from `BaseSyntheticDatasetGenerator` and implement the `sample_synthetic_data` method to define your dataset's logic.
+
+```python
+class MyCustomDatasetGenerator(BaseSyntheticDatasetGenerator):
+    def sample_synthetic_data(self, num_graphs):
+        # Implement your custom logic here
+        pass
+```
+
+### Data Generation
+
+You can generate synthetic datasets by running the corresponding script for 
+each generator. Each generator allows customization of dataset size, random 
+seed, and other parameters.
+
+```bash
+python intelligraphs/generator/synthetic/synpaths_generator.py --train_size 60000 --val_size 20000 --test_size 20000 --num_edges 3 --random_seed 42 --dataset_name "syn-paths"
+python intelligraphs/generator/synthetic/syntypes_generator.py  --train_size 60000 --val_size 20000 --test_size 20000 --num_edges 3 --random_seed 42 --dataset_name "syn-types"
+python intelligraphs/generator/synthetic/syntipr_generator.py --train_size 50000 --val_size 10000 --test_size 10000 --num_edges 3 --random_seed 42 --dataset_name "syn-tipr"
+```
 
 ## IntelliGraphs Verifier
 
