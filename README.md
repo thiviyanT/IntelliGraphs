@@ -155,7 +155,6 @@ The `IntelliGraphsDataLoader` class is a utility for loading IntelliGraphs datas
 ### Features and Benefits
 * **PyTorch Integration**: Seamless integration with PyTorch for graph-based machine learning tasks.
 * **Configuration Options**: Customizable options for batch size, padding, and shuffling.
-* **Reproducibility**: Facilitates documentation and reproduction of experiments for improved research integrity.
 * **Data Preprocessing**: Simplifies dataset preprocessing with automated download, extraction, and conversion.
 
 ### Usage
