@@ -10,6 +10,7 @@ setup(
         'graphviz',
         'requests',
         'torch',
+        'seaborn',
     ],
     author="Thiviyan Thanapalasingam",
     author_email="thiviyan.t@gmail.com",

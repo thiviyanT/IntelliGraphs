@@ -8,7 +8,7 @@ countries = {
     'Switzerland',
     'Norway',
     'Iceland',
-    'Sweden'
+    'Sweden',
 }
 
 languages = {
@@ -21,7 +21,7 @@ languages = {
     'Norwegian',
     'Greek',
     'Dutch',
-    'English'
+    'English',
 }
 
 cities = {
@@ -34,5 +34,5 @@ cities = {
     'Paris',
     'Madrid',
     'Budapest',
-    'Copenhagen'
+    'Copenhagen',
 }

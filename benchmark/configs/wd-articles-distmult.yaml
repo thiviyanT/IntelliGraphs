@@ -1,5 +1,5 @@
 dataset: wd-articles
-batch-size: 32
+batch-size: 256
 emb-size: 65
 learn-rate: 0.03833121378755901
 decoder: distmult

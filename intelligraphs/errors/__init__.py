@@ -1,0 +1,1 @@
+from intelligraphs.errors.custom_error import DataError

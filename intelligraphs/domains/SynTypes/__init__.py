@@ -1,1 +1,1 @@
-from .relations import relations
+from intelligraphs.domains.SynTypes.relations import relations

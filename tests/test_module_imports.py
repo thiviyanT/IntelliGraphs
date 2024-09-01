@@ -1,6 +1,9 @@
 import pytest
 
 def test_import_intelligraphs():
+    """
+    Test importing the 'intelligraphs' package and check for the '__version__' attribute.
+    """
     try:
         import intelligraphs
         assert hasattr(intelligraphs, '__version__'), "intelligraphs does not have a __version__ attribute."
@@ -10,6 +13,9 @@ def test_import_intelligraphs():
 
 
 def test_import_baseline_models():
+    """
+    Test importing baseline models from the 'intelligraphs.baselines' module.
+    """
     models_to_import = [
         "uniform_baseline_model",
         "probabilistic_kge_model"
@@ -25,6 +31,9 @@ def test_import_baseline_models():
 
 
 def test_import_data_generators():
+    """
+    Test importing data generators from the 'intelligraphs.generators.synthetic' module.
+    """
     generator_to_import = {
         "intelligraphs.generators.synthetic": ["SynPathsGenerator", "SynTIPRGenerator", "SynTypesGenerator"],
         # "intelligraphs.generators.wikidata": ["WDMovies", "WDArticles"]
@@ -40,6 +49,9 @@ def test_import_data_generators():
 
 
 def test_import_verifiers():
+    """
+    Test importing verifiers from the 'intelligraphs.verifier' and related modules.
+    """
     verifiers_to_import = {
         "intelligraphs.verifier": ["ConstraintVerifier"],
         "intelligraphs.verifier.synthetic": ["SynPathsVerifier", "SynTypesVerifier", "SynTIPRVerifier"],
@@ -54,7 +66,11 @@ def test_import_verifiers():
             except (ImportError, AttributeError):
                 pytest.fail(f"Failed to import '{class_name}' from {module_name}.")
 
+
 def test_import_data_loaders():
+    """
+    Test importing the 'IntelliGraphsDataLoader' from 'intelligraphs.data_loaders'.
+    """
     try:
         from intelligraphs.data_loaders import IntelliGraphsDataLoader
     except ImportError:
@@ -62,6 +78,9 @@ def test_import_data_loaders():
 
 
 def test_import_evaluators():
+    """
+    Test importing evaluator functions from the 'intelligraphs.evaluators' module.
+    """
     evaluators_to_import = [
         "check_semantics",
         "is_graph_empty",
@@ -80,12 +99,20 @@ def test_import_evaluators():
 
 
 def test_import_domains():
+    """
+    Test importing classes and attributes from various domain modules within 'intelligraphs.domains'.
+    """
     imports_to_test = {
-        "intelligraphs.domains.synthetic.SynPaths": ["*"],
-        "intelligraphs.domains.synthetic.SynTIPR": ["names", "roles"],
-        "intelligraphs.domains.synthetic.SynTypes": ["*"],
-        "intelligraphs.domains.wikidata.WDArticles": ["*"],
-        "intelligraphs.domains.wikidata.WDMovies": ["actors", "directors", "genres"]
+        "intelligraphs.domains.SynPaths.entities": ["dutch_cities"],
+        "intelligraphs.domains.SynPaths": ["relations"],
+        "intelligraphs.domains.SynTIPR.entities": ["names", "roles", "years"],
+        "intelligraphs.domains.SynTIPR": ["relations"],
+        "intelligraphs.domains.SynTypes.entities": ["cities", "countries", "languages"],
+        "intelligraphs.domains.SynTypes": ["relations"],
+        "intelligraphs.domains.WDArticles.entities": ["author_positions", "authors", "papers", "ordinals", "subjects"],
+        "intelligraphs.domains.WDArticles": ["relations"],
+        "intelligraphs.domains.WDMovies.entities": ["actors", "directors", "genres"],
+        "intelligraphs.domains.WDMovies": ["relations"],
     }
 
     for module_name, attributes in imports_to_test.items():

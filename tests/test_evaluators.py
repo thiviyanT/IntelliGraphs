@@ -1,5 +1,4 @@
 import pytest
-from typing import List, Tuple, Dict
 from intelligraphs.evaluators import (
     check_semantics, is_graph_empty, is_graph_in_training_data, validate_graph, compile_results
 )

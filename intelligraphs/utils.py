@@ -61,20 +61,20 @@ def create_mapping(train_file, val_file, test_file):
         rels.add(triple[1])
         nodes.add(triple[2])
 
-    i2n, i2r = list(nodes), list(rels)
-    n2i, r2i = {n: i for i, n in enumerate(nodes)}, {r: i for i, r in enumerate(rels)}
+    i2e, i2r = list(nodes), list(rels)
+    e2i, r2i = {n: i for i, n in enumerate(nodes)}, {r: i for i, r in enumerate(rels)}
 
     max_graph_len = max([len(x) for x in train + val + test])
-    return (n2i, i2n), (r2i, i2r), max_graph_len
+    return (e2i, i2e), (r2i, i2r), max_graph_len
 
 
-def map_nodes_relations(data, n2i, r2i):
+def map_nodes_relations(data, e2i, r2i):
     """
     Convert strings to integers.
 
     Args:
         data (list): List of subgraphs.
-        n2i (dict): Node to integer mapping.
+        e2i (dict): Node to integer mapping.
         r2i (dict): Relation to integer mapping.
 
     Returns:
@@ -84,7 +84,7 @@ def map_nodes_relations(data, n2i, r2i):
     for subgraph in data:
         x = []
         for s, p, o in subgraph:
-            x.append([n2i[s], r2i[p], n2i[o]])
+            x.append([e2i[s], r2i[p], e2i[o]])
         mapped_data.append(x)
     return mapped_data
 

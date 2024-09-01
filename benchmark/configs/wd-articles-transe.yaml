@@ -1,5 +1,5 @@
 dataset: wd-articles
-batch-size: 32
+batch-size: 256
 emb-size: 888
 learn-rate: 0.00006094053758340765
 decoder: transe

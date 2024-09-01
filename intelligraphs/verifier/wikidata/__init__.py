@@ -1,0 +1,2 @@
+from .wdmovies_verifier import WDMoviesVerifier
+from .wdarticles_verifier import WDArticlesVerifier
