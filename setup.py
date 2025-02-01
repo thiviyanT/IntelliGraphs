@@ -11,6 +11,7 @@ setup(
         'requests',
         'torch',
         'seaborn',
+        'matplotlib',
     ],
     author="Thiviyan Thanapalasingam",
     author_email="thiviyan.t@gmail.com",
