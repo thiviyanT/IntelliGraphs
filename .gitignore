@@ -4,6 +4,10 @@ wandb
 ignore
 output/
 jobscript/
+*.pdf
+*.svg
+*.dot
+*.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
