@@ -3,7 +3,7 @@ import os
 import zipfile
 import torch
 from torch.utils.data import Dataset, DataLoader
-from ..utils import *
+from intelligraphs.utils import *
 
 
 class CustomDataset(Dataset):
