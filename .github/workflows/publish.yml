@@ -47,4 +47,5 @@ jobs:
         env:
           ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
         run: |
-          anaconda upload /path/to/your/conda/package.tar.bz2
+          CONDA_BLD_PATH=$(conda info --base)/conda-bld
+          anaconda upload $CONDA_BLD_PATH/linux-64/intelligraphs-*.tar.bz2
