@@ -18,7 +18,7 @@ requirements:
     - python >=3.8
     - setuptools
   run:
-    - python
+    - python >=3.8,<3.12.0a0
     - tqdm
     - bokeh
     - graphviz
