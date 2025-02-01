@@ -1,3 +1,4 @@
+from intelligraphs.data_loaders.downloader import DatasetDownloader
 from intelligraphs.data_loaders.loaders import IntelliGraphsDataLoader
 from intelligraphs.data_loaders.loading_functions import (
     load_strings,
@@ -5,5 +6,6 @@ from intelligraphs.data_loaders.loading_functions import (
     compute_min_max_edges,
     compute_min_max_entities,
     load_data_as_tensor,
-    load_data_as_list
+    load_data_as_list,
+    pad_subgraphs
 )
