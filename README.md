@@ -15,6 +15,7 @@
 <p align=center>
     <a href="https://doi.org/10.5281/zenodo.14787483"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.14787483.svg" title="DOI of IntelliGraphs"></a>
     <a href="https://arxiv.org/abs/2307.06698"><img src="https://img.shields.io/badge/preprint-2307.06698-b31b1b.svg" title="IntelliGraphs Paper"></a>
+    <a href="https://github.com/thiviyanT/IntelliGraphs/actions"><img src="https://github.com/thiviyanT/IntelliGraphs/actions/workflows/publish.yml/badge.svg" title="IntelliGraphs Build Status"></a>
 <!---
     <a href="https://intelligraphs.readthedocs.io/en/latest/"><img src="https://img.shields.io/badge/doc-layout--parser.readthedocs.io-light.svg" title="IntelliGraphs Documentation"></a>
 --->
