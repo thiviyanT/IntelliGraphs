@@ -1,10 +1,10 @@
 package:
   name: intelligraphs
-  version: 1.0.5
+  version: 1.0.6
 
 source:
   git_url: https://github.com/thiviyanT/intelligraphs.git
-  git_tag: v1.0.5
+  git_tag: v1.0.6
 
 build:
   number: 0
@@ -14,11 +14,14 @@ requirements:
   host:
     - python >=3.8
     - pip
+    - setuptools
   build:
     - python >=3.8
+    - pip
     - setuptools
   run:
     - python >=3.8,<3.12.0a0
+    - pip
     - tqdm
     - bokeh
     - graphviz
@@ -27,8 +30,8 @@ requirements:
 
 about:
   home: https://github.com/thiviyanT/intelligraphs
-  license: MIT
-  summary: A simple library to generate synthetic Knowledge Graphs using random triples.
+  license: CC-BY 4.0
+  summary: A Python package for loading and using IntelliGraphs benchmarking datasets.
   author: Thiviyan Thanapalasingam
   author_email: thiviyan.t@gmail.com
-  description: A simple library to generate synthetic Knowledge Graphs using random triples.
+  description: A Python package for loading and using IntelliGraphs benchmarking datasets.
