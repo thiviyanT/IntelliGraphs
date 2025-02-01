@@ -1,7 +1,7 @@
 from intelligraphs.baseline_models.knowledge_graph_embedding_model import KGEModel
-from intelligraphs.data_loaders import load_data_as_list
+from intelligraphs.data_loaders import load_data_as_list, pad_subgraphs
 from utils import get_device, tic, toc, read_config, save_model
-import wandb, math, torch, argparse, random, numpy as np
+import wandb, math, torch, argparse, numpy as np
 from tqdm import trange
 from intelligraphs.verifier.synthetic import (
     SynPathsVerifier,
@@ -74,8 +74,8 @@ def train(wandb, lmbda=1e-4):
         print(f"Using {torch.cuda.device_count()} GPUs")
         print(f"Total GPU memory available: "
               f"{round(torch.cuda.get_device_properties(device).total_memory * torch.cuda.device_count() / 1024 ** 3, 1)} GB")
-        # print(f"Allocated GPU memory: {round(torch.cuda.memory_allocated(device) / 1024 ** 3, 1)} GB")
-        # print(f"Free GPU memory: {round(torch.cuda.memory_reserved(device) / 1024 ** 3, 1)} GB")
+        print(f"Allocated GPU memory: {round(torch.cuda.memory_allocated(device) / 1024 ** 3, 1)} GB")
+        print(f"Free GPU memory: {round(torch.cuda.memory_reserved(device) / 1024 ** 3, 1)} GB")
         kge_model = torch.nn.DataParallel(kge_model)
     kge_model.to(device)
 
@@ -109,7 +109,7 @@ def train(wandb, lmbda=1e-4):
         # Training loop
         total_loss = 0.0
         time_forward_pass = time_backward_pass = 0
-        time_preparation = time_loss_calculationeparation = 0
+        time_preparation = time_loss_calculation = 0
         num_batches = 0
         tic()
 
@@ -123,6 +123,8 @@ def train(wandb, lmbda=1e-4):
             opt.zero_grad()
 
             batch = train[batch_start_index:batch_end_index]
+            # Padding is needed here before converting to Torch tensor
+            batch = pad_subgraphs(batch, max_edges)
             positives = torch.LongTensor(batch).to(get_device())
 
             # Full-batch negative edges
@@ -140,6 +142,9 @@ def train(wandb, lmbda=1e-4):
 
             for subgraph in positives:
                 tic()
+                # Remove padding
+                subgraph = subgraph[subgraph[:, 1] != -1]
+
                 # Map global indices to local indices for entities
                 entities = torch.unique(torch.cat([subgraph[:, 0], subgraph[:, 2]])).tolist()
                 local_entity_map = {e: entities.index(e) for e in entities}
@@ -195,7 +200,7 @@ def train(wandb, lmbda=1e-4):
             loss = structure_bits_pos + (weight * structure_bits_neg)
             loss = loss.mean()
 
-            time_loss_calculationeparation += toc()
+            time_loss_calculation += toc()
             assert not torch.isnan(loss), 'Loss has become NaN'
 
             total_loss += loss.item()
@@ -213,7 +218,7 @@ def train(wandb, lmbda=1e-4):
 
         if epoch == 0:
             print(f'\n pred: forward {time_forward_pass:.4f}s, backward {time_backward_pass:.4f}s')
-            print(f'           prep {time_preparation:.4f}s, loss {time_loss_calculationeparation:.4f}s')
+            print(f'           prep {time_preparation:.4f}s, loss {time_loss_calculation:.4f}s')
             print(f' total: {toc():.4f}s')
 
     print('Training finished.')
@@ -368,7 +373,6 @@ def sample_entities_structure(
         index_to_relation: Dict[int, str],
         rule_check_function: Callable[[List[Tuple[str, str, str]]], List[Tuple[str, List[str]]]]
 ) -> Any:
-    """ Sample entities from entity frequency and structure from the kge_model. """
     """ Sample entities from entity frequency and structure from the kge_model. """
 
     # Compute the probability of each entity in the training set
