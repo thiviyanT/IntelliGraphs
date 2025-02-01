@@ -41,7 +41,7 @@ jobs:
       - name: Build Conda Package
         run: |
           conda install -y conda-build anaconda-client
-          conda build .
+          conda build . --channel pytorch
 
       - name: Publish to Conda
         env:

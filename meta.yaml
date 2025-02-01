@@ -1,6 +1,6 @@
 package:
   name: intelligraphs
-  version: 0.1.1
+  version: 1.0.3
 
 source:
   url: https://files.pythonhosted.org/packages/d5/80/3f81dc783e92a84801827d5f591bf1974bce1a4f48f350c1eb227a5e2f18/intelligraphs-0.1.1.tar.gz
@@ -11,8 +11,11 @@ build:
   script: python -m pip install --no-deps --ignore-installed .
 
 requirements:
+  host:
+    - python >=3.8
+    - pip
   build:
-    - python
+    - python >=3.8
     - setuptools
   run:
     - python
@@ -20,7 +23,7 @@ requirements:
     - bokeh
     - graphviz
     - requests
-    - torch
+    - pytorch
 
 about:
   home: https://github.com/thiviyanT/intelligraphs
