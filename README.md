@@ -1,7 +1,7 @@
 <p  align="center">
     <img src="assets/IntelliGraphs-logo 222x222(32-bit).png" width="150px;" style="max-width: 100%;  margin-right:10px;">
     <h3 align="center" >
-        Benchmark Datasets for Knowledge Graph Generation
+        IntelliGraphs: Benchmark Datasets for Knowledge Graph Generation
     </h3>
 <p>
 
@@ -26,23 +26,6 @@ benchmarking generative models for knowledge graphs. You can learn more about it
 [*IntelliGraphs: Datasets for Benchmarking Knowledge Graph Generation*](https://arxiv.org/abs/2307.06698). The `intelligraphs`
 Python package provides easy access to the datasets, along with pre- and post-processing functions, 
 baseline models, and evaluation tools for benchmarking new models.
-
-<p  align="center">
-    <img src="assets/IntelliGraphs-usage-example.png" width="450px;" style="max-width: 100%; margin-right:10px;">
-</p>
-
-
-## Table of Contents
-
-* [Installation](#installation)
-* [Downloading IntelliGraphs datasets](#downloading-the-datasets)
-* [Data Loader](#intelligraphs-data-loader)
-* [Generator](#intelligraphs-synthetic-kg-generator)
-* [Verifier](#intelligraphs-verifier)
-* [Baseline Models](#baseline-models)
-* [Data Validation](#data-validation)
-* [Reporting Issues](#reporting-issues)
-* [License Information](#license-information)
 
 
 ## Installation
