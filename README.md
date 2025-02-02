@@ -51,22 +51,16 @@ IntelliGraphs can be installed using either `pip` or `conda`, depending on your 
 The IntelliGraphs python package requires a number of dependencies which will also be installed during the 
 installation process. 
 
-### Installing with pip
-
-`pip` is the Python package installer, and it's commonly used for installing Python packages from the Python Package Index (PyPI). To install IntelliGraphs using `pip`, open your terminal or command prompt and run the following command:
-
-```bash
-pip install intelligraphs
+##### Install with pip:
+```bash 
+pip install intelligraphs         # Standard pip
+uv pip install intelligraphs     # Using UV (faster)
 ```
-This command will automatically download and install the IntelliGraphs package along with any dependencies required for it to function properly.
-
-### Installing with conda
-
-If you prefer to use conda, you can install IntelliGraphs by running the following command in your terminal or command prompt:
-
-```bash
+##### Install with conda:
+```bash 
 conda install -c thiv intelligraphs
 ```
+
 
 ### Verifying the Installation
 
@@ -78,22 +72,6 @@ import intelligraphs
 print(intelligraphs.__version__)
 ```
 
-### Platform Compatibility
-
-This package has been and developed and tested on MacOS and Linux operating systems. 
-Users on Windows may encounter issues. If you experience any problems on Windows, 
-please [raise an issue on the project's GitHub repository](https://github.com/thiviyanT/IntelliGraphs/issues).
-
-[//]: # (## Datasets)
-
-[//]: # ()
-[//]: # (TODO )
-
-[//]: # ()
-[//]: # (### Subgraph inference)
-
-[//]: # ()
-[//]: # (TODO)
 
 ## Downloading the Datasets
 
@@ -101,62 +79,31 @@ The datasets required for this project can be obtained either manually or automa
 
 ### Manual Download
 
-The datasets are hosted on Zenodo and can be downloaded directly from the following link:
+The datasets are hosted on Zenodo and can be downloaded directly from Zenodo.
 
-**Zenodo Download Link:** [https://doi.org/10.5281/zenodo.7824818](https://doi.org/10.5281/zenodo.7824818)
+**Zenodo Download Link:** [https://doi.org/10.5281/zenodo.14787483](https://doi.org/10.5281/zenodo.14787483)
 
-To manually download the datasets:
+Download the datasets and extract the files to your preferred directory.
 
-1. Click on the provided link above.
-2. You will be redirected to the Zenodo page hosting the datasets.
-3. On the Zenodo page, click the **Download** button or select specific files to download as needed.
-4. Once downloaded, extract the files (if compressed) to a directory of your choice on your local machine.
+## Automatic Dataset Download  
 
-### Automatic Download with IntelliGraphs
-
-Alternatively, you can use the `IntelliGraphsDataLoader` class to download and prepare the datasets automatically. This method is convenient if you want to streamline the process and ensure that all required data is correctly organized.
-
-To download datasets automatically:
-
-1. Ensure you have the necessary dependencies installed, including `intelligraphs`.
-
-2. Use the following code snippet to download and load the dataset:
+Use the `DatasetDownloader` class to download, verify, and extract datasets automatically.
 
 ```python
-from intelligraphs import IntelliGraphsDataLoader  
+from intelligraphs.data_loaders.downloader import DatasetDownloader  
 
-# Initialize the data loader with the desired dataset name
-dataset_name = 'syn-paths'  # Example dataset name, replace with the dataset you want to download
-data_loader = IntelliGraphsDataLoader(dataset_name)
-
-# Load data into PyTorch DataLoader objects
-train_loader, valid_loader, test_loader = data_loader.load_torch(batch_size=32)
+downloader = DatasetDownloader()
+downloader.download_and_verify_all()
 ```
-
-3. The dataset will be automatically downloaded and extracted to the `.data` directory if it does not already exist.
-
-4. The data will be loaded into PyTorch `DataLoader` objects (`train_loader`, `valid_loader`, `test_loader`) for easy use in training and evaluation.
-
-5. If you prefer to download the dataset only (without loading into PyTorch), simply instantiate the `IntelliGraphsDataLoader` class and it will handle the download and extraction automatically:
+This downloads, verifies integrity using MD5 checksums, and extracts datasets to the `.data` directory. To change the download directory, specify a custom path when initializing DatasetDownloader:
 
 ```python
-from intelligraphs import IntelliGraphsDataLoader  # Replace with the actual import path
-
-# Initialize the data loader to download the dataset
-dataset_name = 'syn-paths'  # Example dataset name, replace with the dataset you want to download
-data_loader = IntelliGraphsDataLoader(dataset_name)
+downloader = DatasetDownloader(download_dir=".custom_data_directory")
 ```
-
-The dataset will be saved in the `.data` directory by default.
 
 ## IntelliGraphs Data Loader
 
 The `IntelliGraphsDataLoader` class is a utility for loading IntelliGraphs datasets, simplifying the process of accessing and organizing the data for machine learning tasks. It provides functionalities to download, extract, and load the datasets into PyTorch tensors.
-
-### Features and Benefits
-* **PyTorch Integration**: Seamless integration with PyTorch for graph-based machine learning tasks.
-* **Configuration Options**: Customizable options for batch size, padding, and shuffling.
-* **Data Preprocessing**: Simplifies dataset preprocessing with automated download, extraction, and conversion.
 
 ### Usage
 1. Instantiate the DataLoader:
@@ -431,14 +378,22 @@ IntelliGraphs datasets and the python package is licensed under CC-BY License. S
 
 ---
 
+## Platform Compatibility
+
+This package has been and developed and tested on MacOS and Linux operating systems. 
+Users on Windows may encounter issues. If you experience any problems on Windows, 
+please [raise an issue on the project's GitHub repository](https://github.com/thiviyanT/IntelliGraphs/issues).
+
 ## Unit tests
 
 Make sure to activate the virtual environment with the installation of the intelligraphs package.
 
-To run the unit tests, install pytest and verify installation:
+To run the unit tests, install pytest:
+
+`pip install pytest scipy` or `conda install pytest scipy`
+
 ```bash
-pip install pytest
-pytest --version
+pytest --version  # verify installation
 ```
 
 Execute the units tests using: 
