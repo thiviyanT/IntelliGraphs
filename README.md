@@ -61,13 +61,11 @@ The datasets required for this project can be obtained either manually or automa
 
 ### Manual Download
 
-The datasets are hosted on Zenodo and can be downloaded directly from Zenodo.
+The datasets are hosted on Zenodo: [https://doi.org/10.5281/zenodo.14787483](https://doi.org/10.5281/zenodo.14787483)
 
-**Zenodo Download Link:** [https://doi.org/10.5281/zenodo.14787483](https://doi.org/10.5281/zenodo.14787483)
+You can download the datasets and extract the files to your preferred directory.
 
-Download the datasets and extract the files to your preferred directory.
-
-## Automatic Dataset Download  
+### Automatic Dataset Download  
 
 Use the `DatasetDownloader` class to download, verify, and extract datasets automatically.
 
