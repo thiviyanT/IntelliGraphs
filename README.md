@@ -27,9 +27,9 @@ benchmarking generative models for knowledge graphs. You can learn more about it
 Python package provides easy access to the datasets, along with pre- and post-processing functions, 
 baseline models, and evaluation tools for benchmarking new models.
 
-<div style="text-align: center;">
+<p  align="center">
     <img src="assets/IntelliGraphs-usage-example.png" width="450px;" style="max-width: 100%; margin-right:10px;">
-</div>
+</p>
 
 
 ## Table of Contents
