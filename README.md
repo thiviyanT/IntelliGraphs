@@ -23,8 +23,7 @@
 
 IntelliGraphs is a collection of benchmark datasets specifically for use in 
 benchmarking generative models for knowledge graphs. You can learn more about it in our preprint: 
-[*IntelliGraphs: Datasets for Benchmarking Knowledge Graph Generation*](https://arxiv.org/abs/2307.06698). The `intelligraphs`
-Python package provides easy access to the datasets, along with pre- and post-processing functions, 
+[*IntelliGraphs: Datasets for Benchmarking Knowledge Graph Generation*](https://arxiv.org/abs/2307.06698). The Python package provides easy access to the datasets, along with pre- and post-processing functions, 
 baseline models, and evaluation tools for benchmarking new models.
 
 
