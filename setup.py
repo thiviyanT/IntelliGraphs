@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="intelligraphs",
-    version="1.0.13",
+    version="1.0.14",
     packages=find_packages(),
     install_requires=[
         'tqdm',
