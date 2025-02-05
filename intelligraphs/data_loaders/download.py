@@ -56,8 +56,85 @@ class DatasetDownloader:
             if self.verify_integrity(file_path, data["md5"]):
                 self.extract_zip(file_path)
 
+    def verify_datasets(self):
+        verification_report = {
+            "total_datasets": len(DATASETS),
+            "verified_datasets": 0,
+            "missing_files": [],
+            "checksum_failures": [],
+            "extraction_failures": [],
+            "verified_files": []
+        }
 
-# Example usage
+        for filename, data in DATASETS.items():
+            filepath = os.path.join(self.download_dir, filename)
+
+            if not os.path.exists(filepath):
+                verification_report["missing_files"].append(filename)
+                continue
+
+            if not self.verify_integrity(filepath, data["md5"]):
+                verification_report["checksum_failures"].append(filename)
+                continue
+
+            try:
+                with zipfile.ZipFile(filepath, 'r') as zip_ref:
+                    test_result = zip_ref.testzip()
+                    if test_result is not None:
+                        verification_report["extraction_failures"].append(
+                            f"{filename} (corrupted file: {test_result})"
+                        )
+                        continue
+
+                    if "expected_contents" in data:
+                        zip_contents = set(zip_ref.namelist())
+                        missing_contents = set(data["expected_contents"]) - zip_contents
+                        if missing_contents:
+                            verification_report["extraction_failures"].append(
+                                f"{filename} (missing files: {', '.join(missing_contents)})"
+                            )
+                            continue
+
+            except zipfile.BadZipFile:
+                verification_report["extraction_failures"].append(
+                    f"{filename} (invalid zip file)"
+                )
+                continue
+
+            verification_report["verified_files"].append(filename)
+            verification_report["verified_datasets"] += 1
+
+        self._print_verification_summary(verification_report)
+        return verification_report["verified_datasets"] == verification_report["total_datasets"]
+
+    def _print_verification_summary(self, report):
+        """ Print a formatted summary of the dataset verification results."""
+        print("\n=== Dataset Verification Summary ===")
+        print(f"Total datasets: {report['total_datasets']}")
+        print(f"Successfully verified: {report['verified_datasets']}")
+
+        if report['verified_files']:
+            print("\nVerified files:")
+            for file in report['verified_files']:
+                print(f"  ✓ {file}")
+
+        if report['missing_files']:
+            print("\nMissing files:")
+            for file in report['missing_files']:
+                print(f"  ✗ {file}")
+
+        if report['checksum_failures']:
+            print("\nChecksum failures:")
+            for file in report['checksum_failures']:
+                print(f"  ✗ {file}")
+
+        if report['extraction_failures']:
+            print("\nExtraction failures:")
+            for file in report['extraction_failures']:
+                print(f"  ✗ {file}")
+
+
+
 if __name__ == "__main__":
     downloader = DatasetDownloader()
     downloader.download_and_verify_all()
