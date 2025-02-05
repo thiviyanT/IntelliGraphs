@@ -356,8 +356,6 @@ If you encounter any bugs or have any feature requests, please file an issue [he
 
 IntelliGraphs datasets and the python package is licensed under CC-BY License. See [LICENSE](LICENSE) for more information.
 
----
-
 ## Platform Compatibility
 
 This package has been and developed and tested on MacOS and Linux operating systems. 
@@ -380,4 +378,3 @@ Execute the units tests using:
 ```bash
 pytest
 ```
-
