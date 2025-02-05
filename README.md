@@ -356,11 +356,10 @@ If you encounter any bugs or have any feature requests, please file an issue [he
 
 IntelliGraphs datasets and the python package is licensed under CC-BY License. See [LICENSE](LICENSE) for more information.
 
-## Platform Compatibility
+## Platform Compatibility/Issues
 
 This package has been and developed and tested on MacOS and Linux operating systems. 
-Users on Windows may encounter issues. If you experience any problems on Windows, 
-please [raise an issue on the project's GitHub repository](https://github.com/thiviyanT/IntelliGraphs/issues).
+If you experience any problems on Windows or any other issues, please [raise the issue on the project's GitHub repository](https://github.com/thiviyanT/IntelliGraphs/issues).
 
 ## Unit tests
 
