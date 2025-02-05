@@ -36,10 +36,10 @@ class DatasetDownloader:
 
         computed_md5 = md5_hash.hexdigest()
         if computed_md5 == expected_md5:
-            print(f"MD5 checksum verified for {os.path.basename(filepath)} ✅")
+            print(f"MD5 checksum verified for {os.path.basename(filepath)} ✓")
             return True
         else:
-            print(f"MD5 mismatch for {os.path.basename(filepath)} ❌")
+            print(f"MD5 mismatch for {os.path.basename(filepath)} ✗")
             print(f"Expected: {expected_md5}, Got: {computed_md5}")
             return False
 

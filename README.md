@@ -67,19 +67,13 @@ You can download the datasets and extract the files to your preferred directory.
 
 ### Automatic Dataset Download  
 
-Use the `DatasetDownloader` class to download, verify, and extract datasets automatically.
+To download, verify, and extract datasets automatically, use:
 
-```python
-from intelligraphs.data_loaders.downloader import DatasetDownloader  
-
-downloader = DatasetDownloader()
-downloader.download_and_verify_all()
+```bash
+python -m intelligraphs.data_loaders.download
 ```
-This downloads, verifies integrity using MD5 checksums, and extracts datasets to the `.data` directory. To change the download directory, specify a custom path when initializing DatasetDownloader:
-
-```python
-downloader = DatasetDownloader(download_dir=".custom_data_directory")
-```
+This command will download all IntelliGraphs datasets, verify their integrity using MD5 checksums, and then extract 
+them into the `.data` directory in your current working directory.
 
 ## IntelliGraphs Data Loader
 

@@ -1,4 +1,4 @@
-from intelligraphs.data_loaders.downloader import DatasetDownloader
+from intelligraphs.data_loaders.download import DatasetDownloader
 from intelligraphs.data_loaders.loaders import IntelliGraphsDataLoader
 from intelligraphs.data_loaders.loading_functions import (
     load_strings,

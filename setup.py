@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="intelligraphs",
-    version="1.0.11",
+    version="1.0.12",
     packages=find_packages(),
     install_requires=[
         'tqdm',
@@ -12,6 +12,7 @@ setup(
         'torch',
         'seaborn',
         'matplotlib',
+        'numpy==1.26.4',
     ],
     author="Thiviyan Thanapalasingam",
     author_email="thiviyan.t@gmail.com",
