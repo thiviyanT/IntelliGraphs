@@ -1,9 +1,8 @@
 from setuptools import setup, find_packages
-from intelligraphs import __version__
 
 setup(
     name="intelligraphs",
-    version=__version__,
+    version="1.0.13",
     packages=find_packages(),
     install_requires=[
         'tqdm',
