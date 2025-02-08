@@ -77,13 +77,13 @@ them into the `.data` directory in your current working directory.
 
 ## IntelliGraphs Data Loader
 
-The `IntelliGraphsDataLoader` class is a utility for loading IntelliGraphs datasets, simplifying the process of accessing and organizing the data for machine learning tasks. It provides functionalities to download, extract, and load the datasets into PyTorch tensors.
+The `DataLoader` class is a utility for loading IntelliGraphs datasets, simplifying the process of accessing and organizing the data for machine learning tasks. It provides functionalities to download, extract, and load the datasets into PyTorch tensors.
 
 ### Usage
 1. Instantiate the DataLoader:
 ``` python
-from intelligraphs import IntelliGraphsDataLoader
-data_loader = IntelliGraphsDataLoader(dataset_name='syn-paths')
+from intelligraphs import DataLoader
+data_loader = DataLoader(dataset_name='syn-paths')
 ```
 2. Load the Data:
 ``` python
