@@ -16,18 +16,19 @@ def test_import_baseline_models():
     """
     Test importing baseline models from the 'intelligraphs.baselines' module.
     """
-    models_to_import = [
-        "uniform_baseline_model",
-        "probabilistic_kge_model"
-    ]
-    module_name = "intelligraphs.baselines"
+    imports = {
+        "intelligraphs.baseline_models": ["UniformBaseline", "KGEModel"],
+        "intelligraphs.baseline_models.scoring_functions": ["TransE", "DistMult", "Complex"],
+        "intelligraphs.baseline_models.utils": ["compute_entity_frequency"],
+    }
 
-    for model_name in models_to_import:
-        try:
-            module = __import__(module_name, fromlist=[model_name])
-            getattr(module, model_name)
-        except (ImportError, AttributeError):
-            pytest.fail(f"Failed to import '{model_name}' from {module_name}.")
+    for module_name, class_names in imports.items():
+        for class_name in class_names:
+            try:
+                module = __import__(module_name, fromlist=[class_name])
+                getattr(module, class_name)
+            except (ImportError, AttributeError):
+                pytest.fail(f"Failed to import '{class_name}' from {module_name}.")
 
 
 def test_import_data_generators():
@@ -36,7 +37,6 @@ def test_import_data_generators():
     """
     generator_to_import = {
         "intelligraphs.generators.synthetic": ["SynPathsGenerator", "SynTIPRGenerator", "SynTypesGenerator"],
-        # "intelligraphs.generators.wikidata": ["WDMovies", "WDArticles"]
     }
 
     for module_name, class_names in generator_to_import.items():
@@ -69,12 +69,12 @@ def test_import_verifiers():
 
 def test_import_data_loaders():
     """
-    Test importing the 'IntelliGraphsDataLoader' from 'intelligraphs.data_loaders'.
+    Test importing the 'DataLoader' from 'intelligraphs.data_loaders'.
     """
     try:
-        from intelligraphs.data_loaders import IntelliGraphsDataLoader
+        from intelligraphs.data_loaders import DataLoader
     except ImportError:
-        pytest.fail("Failed to import 'IntelliGraphsDataLoader' from intelligraphs.")
+        pytest.fail("Failed to import 'DataLoader' from intelligraphs.")
 
 
 def test_import_evaluators():
@@ -109,7 +109,7 @@ def test_import_domains():
         "intelligraphs.domains.SynTIPR": ["relations"],
         "intelligraphs.domains.SynTypes.entities": ["cities", "countries", "languages"],
         "intelligraphs.domains.SynTypes": ["relations"],
-        "intelligraphs.domains.WDArticles.entities": ["author_positions", "authors", "papers", "ordinals", "subjects"],
+        "intelligraphs.domains.WDArticles.entities": ["article_node", "authors", "names", "ordinals", "subjects"],
         "intelligraphs.domains.WDArticles": ["relations"],
         "intelligraphs.domains.WDMovies.entities": ["actors", "directors", "genres"],
         "intelligraphs.domains.WDMovies": ["relations"],
