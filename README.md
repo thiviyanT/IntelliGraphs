@@ -362,7 +362,7 @@ Make sure to activate the virtual environment with the installation of the intel
 
 To run the unit tests, install pytest:
 
-`pip install pytest scipy` or `conda install pytest scipy`
+`pip install pytest` or `conda install pytest`
 
 ```bash
 pytest --version  # verify installation
@@ -372,3 +372,41 @@ Execute the units tests using:
 ```bash
 pytest
 ```
+
+## Contributing
+
+If you would like to contribute code for a new feature or bug fix, here's how to get started:
+
+First, set up your development environment:
+```bash
+git clone https://github.com/thiviyanT/IntelliGraphs.git
+cd IntelliGraphs
+
+python -m venv venv
+source venv/bin/activate  # On Windows, use: venv\Scripts\activate
+
+# Install development dependencies
+pip install -e .
+```
+
+For submitting changes:
+```bash
+# Create a new branch from dev
+git checkout dev
+git checkout -b feature/your-feature-name
+
+# Make your changes and commit
+git add .
+git commit -m "Description of your changes"
+
+# Push to GitHub
+git push -u origin feature/your-feature-name
+```
+
+To submit changes:
+1. Ensure all tests pass by running pytest.
+2. Update the README.md, if needed.
+3. Create a pull request from your feature branch to the dev branch.
+4. The CI pipeline will automatically run tests on your pull request.
+
+Changes must pass all tests before they can be merged and be approved.  For questions or discussions, please open an issue on GitHub.
