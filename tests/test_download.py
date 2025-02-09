@@ -41,8 +41,10 @@ def test_download_file_new(mock_get, downloader):
         assert path == ".data/test.zip"
 
 @patch("os.path.exists")
-def test_verify_datasets(mock_exists):
-    mock_exists.return_value = True  # Simulate files exist
+@patch.object(DatasetDownloader, "verify_integrity")
+def test_verify_datasets(mock_verify, mock_exists):
+    mock_exists.return_value = True
+    mock_verify.return_value = True
     downloader = DatasetDownloader()
     with patch('zipfile.ZipFile') as mock_zip:
         mock_zip.return_value.__enter__().testzip.return_value = None
