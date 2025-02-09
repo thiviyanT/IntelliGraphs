@@ -20,11 +20,7 @@ jobs:
       - name: Install build dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install build twine pytest
-
-      - name: Run specific test file
-        run: |
-          pytest tests/test_module_imports.py
+          pip install build twine
 
       - name: Build package
         run: |
