@@ -186,7 +186,7 @@ class ConstraintVerifier:
         return grouped_graphs
 
     @staticmethod
-    def int_type_conversion(graphs: List[List[Tuple[str, str, str]]]) -> list[list[list[int | str]]]:
+    def int_type_conversion(graphs: List[List[Tuple[str, str, str]]]) -> list[list[list[Any]]]:
         """
         Converts the string type to int type.
 
