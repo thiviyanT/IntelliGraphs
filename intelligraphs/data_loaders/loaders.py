@@ -3,7 +3,13 @@ import os
 import zipfile
 import torch
 from torch.utils.data import Dataset, DataLoader
-from intelligraphs.utils import *
+from intelligraphs.utils import (
+    load_strings,
+    split_subgaphs,
+    map_nodes_relations,
+    pad_data,
+    create_mapping,
+)
 
 
 class CustomDataset(Dataset):
@@ -27,7 +33,7 @@ class CustomDataset(Dataset):
         return self.data[index]
 
 
-class IntelliGraphsDataLoader:
+class DataLoader:
     """ DataLoader for IntelliGraphs datasets. """
     def __init__(self, dataset_name):
         self.dataset_name = dataset_name
