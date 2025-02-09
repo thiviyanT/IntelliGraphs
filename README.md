@@ -409,4 +409,5 @@ To submit changes:
 3. Create a pull request from your feature branch to the dev branch.
 4. The CI pipeline will automatically run tests on your pull request.
 
-Changes must pass all tests before they can be merged and be approved.  For questions or discussions, please open an issue on GitHub.
+Changes must pass all tests and be approved before they can be merged into the `main` branch. 
+For questions or discussions, please open an issue on GitHub.
