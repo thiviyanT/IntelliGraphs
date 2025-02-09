@@ -1,6 +1,4 @@
-import urllib.request
 import os
-import zipfile
 import torch
 from torch.utils.data import Dataset, DataLoader
 from intelligraphs.utils import (
