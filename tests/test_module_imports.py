@@ -69,12 +69,32 @@ def test_import_verifiers():
 
 def test_import_data_loaders():
     """
-    Test importing the 'DataLoader' from 'intelligraphs.data_loaders'.
+    Test importing the 'DataLoader' from 'intelligraphs.data_loaders' & 'intelligraphs'.
     """
     try:
         from intelligraphs.data_loaders import DataLoader
     except ImportError:
+        pytest.fail("Failed to import 'DataLoader' from intelligraphs.data_loaders.")
+
+    try:
+        from intelligraphs import DataLoader
+    except ImportError:
         pytest.fail("Failed to import 'DataLoader' from intelligraphs.")
+
+
+def test_import_dataset_downloader():
+    """
+    Test importing the 'DatasetDownloader' from 'intelligraphs.data_loaders' & 'intelligraphs'.
+    """
+    try:
+        from intelligraphs.data_loaders import DatasetDownloader
+    except ImportError:
+        pytest.fail("Failed to import 'DatasetDownloader' from intelligraphs.data_loaders.")
+
+    try:
+        from intelligraphs import DatasetDownloader
+    except ImportError:
+        pytest.fail("Failed to import 'DatasetDownloader' from intelligraphs.")
 
 
 def test_import_evaluators():
