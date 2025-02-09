@@ -36,7 +36,6 @@ class DatasetDownloader:
 
         computed_md5 = md5_hash.hexdigest()
         if computed_md5 == expected_md5:
-            print(f"MD5 checksum verified for {os.path.basename(filepath)} ✓")
             return True
         else:
             print(f"MD5 mismatch for {os.path.basename(filepath)} ✗")
@@ -55,6 +54,22 @@ class DatasetDownloader:
             file_path = self.download_file(data["url"], filename)
             if self.verify_integrity(file_path, data["md5"]):
                 self.extract_zip(file_path)
+
+    def check_datasets_exist(self):
+        """Check if all expected dataset files exist in the download directory."""
+        missing_files = []
+        for filename in DATASETS:
+            filepath = os.path.join(self.download_dir, filename)
+            if not os.path.exists(filepath):
+                missing_files.append(filename)
+                print(f"Missing dataset: {filename}")
+
+        if missing_files:
+            print(f"\nMissing {len(missing_files)} of {len(DATASETS)} datasets")
+            return False
+
+        print(f"\nAll {len(DATASETS)} datasets present")
+        return True
 
     def verify_datasets(self):
         verification_report = {
@@ -110,9 +125,6 @@ class DatasetDownloader:
     def _print_verification_summary(self, report):
         """ Print a formatted summary of the dataset verification results."""
         print("\n=== Dataset Verification Summary ===")
-        print(f"Total datasets: {report['total_datasets']}")
-        print(f"Successfully verified: {report['verified_datasets']}")
-
         if report['verified_files']:
             print("\nVerified files:")
             for file in report['verified_files']:
@@ -132,7 +144,6 @@ class DatasetDownloader:
             print("\nExtraction failures:")
             for file in report['extraction_failures']:
                 print(f"  ✗ {file}")
-
 
 
 if __name__ == "__main__":
