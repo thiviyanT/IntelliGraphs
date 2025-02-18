@@ -1,5 +1,5 @@
 from intelligraphs.baseline_models.knowledge_graph_embedding_model import KGEModel
-from intelligraphs.data_loaders import load_data_as_list, pad_subgraphs
+from intelligraphs.data_loaders import load_data_as_list, pad_to_max_length
 from utils import get_device, tic, toc, read_config, save_model
 import wandb, math, torch, argparse, numpy as np
 from tqdm import trange
@@ -124,7 +124,7 @@ def train(wandb, lmbda=1e-4):
 
             batch = train[batch_start_index:batch_end_index]
             # Padding is needed here before converting to Torch tensor
-            batch = pad_subgraphs(batch, max_edges)
+            batch = pad_to_max_length(batch, max_edges)
             positives = torch.LongTensor(batch).to(get_device())
 
             # Full-batch negative edges
