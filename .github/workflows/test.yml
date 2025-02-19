@@ -29,4 +29,4 @@ jobs:
 
     - name: Run tests
       run: |
-        pytest tests/test_module_imports.py tests/test_download.py -v  # Only test imports and DatasetDownloader class
+        pytest tests/test_module_imports.py tests/test_download.py tests/test_loaders.py tests/test_loader_utils.py tests/test_loading_functions.py -v  # Only test specific modules that are list here
