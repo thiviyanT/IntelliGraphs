@@ -81,6 +81,37 @@ def test_import_data_loaders():
     except ImportError:
         pytest.fail("Failed to import 'DataLoader' from intelligraphs.")
 
+def test_import_data_loading_functions():
+    """Test data loading function imports"""
+
+    try:
+        from intelligraphs.data_loaders import (
+            load_data_as_list,
+            load_data_as_tensor,
+        )
+    except ImportError as e:
+        pytest.fail(f"Failed to import util from 'intelligraphs.data_loaders': {str(e)}")
+
+def test_import_data_utils():
+    """Test data util function imports"""
+
+    try:
+        from intelligraphs.data_loaders import (
+            get_file_paths,
+            read_tsv_file,
+            convert_to_indices,
+            pad_to_max_length,
+            parse_subgraphs,
+            parse_files_to_subgraphs,
+            create_mappings_from_subgraphs,
+            process_knowledge_graphs,
+            compute_statistics,
+            compute_min_max_edges,
+            compute_min_max_entities
+        )
+    except ImportError as e:
+        pytest.fail(f"Failed to import util from 'intelligraphs.data_loaders': {str(e)}")
+
 
 def test_import_dataset_downloader():
     """
