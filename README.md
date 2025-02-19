@@ -216,49 +216,22 @@ from intelligraphs.baseline_models.knowledge_graph_embedding_model import KGEMod
 
 ### Setup
 
-To recreate our experiments, you will need to recreate the virtual environments with the 
-required dependencies.
+To recreate our experiments, we recommend using a fresh virtual environment with Python 3.10 installed. 
 
-#### 1. Create and activate a new conda environment:
-- First, create a dedicated environment named `intelligraph_baseline` with Python 3.10:
-    ```bash
-    conda create -n intelligraph_baseline python=3.10
-    ```
-- Activate the newly created environment:
-    ```bash
-    conda activate intelligraph_baseline
-    ```
+#### 1. Install package
+```bash
+pip install -e .  # or: pip install intelligraphs  # or: conda install -c thiv intelligraphs
+```
 
-#### 2. Install the `intelligraphs` package:
-- To install the `intelligraphs` package, choose one of the following methods:
-    ```bash
-    pip install -e .
-    ```
-    ```bash
-    pip install intelligraphs
-    ```
-    ```bash
-    conda install -c thiv intelligraphs
-    ```
+#### 2. Install dependencies
+```bash
+pip install torch pyyaml tqdm wandb numpy scipy
+```
 
-#### 3. Install additional dependencies for running baselines:
-- The baseline experiments require some extra Python packages. These packages include popular libraries such as PyTorch (for machine learning), PyYAML (for configuration file management), tqdm (for progress bars), Weights & Biases (for experiment tracking), NumPy, and SciPy. Install them using:
-    ```bash
-    pip install torch pyyaml tqdm wandb numpy scipy
-    ```
-
-#### 4. Set up Weights & Biases (wandb) for experiment tracking:
-- We use [Weights & Biases](https://wandb.ai/site) (wandb) to track experiments, log metrics, and visualize results.
-- To start using wandb, create an account on their platform and log in from the command line:
-    ```bash
-    wandb login
-    ```
-- If you prefer not to use wandb for tracking, you can disable it by setting wandb to offline mode:
-    ```bash
-    wandb offline
-    ```
-- When set to offline, wandb will not sync any data to the cloud, but you can still run experiments locally.
-
+#### 3. Configure tracking
+```bash
+wandb login  # or disable with: export WANDB_MODE=disabled
+```
 ### Uniform Baseline Model
 
 The uniform baseline model is designed to serve as a simple reference baseline. 
