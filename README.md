@@ -278,44 +278,27 @@ python benchmark/experiments/uniform_baseline_graph_sampling.py
 
 ### Probabilistic KGE Models
 
-We have developed three probabilistic Knowledge Graph Embedding (KGE) models based on [TransE](https://papers.nips.cc/paper/2013/file/1cecc7a77928ca8133fa24680a88d2f9-Paper.pdf), [DistMult](https://arxiv.org/abs/1412.6575), and [ComplEx](https://proceedings.mlr.press/v48/trouillon16.pdf). These models are CUDA-compatible and can take advantage of multiple GPUs for accelerated training and inference.
+We've developed three CUDA-compatible probabilistic Knowledge Graph Embedding models: [TransE](https://papers.nips.cc/paper/2013/file/1cecc7a77928ca8133fa24680a88d2f9-Paper.pdf), [DistMult](https://arxiv.org/abs/1412.6575), and [ComplEx](https://proceedings.mlr.press/v48/trouillon16.pdf). Run experiments using the commands below:
 
-The following commands allow you to run baseline experiments on various synthetic and real-world datasets. Each experiment is configured through a YAML file, which specifies the model and dataset parameters.
-
-#### For the `syn-paths` dataset:
+#### Synthetic Datasets
 ```bash
-python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/syn-paths-transe.yaml
-python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/syn-paths-complex.yaml
-python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/syn-paths-distmult.yaml
+# syn-paths
+python benchmark/experiments/probabilistic_kge_baselines.py --config benchmark/configs/syn-paths-[model].yaml
+
+# syn-tipr
+python experiments/train_baseline.py --config benchmark/configs/syn-tipr-[model].yaml
+
+# syn-types
+python benchmark/experiments/probabilistic_kge_baselines.py --config benchmark/configs/syn-types-[model].yaml
 ```
 
-#### For the `syn-tipr` dataset:
+#### Wikidata Datasets
 ```bash
-python experiments/train_baseline.py  --config benchmark/configs/syn-tipr-transe.yaml
-python experiments/train_baseline.py  --config benchmark/configs/syn-tipr-complex.yaml
-python experiments/train_baseline.py  --config benchmark/configs/syn-tipr-distmult.yaml
+# wd-articles and wd-movies
+python benchmark/experiments/probabilistic_kge_baselines.py --config benchmark/configs/wd-[dataset]-[model].yaml
 ```
 
-#### For the `syn-types` dataset:
-```bash
-python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/syn-types-transe.yaml
-python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/syn-types-complex.yaml
-python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/syn-types-distmult.yaml
-```
-
-#### For the `wd-articles` dataset:
-```bash
-python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/wd-articles-transe.yaml
-python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/wd-articles-complex.yaml
-python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/wd-articles-distmult.yaml
-```
-
-#### For the `wd-movies` dataset:
-```bash
-python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/wd-movies-transe.yaml
-python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/wd-movies-complex.yaml
-python benchmark/experiments/probabilistic_kge_baselines.py  --config benchmark/configs/wd-movies-distmult.yaml
-```
+Replace `[model]` with `transe`, `complex`, or `distmult` and `[dataset]` with the appropriate dataset name.
 
 ## Dataset Verification
 
