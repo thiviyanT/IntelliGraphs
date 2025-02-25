@@ -173,7 +173,21 @@ def test_load_torch():
         r2i = {"relation1": 0}
         i2r = {0: "relation1"}
         max_len = 10
-        mock_process.return_value = ((e2i, i2e), (r2i, i2r), max_len)
+
+        train_indexed = [[[0, 0, 1]]]
+        val_indexed = [[[1, 0, 0]]]
+        test_indexed = [[[0, 1, 0]]]
+        entity_mappings = (e2i, i2e)
+        relation_mappings = (r2i, i2r)
+
+        mock_process.return_value = (
+            train_indexed,
+            val_indexed,
+            test_indexed,
+            entity_mappings,
+            relation_mappings,
+            max_len
+        )
 
         mock_datasets = (torch.tensor([[[1, 1, 1]]]),
                          torch.tensor([[[2, 2, 2]]]),
@@ -183,7 +197,7 @@ def test_load_torch():
         expected_dataloaders = (Mock(), Mock(), Mock())
         mock_create_dataloaders.return_value = expected_dataloaders
 
-        # Act
+        # sct
         dataloaders = loader.load_torch(
             batch_size=batch_size,
             padding=True,

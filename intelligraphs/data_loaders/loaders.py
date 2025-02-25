@@ -151,14 +151,17 @@ class DataLoader:
             Tuple of (train_loader, valid_loader, test_loader)
         """
         file_paths = self._get_file_paths()
-        (e2i, _), (r2i, _), max_len = process_knowledge_graphs(*file_paths)
+        _, _, _, entity_mappings, relation_mappings, max_length = process_knowledge_graphs(*file_paths)
+
+        e2i = entity_mappings[0]  # entity_to_index mapping
+        r2i = relation_mappings[0]  # relation_to_index mapping
 
         datasets = self._create_datasets(
             file_paths,
             e2i,
             r2i,
             padding,
-            max_len
+            max_length
         )
 
         return self._create_dataloaders(
