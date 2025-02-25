@@ -79,7 +79,18 @@ class DataLoader:
 
     def __repr__(self) -> str:
         """Return a string representation of the DataLoader."""
-        return f"IntelliGraphs DataLoader(dataset='{self.dataset_name}', base_dir='{self.base_dir}', entities={len(self.entity_to_id)}, relations={len(self.relation_to_id)})"
+        is_loaded = len(self.entity_to_id) > 0 and len(self.relation_to_id) > 0
+        status = "loaded" if is_loaded else "not loaded"
+        if is_loaded:
+            return (f"IntelliGraphs DataLoader(dataset='{self.dataset_name}', "
+                    f"status='{status}', "
+                    f"base_dir='{self.base_dir}', "
+                    f"entities={len(self.entity_to_id)}, "
+                    f"relations={len(self.relation_to_id)})")
+        else:
+            return (f"IntelliGraphs DataLoader(dataset='{self.dataset_name}', "
+                    f"status='{status}', "
+                    f"base_dir='{self.base_dir}')")
 
     def _download_dataset(self) -> None:
         """Download dataset if it doesn't exist."""
