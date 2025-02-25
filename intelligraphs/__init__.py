@@ -4,4 +4,4 @@ from intelligraphs.generators.synthetic.syntipr_generator import SynTIPRGenerato
 from intelligraphs.generators.synthetic.syntypes_generator import SynTypesGenerator
 from intelligraphs.data_loaders.loaders import DataLoader, DatasetDownloader
 
-__version__ = "1.0.17"
+__version__ = "1.0.18"

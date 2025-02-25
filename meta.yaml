@@ -1,10 +1,10 @@
 package:
   name: intelligraphs
-  version: 1.0.17
+  version: 1.0.18
 
 source:
   git_url: https://github.com/thiviyanT/intelligraphs.git
-  git_tag: v1.0.17
+  git_tag: v1.0.18
 
 build:
   number: 0

@@ -228,3 +228,57 @@ def test_load_torch():
 
     # verify the returned dataloaders are what we expected
     assert dataloaders == expected_dataloaders
+
+
+def test_dataloader_repr():
+    """Test the __repr__ method of DataLoader."""
+    # arrange
+    dataset_name = "test_dataset"
+    loader = DataLoader(dataset_name)
+
+    # set some sample values to the attributes
+    loader.entity_to_id = {"entity1": 0, "entity2": 1}
+    loader.relation_to_id = {"relation1": 0}
+
+    # act
+    result = repr(loader)
+
+    # assert
+    assert "IntelliGraphs DataLoader" in result
+    assert f"dataset='{dataset_name}'" in result
+    assert "entities=2" in result
+    assert "relations=1" in result
+
+
+def test_entity_relation_mappings():
+    """Test that entity_to_id and relation_to_id are correctly populated."""
+    # arrange
+    dataset_name = "test_dataset"
+    loader = DataLoader(dataset_name)
+
+    # mock
+    with patch.object(loader, '_get_file_paths') as mock_get_paths, \
+            patch('intelligraphs.data_loaders.loaders.process_knowledge_graphs') as mock_process, \
+            patch.object(loader, '_create_datasets') as mock_create_datasets, \
+            patch.object(loader, '_create_dataloaders') as mock_create_dataloaders:
+        # Set up return values
+        file_paths = ('.data/test/train.tsv', '.data/test/val.tsv', '.data/test/test.tsv')
+        mock_get_paths.return_value = file_paths
+
+        e2i = {"entity1": 0, "entity2": 1}
+        i2e = {0: "entity1", 1: "entity2"}
+        r2i = {"relation1": 0}
+        i2r = {0: "relation1"}
+        entity_mappings = (e2i, i2e)
+        relation_mappings = (r2i, i2r)
+
+        mock_process.return_value = ([], [], [], entity_mappings, relation_mappings, 10)
+        mock_create_datasets.return_value = (None, None, None)
+        mock_create_dataloaders.return_value = (None, None, None)
+
+        # act
+        loader.load_torch()
+
+        # assert
+        assert loader.entity_to_id == e2i
+        assert loader.relation_to_id == r2i

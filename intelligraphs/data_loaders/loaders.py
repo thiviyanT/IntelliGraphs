@@ -71,9 +71,15 @@ class DataLoader:
     ) -> None:
         self.dataset_name = dataset_name
         self.base_dir = base_dir
+        self.entity_to_id = {}
+        self.relation_to_id = {}
 
         if automatic_download:
             self._download_dataset()
+
+    def __repr__(self) -> str:
+        """Return a string representation of the DataLoader."""
+        return f"IntelliGraphs DataLoader(dataset='{self.dataset_name}', base_dir='{self.base_dir}', entities={len(self.entity_to_id)}, relations={len(self.relation_to_id)})"
 
     def _download_dataset(self) -> None:
         """Download dataset if it doesn't exist."""
@@ -153,13 +159,13 @@ class DataLoader:
         file_paths = self._get_file_paths()
         _, _, _, entity_mappings, relation_mappings, max_length = process_knowledge_graphs(*file_paths)
 
-        e2i = entity_mappings[0]  # entity_to_index mapping
-        r2i = relation_mappings[0]  # relation_to_index mapping
+        self.entity_to_id = entity_mappings[0]  # entity_to_index mapping
+        self.relation_to_id = relation_mappings[0]  # relation_to_index mapping
 
         datasets = self._create_datasets(
             file_paths,
-            e2i,
-            r2i,
+            self.entity_to_id,
+            self.relation_to_id,
             padding,
             max_length
         )
