@@ -30,8 +30,7 @@ baseline models, and evaluation tools for benchmarking new models.
 
 ## Installation
 
-IntelliGraphs can be installed using either `pip` or `conda`, depending on your preferred package management system. 
-The IntelliGraphs python package requires a number of dependencies which will also be installed during the 
+IntelliGraphs can be installed using either `pip` or `conda`. Dependencies be automatically installed during the 
 installation process. 
 
 ##### Install with pip:
@@ -44,17 +43,19 @@ uv pip install intelligraphs     # Using UV (faster)
 conda install -c thiv intelligraphs
 ```
 
-
-### Verifying the Installation
+#### Verifying the Installation
 
 After installation, you can verify that IntelliGraphs has been successfully installed by running the following command in your Python environment:
 
-```python
-import intelligraphs
-
-print(intelligraphs.__version__)
+```bash
+python -c "import intelligraphs; print(intelligraphs.__version__)"
 ```
 
+It is recommended to use the latest version. If you don't have the latest version (check badge above), please ensure to update your installation before using it: 
+
+```bash
+pip install --upgrade intelligraphs  # or conda install -c thiv intelligraphs --upgrade
+```
 
 ## Downloading the Datasets
 
